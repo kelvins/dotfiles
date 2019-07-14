@@ -5,7 +5,7 @@
 " pip install jedi
 
 "*****************************************************************************
-"" Vim-PLug core
+"" Vim-Plug core
 "*****************************************************************************
 
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
@@ -60,23 +60,24 @@ Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
+"*****************************************************************************
+"" Plugins Settings
+"*****************************************************************************
+
 " Automatically run the fixers
 " We can also call :ALEFix to run it
 let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\   'python': [
-\       'isort',
-\       'yapf',
-\       'remove_trailing_lines',
-\       'trim_whitespace'
-\   ]
-\}
+let g:ale_fixers = {'python': ['isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']}
 
+" jedi-vim
 " To not conflict with completor
 let g:jedi#completions_enabled = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#documentation_command = "K"
 
 " Airline theme
 let g:airline_theme='solarized'
+let g:airline#extensions#virtualenv#enabled = 1
 
 " Use pytest as runner
 " :TestNearest, :TestFile, :TestSuite, :TestLast e :TestVisit
@@ -93,8 +94,22 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 let g:NERDTreeShowHidden=1
 
+"*****************************************************************************
+"" Mappings
+"*****************************************************************************
+
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+" insert and remove comments in visual and normal mode
+map ,ic :s/^/# /g<CR>:let @/ = ""<CR>
+map ,rc :s/^# //g<CR>:let @/ = ""<CR>
+
+"" Switching windows
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
 
 "*****************************************************************************
 "" Basic Settings 
@@ -135,10 +150,6 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-"insert and remove comments in visual and normal mode
-map ,ic :s/^/# /g<CR>:let @/ = ""<CR>
-map ,rc :s/^# //g<CR>:let @/ = ""<CR>
-
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
@@ -172,3 +183,26 @@ catch
 endtry
 
 set background=dark
+
+"*****************************************************************************
+"" Convenience variables
+"*****************************************************************************
+
+" vim-airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+if !exists('g:airline_powerline_fonts')
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
+
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+endif

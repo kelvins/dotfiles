@@ -65,6 +65,9 @@ Plug 'vim-airline/vim-airline-themes'
 " Black code formatter
 Plug 'ambv/black'
 
+" Auto close brackets, parens and quotes
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
 "*****************************************************************************
@@ -81,10 +84,15 @@ let g:ale_fixers = {'python': ['isort', 'remove_trailing_lines', 'trim_whitespac
 let g:jedi#completions_enabled = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#documentation_command = "K"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#smart_auto_mappings = 0
 
 " Airline theme
 let g:airline_theme='solarized'
 let g:airline#extensions#virtualenv#enabled = 1
+
+" Auto pairs fly mode
+let g:AutoPairsFlyMode = 1
 
 " Use pytest as runner
 " :TestNearest, :TestFile, :TestSuite, :TestLast e :TestVisit

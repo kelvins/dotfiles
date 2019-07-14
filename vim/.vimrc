@@ -51,8 +51,12 @@ Plug 'janko-m/vim-test'
 " https://github.com/fatih/vim-go
 Plug 'fatih/vim-go'
 
-"docker-syntax
+" docker-syntax
 Plug 'ekalinin/Dockerfile.vim'
+
+" Beautiful statusline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -71,9 +75,13 @@ let g:ale_fixers = {
 " To not conflict with completor
 let g:jedi#completions_enabled = 0
 
+" Airline theme
+let g:airline_theme='solarized'
+
 " Use pytest as runner
 " :TestNearest, :TestFile, :TestSuite, :TestLast e :TestVisit
 let test#python#runner = 'pytest'
+let test#python#pytest#options = '--verbose'
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -127,6 +135,10 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
+"insert and remove comments in visual and normal mode
+map ,ic :s/^/# /g<CR>:let @/ = ""<CR>
+map ,rc :s/^# //g<CR>:let @/ = ""<CR>
+
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
@@ -152,7 +164,7 @@ set laststatus=2
 set modeline
 set modelines=10
 
-set statusline=%r%h%w%=(line\ %l\/%L,\ col\ %c)
+" set statusline=%r%h%w%=(line\ %l\/%L,\ col\ %c)
 
 try
     colorscheme desert

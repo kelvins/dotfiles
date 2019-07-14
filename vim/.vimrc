@@ -172,6 +172,7 @@ let g:session_command_aliases = 1
 " Column
 autocmd FileType python set colorcolumn=80
 autocmd BufWritePre *.py execute ':Black'
+let g:black_skip_string_normalization = 1
 
 "*****************************************************************************
 "" Visual Settings

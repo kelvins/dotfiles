@@ -112,7 +112,7 @@ noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
 "*****************************************************************************
-"" Basic Settings 
+"" Basic Settings
 "*****************************************************************************
 
 " IMPORTANT: we need to set the zsh path here
@@ -123,10 +123,10 @@ set encoding=utf8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-"" Fix backspace indent
+" Fix backspace indent
 set backspace=indent,eol,start
 
-"" Tabs. May be overridden by autocmd rules
+" Tabs. May be overridden by autocmd rules
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4
@@ -136,7 +136,7 @@ set expandtab
 set lbr
 set tw=500
 
-"" Searching
+" Searching
 set hlsearch
 set incsearch
 set ic
@@ -149,6 +149,13 @@ let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
+
+"*****************************************************************************
+"" Python Basic Settings
+"*****************************************************************************
+
+" Column
+autocmd FileType python set colorcolumn=80
 
 "*****************************************************************************
 "" Visual Settings

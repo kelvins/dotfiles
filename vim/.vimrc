@@ -83,6 +83,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+let g:NERDTreeShowHidden=1
 
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
@@ -90,6 +91,9 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "*****************************************************************************
 "" Basic Settings 
 "*****************************************************************************
+
+" IMPORTANT: we need to set the zsh path here
+set shell=/bin/zsh
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -112,16 +116,10 @@ set tw=500
 "" Searching
 set hlsearch
 set incsearch
-set ignorecase
+set ic
 set smartcase
 
 set fileformats=unix,dos,mac
-
-if exists('$SHELL')
-    set shell=$SHELL
-else
-    set shell=/bin/sh
-endif
 
 " session management
 let g:session_directory = "~/.vim/session"

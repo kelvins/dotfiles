@@ -1,8 +1,12 @@
 " Vim configurations
 
 " IMPORTANT:
-" pip install flake8 isort yapf
+" Make sure we are using Python3 as the default version (to work with black).
+" pip install flake8
+" pip install isort
+" pip install yapf
 " pip install jedi
+" pip install black
 
 "*****************************************************************************
 "" Vim-Plug core
@@ -58,6 +62,9 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Black code formatter
+Plug 'ambv/black'
+
 call plug#end()
 
 "*****************************************************************************
@@ -67,12 +74,12 @@ call plug#end()
 " Automatically run the fixers
 " We can also call :ALEFix to run it
 let g:ale_fix_on_save = 1
-let g:ale_fixers = {'python': ['isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = {'python': ['isort', 'remove_trailing_lines', 'trim_whitespace']}
 
 " jedi-vim
 " To not conflict with completor
 let g:jedi#completions_enabled = 0
-let g:jedi#popup_on_dot = 1
+let g:jedi#popup_on_dot = 0
 let g:jedi#documentation_command = "K"
 
 " Airline theme
@@ -156,6 +163,7 @@ let g:session_command_aliases = 1
 
 " Column
 autocmd FileType python set colorcolumn=80
+autocmd BufWritePre *.py execute ':Black'
 
 "*****************************************************************************
 "" Visual Settings

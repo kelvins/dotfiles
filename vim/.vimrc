@@ -68,6 +68,9 @@ Plug 'ambv/black'
 " Auto close brackets, parens and quotes
 Plug 'jiangmiao/auto-pairs'
 
+" Colorscheme
+Plug 'micha/vim-colors-solarized'
+
 call plug#end()
 
 "*****************************************************************************
@@ -201,11 +204,8 @@ set modelines=10
 
 " set statusline=%r%h%w%=(line\ %l\/%L,\ col\ %c)
 
-try
-    colorscheme desert
-catch
-endtry
-
+" Colorscheme
+colorscheme solarized
 set background=dark
 
 "*****************************************************************************

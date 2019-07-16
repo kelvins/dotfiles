@@ -47,7 +47,8 @@ Plug 'davidhalter/jedi-vim'
 
 " Navigate through files
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Tests
 Plug 'janko-m/vim-test'
@@ -109,15 +110,23 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 30
 let g:NERDTreeShowHidden=1
+
+" open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
 
 nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+" nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " insert and remove comments in visual and normal mode
 map ,ic :s/^/# /g<CR>:let @/ = ""<CR>
@@ -176,6 +185,7 @@ let g:session_command_aliases = 1
 autocmd FileType python set colorcolumn=80
 autocmd BufWritePre *.py execute ':Black'
 let g:black_skip_string_normalization = 1
+let g:black_line_length = 80
 
 "*****************************************************************************
 "" Visual Settings
@@ -211,6 +221,10 @@ set background=dark
 "*****************************************************************************
 "" Convenience variables
 "*****************************************************************************
+
+" NERDTree
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 " vim-airline
 if !exists('g:airline_symbols')

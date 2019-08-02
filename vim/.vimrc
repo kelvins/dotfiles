@@ -72,6 +72,9 @@ Plug 'micha/vim-colors-solarized'
 " Golden-ratio
 Plug 'roman/golden-ratio'
 
+" NERD commenter
+Plug 'scrooloose/nerdcommenter'
+
 call plug#end()
 
 "*****************************************************************************
@@ -116,6 +119,12 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
 
 "*****************************************************************************
 "" Mappings

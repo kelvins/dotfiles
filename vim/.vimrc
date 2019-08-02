@@ -69,6 +69,9 @@ Plug 'ambv/black'
 " Colorscheme
 Plug 'micha/vim-colors-solarized'
 
+" Golden-ratio
+Plug 'roman/golden-ratio'
+
 call plug#end()
 
 "*****************************************************************************

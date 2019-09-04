@@ -75,6 +75,12 @@ Plug 'roman/golden-ratio'
 " NERD commenter
 Plug 'scrooloose/nerdcommenter'
 
+" Auto pairs
+Plug 'jiangmiao/auto-pairs'
+
+" Git
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
 
 "*****************************************************************************
@@ -105,7 +111,7 @@ let test#python#pytest#options = '--verbose'
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore = ['\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]' ]
+let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]' ]
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
@@ -189,9 +195,16 @@ let g:session_command_aliases = 1
 
 " Column
 autocmd FileType python set colorcolumn=80
-autocmd BufWritePre *.py execute ':Black'
+"autocmd BufWritePre *.py execute ':Black'
 let g:black_skip_string_normalization = 1
 let g:black_line_length = 80
+
+"*****************************************************************************
+"" Go Basic Settings
+"*****************************************************************************
+
+" format with goimports instead of gofmt
+let g:go_fmt_command = "goimports"
 
 "*****************************************************************************
 "" Visual Settings

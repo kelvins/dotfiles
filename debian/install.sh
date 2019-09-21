@@ -15,7 +15,7 @@ sudo snap install spotify
 sudo snap install insomnia
 
 # Install Slack
-sudo snap install slack
+sudo snap install slack --classic
 
 # Install Docker
 sudo snap install docker
@@ -24,7 +24,7 @@ sudo snap install docker
 sudo snap install google-cloud-sdk
 
 # Install HTTPie
-sudo apt-get install httpie
+sudo apt-get install -y httpie
 
 # Install terminator
 sudo add-apt-repository ppa:gnome-terminator

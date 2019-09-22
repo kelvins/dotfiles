@@ -119,7 +119,7 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 35
+let g:NERDTreeWinSize = 30
 let g:NERDTreeShowHidden=1
 
 " Disable golden ratio for nerdtree
@@ -244,7 +244,7 @@ set modelines=10
 " set statusline=%r%h%w%=(line\ %l\/%L,\ col\ %c)
 
 " Colorscheme
-set t_Co=8
+set t_Co=16
 syntax enable
 let g:solarized_termtrans=1
 let g:solarized_termcolors=16

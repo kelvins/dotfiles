@@ -64,7 +64,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Black code formatter
-Plug 'ambv/black'
+"Plug 'ambv/black'
 
 " Colorscheme
 Plug 'micha/vim-colors-solarized'
@@ -80,6 +80,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " Git
 Plug 'tpope/vim-fugitive'
+
+" Devicons
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -116,8 +119,12 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 30
+let g:NERDTreeWinSize = 35
 let g:NERDTreeShowHidden=1
+
+" Disable golden ratio for nerdtree
+"let g:golden_ratio_exclude_nonmodifiable = 1
+"let b:golden_ratio_resizing_ignored = 1
 
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
@@ -131,6 +138,9 @@ let g:NERDCompactSexyComs = 1
 
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
+
+" Set font for dev-icons
+set guifont=DroidSansMono\ Nerd\ Font\ 11
 
 "*****************************************************************************
 "" Mappings
@@ -196,8 +206,8 @@ let g:session_command_aliases = 1
 " Column
 autocmd FileType python set colorcolumn=80
 "autocmd BufWritePre *.py execute ':Black'
-let g:black_skip_string_normalization = 1
-let g:black_line_length = 80
+"let g:black_skip_string_normalization = 1
+"let g:black_line_length = 80
 
 "*****************************************************************************
 "" Go Basic Settings
@@ -234,8 +244,12 @@ set modelines=10
 " set statusline=%r%h%w%=(line\ %l\/%L,\ col\ %c)
 
 " Colorscheme
-colorscheme solarized
+set t_Co=8
+syntax enable
+let g:solarized_termtrans=1
+let g:solarized_termcolors=16
 set background=dark
+colorscheme solarized
 
 "*****************************************************************************
 "" Convenience variables
@@ -263,3 +277,4 @@ if !exists('g:airline_powerline_fonts')
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+

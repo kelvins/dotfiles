@@ -20,6 +20,9 @@ sudo snap install slack --classic
 # Install Docker
 sudo snap install docker
 
+# Install DataGrip
+sudo snap install datagrip --classic
+
 # Install GCloud SDK
 # sudo snap install google-cloud-sdk
 export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"

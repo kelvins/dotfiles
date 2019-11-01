@@ -2,7 +2,7 @@
 sudo apt-get update
 
 # Install some basic packages
-sudo apt-get install -y ack tree htop vim git
+sudo apt-get install -y ack tree htop vim git xclip
 
 # Install and start snap
 sudo apt-get install snapd
@@ -19,6 +19,9 @@ sudo snap install slack --classic
 
 # Install Docker
 sudo snap install docker
+
+# Install DataGrip
+sudo snap install datagrip --classic
 
 # Install GCloud SDK
 # sudo snap install google-cloud-sdk

@@ -209,6 +209,9 @@ autocmd FileType python set colorcolumn=80
 "let g:black_skip_string_normalization = 1
 "let g:black_line_length = 80
 
+" Python debugger on macro -> p
+let @p="Oimport pdb; pdb.set_trace()"
+
 "*****************************************************************************
 "" Go Basic Settings
 "*****************************************************************************

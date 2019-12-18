@@ -84,6 +84,9 @@ Plug 'tpope/vim-fugitive'
 " Devicons
 Plug 'ryanoasis/vim-devicons'
 
+" Markdown Preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
 call plug#end()
 
 "*****************************************************************************

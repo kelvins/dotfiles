@@ -203,6 +203,18 @@ let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
 "*****************************************************************************
+"" My commands
+"*****************************************************************************
+
+com! FormatJSON %!python -m json.tool
+
+" https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard
+" On ubuntu (running Vim in gnome-terminal)
+" The reason for the double-command on <C-c> is due to some weirdness with the X clipboard system.
+vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+
+"*****************************************************************************
 "" Python Basic Settings
 "*****************************************************************************
 

@@ -101,5 +101,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias reactivate="deactivate; source venv/bin/activate"
+alias kctl="kubectl --insecure-skip-tls-verify"
+
+VISUAL=vim
+EDITOR=vim
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

@@ -181,7 +181,7 @@ let test#python#pytest#options = '--verbose'
 
 " NERDTree settings
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]', '.tox', '.pytest_cache', '.egg-info', 'venv', 'dist']
+let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]', '.tox', '.pytest_cache', '.egg-info', 'venv', 'dist', '.mypy_cache']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1

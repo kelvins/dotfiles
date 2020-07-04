@@ -135,6 +135,14 @@ command Wq wq
 command W w
 command Q q
 
+" Format JSON
+:command JSONFormatter %!python -m json.tool
+
+" https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard
+" The reason for the double-command on <C-c> is due to some weirdness with the X clipboard system.
+vmap <C-S-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+nmap <C-S-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+
 "*****************************************************************************
 """ Mappings
 ""*****************************************************************************
@@ -155,10 +163,15 @@ nnoremap <S-s> :w<CR>
 " Automatically run the fixers Ale
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale#statusline#Count = 1
 
-" Airline theme
+" Airline
 let g:airline_theme='solarized'
 let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " Set test runners and options
 let test#go#runner = 'gotest'
@@ -168,7 +181,7 @@ let test#python#pytest#options = '--verbose'
 
 " NERDTree settings
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]', '.tox', '.pytest_cache', '.egg-info', 'venv', 'dist']
+let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]', '.tox', '.pytest_cache', '.egg-info', 'venv', 'dist', '.mypy_cache']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1

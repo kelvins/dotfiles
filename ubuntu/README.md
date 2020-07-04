@@ -1,21 +1,27 @@
 # Install
 
+## Applications
+
 - gnome tweaks
 - vim
-- git
 - spotify
 - slack
-- dbeaver
 - insomnia
 - terminator
 - google chrome
 - docker
-- gcloud sdk
+
+## Command Line Tools
+
 - htop
 - ack
 - tree
+- curl
+- httpie
+- git
+- gcloud
 
-## Gnome shell extensions
+## Gnome Shell Extensions
 
 - Dash to Dock
 - Trash

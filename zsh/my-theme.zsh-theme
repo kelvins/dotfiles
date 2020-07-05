@@ -47,7 +47,7 @@ username() {
 
 directory() {
     FOREGROUND=$LIGHT_GREEN
-    echo "$(start_text)%2~$(end_text)"
+    echo "$(start_text)%~$(end_text)"
 }
 
 git_status() {

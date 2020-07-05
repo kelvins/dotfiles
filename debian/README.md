@@ -1,4 +1,4 @@
-# Install
+# Debian
 
 ## Applications
 
@@ -6,7 +6,6 @@
 - vim
 - spotify
 - slack
-- insomnia
 - terminator
 - google chrome
 - docker
@@ -16,10 +15,12 @@
 - htop
 - ack
 - tree
+- git
 - curl
 - httpie
 - git
 - gcloud
+- kubectl
 
 ## Gnome Shell Extensions
 

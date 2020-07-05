@@ -6,8 +6,7 @@ export ZSH="/home/kelvins/.oh-my-zsh"
 
 # Set name of the theme to load
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_MODE="awesome-patched"
+ZSH_THEME="my-theme"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -35,13 +34,10 @@ export EDITOR='vim'
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/kelvins/.sdkman"
-[[ -s "/home/kelvins/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kelvins/.sdkman/bin/sdkman-init.sh"
-
 # VirtualenvWrapper
 export WORKON_HOME=~/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
+
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/kelvins/.sdkman"
+[[ -s "/home/kelvins/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kelvins/.sdkman/bin/sdkman-init.sh"

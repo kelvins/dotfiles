@@ -47,7 +47,7 @@ username() {
 
 directory() {
     FOREGROUND=$LIGHT_GREEN
-    echo "$(start_text)%~$(end_text)"
+    echo "$(start_text)%0~$(end_text)"
 }
 
 git_status() {
@@ -89,6 +89,11 @@ kubectl_context() {
     echo "$(start_text)$context$(end_text)"
 }
 
+virtual_env() {
+    FOREGROUND=$LIGHT_YELLOW
+    echo "$(start_text)`basename \"$VIRTUAL_ENV\"`$(end_text)"
+}
+
 return_code() {
     echo "$(start_text)%(?.$FG[$LIGHT_GREEN]ok.$FG[$LIGHT_RED]fuck)$(end_text)"
 }
@@ -101,6 +106,9 @@ right_prompt() {
     local _lineup=$'\e[1A'
     local _linedown=$'\e[1B'
     content="%{$_lineup%}$(inverse_tail)$(return_code)"
+    if [ $VIRTUAL_ENV ]; then
+        content="${content}$(separator)$(virtual_env)"
+    fi
     if $(kubectl config current-context &> /dev/null); then
         content="${content}$(separator)$(kubectl_context)"
     fi

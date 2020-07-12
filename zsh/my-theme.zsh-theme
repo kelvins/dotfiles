@@ -115,5 +115,6 @@ right_prompt() {
     echo "${content}$(separator)$(current_time)$(space)%{$_linedown%}"
 }
 
+VIRTUAL_ENV_DISABLE_PROMPT=1
 PROMPT='$(prompt)'
 RPROMPT='$(right_prompt)'

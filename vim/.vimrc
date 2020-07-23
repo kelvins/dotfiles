@@ -80,6 +80,15 @@ set smartcase
 
 set fileformats=unix,dos,mac
 
+set number relativenumber
+
+" Enable relative number only for the tab on focus
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
 " session management
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"

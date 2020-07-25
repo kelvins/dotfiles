@@ -165,6 +165,9 @@ noremap <C-h> <C-w>h
 " Quick Save
 nnoremap <S-s> :w<CR>
 
+" (CTRL-O) open Nerd Tree
+nnoremap <C-o> <ESC>:NERDTreeToggle<CR>
+
 "*****************************************************************************
 "" Plugins Settings
 "*****************************************************************************
@@ -178,7 +181,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale#statusline#Count = 1
 
 " Airline
-let g:airline_theme='solarized'
+let g:airline_theme = 'solarized'
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 
@@ -189,14 +192,19 @@ let test#clojure#runner = 'fireplacetest'
 let test#python#pytest#options = '--verbose'
 
 " NERDTree settings
-let g:NERDTreeChDirMode=2
+let g:NERDTreeChDirMode = 2
 let g:NERDTreeIgnore = ['\.DS_Store', '\.pyc$', '\.sw[^\.]*', '\.git$[[dir]]', '.ipynb_checkpoints$[[dir]]', '__pycache__[[dir]]', '.tox', '.pytest_cache', '.egg-info', 'venv', 'dist', '.mypy_cache']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks = 1
+let g:nerdtree_tabs_focus_on_files = 1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
-let g:NERDTreeShowHidden=1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeShowLineNumbers = 0
+let g:NERDTreeQuitOnOpen = 1
+
+" Disable relative number when enter the NERDTree buffer
+autocmd BufEnter NERD_* setlocal norelativenumber
 
 " Open NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1

@@ -19,6 +19,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'preservim/nerdtree'
 
+" Go development plugin
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+
 " Syntax highlight
 Plug 'sheerun/vim-polyglot'
 
@@ -27,9 +30,6 @@ Plug 'w0rp/ale'
 
 " Tests
 Plug 'janko-m/vim-test'
-
-" Go development plugin
-Plug 'fatih/vim-go'
 
 " Golden-ratio
 Plug 'roman/golden-ratio'
@@ -202,6 +202,8 @@ let g:NERDTreeWinSize = 40
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeQuitOnOpen = 1
+
+let g:polyglot_disabled = ['go']
 
 " Disable relative number when enter the NERDTree buffer
 autocmd BufEnter NERD_* setlocal norelativenumber

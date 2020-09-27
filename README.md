@@ -1,3 +1,3 @@
 # Settings
 
-:rocket: Settings for my development environment.
+:gear: Settings for my dev environment.

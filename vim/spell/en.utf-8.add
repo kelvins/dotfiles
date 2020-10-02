@@ -26,7 +26,6 @@ github
 golang
 cloudsql
 env
-clousql
 ssl
 tcp
 healthcheck

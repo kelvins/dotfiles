@@ -129,11 +129,11 @@ set background=dark
 colorscheme solarized
 
 " Spell Check
-"set spelllang=en
-"set spellfile=$HOME/vim/lang/en.utf-8.add
-"hi clear SpellBad
-"hi SpellBad ctermbg=52
-"set spell
+set spelllang=en,pt-br
+set spellfile=~/.vim/spell/en.utf-8.add
+hi clear SpellBad
+hi SpellBad ctermbg=52
+set spell
 
 ""*****************************************************************************
 """ Commands

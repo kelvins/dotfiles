@@ -59,7 +59,7 @@ git_status() {
 
 git_prompt() {
     FOREGROUND=$LIGHT_YELLOW
-    branch=$(git symbolic-ref HEAD | cut -d'/' -f3)
+    branch=$(git symbolic-ref HEAD | cut -d'/' --fields=3,4,5)
     echo "$(start_text)$branch$(git_status)$(end_text)"
 }
 

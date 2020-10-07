@@ -63,7 +63,7 @@ git_prompt() {
     echo "$(start_text)$branch$(git_status)$(end_text)"
 }
 
-tail() {
+colorful_tail() {
     echo "$BG[240] $BG[239] $BG[238] $BG[237] $BG[236] $(end_text)"
 }
 
@@ -72,7 +72,7 @@ prompt() {
     if [[ $(git_prompt_info) ]];then
         content="${content}$(separator)$(git_prompt)"
     fi
-    content="${content}$(tail)\n╰─ "
+    content="${content}$(colorful_tail)\n╰─ "
     echo -e "${content}"
 }
 
@@ -98,14 +98,14 @@ return_code() {
     echo "$(start_text)%(?.$FG[$LIGHT_GREEN]ok.$FG[$LIGHT_RED]fuck)$(end_text)"
 }
 
-inverse_tail() {
+inverse_colorful_tail() {
     echo "$BG[236] $BG[237] $BG[238] $BG[239] $BG[240] $(end_text)"
 }
 
 right_prompt() {
     local _lineup=$'\e[1A'
     local _linedown=$'\e[1B'
-    content="%{$_lineup%}$(inverse_tail)$(return_code)"
+    content="%{$_lineup%}$(inverse_colorful_tail)$(return_code)"
     if [ $VIRTUAL_ENV ]; then
         content="${content}$(separator)$(virtual_env)"
     fi

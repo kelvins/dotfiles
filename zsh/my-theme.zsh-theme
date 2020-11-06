@@ -20,6 +20,10 @@ ZSH_THEME_GIT_PROMPT_RENAMED="!"
 ZSH_THEME_GIT_PROMPT_UNMERGED="!"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
 
+# Config files
+KUBE_CONFIG=~/.kube/config
+GCLOUD_CONFIG=~/.config/gcloud/configurations/config_default
+
 ########## Helper Functions ##########
 
 start_text() {
@@ -85,8 +89,14 @@ current_time() {
 
 kubectl_context() {
     FOREGROUND=$LIGHT_RED
-    context=$(kubectl config current-context)
+    context=$(cat $KUBE_CONFIG | grep -i current-context | cut -d ':' -f 2)
     echo "$(start_text)$context$(end_text)"
+}
+
+gcloud_project() {
+    FOREGROUND=$LIGHT_YELLOW
+    project=$(cat $GCLOUD_CONFIG | grep -i project | cut -d '=' -f 2)
+    echo "$(start_text)$project$(end_text)"
 }
 
 virtual_env() {
@@ -109,7 +119,10 @@ right_prompt() {
     if [ $VIRTUAL_ENV ]; then
         content="${content}$(separator)$(virtual_env)"
     fi
-    if $(kubectl config current-context &> /dev/null); then
+    if [[ -a $GCLOUD_CONFIG ]]; then
+        content="${content}$(separator)$(gcloud_project)"
+    fi
+    if [[ -a $KUBE_CONFIG ]]; then
         content="${content}$(separator)$(kubectl_context)"
     fi
     echo "${content}$(separator)$(current_time)$(space)%{$_linedown%}"

@@ -89,13 +89,13 @@ current_time() {
 
 kubectl_context() {
     FOREGROUND=$LIGHT_RED
-    context=$(cat $KUBE_CONFIG | grep -i current-context | cut -d ':' -f 2)
+    context=$(awk '/current-context/{print $2}' $KUBE_CONFIG)
     echo "$(start_text)$context$(end_text)"
 }
 
 gcloud_project() {
     FOREGROUND=$LIGHT_YELLOW
-    project=$(cat $GCLOUD_CONFIG | grep -i project | cut -d '=' -f 2)
+    project=$(awk '/project/{print $3}' $GCLOUD_CONFIG)
     echo "$(start_text)$project$(end_text)"
 }
 

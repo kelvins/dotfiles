@@ -13,6 +13,7 @@
 - k9s
 - sqlectron
 - insomnia
+- flameshot
 
 ## Command Line Tools
 

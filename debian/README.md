@@ -23,7 +23,6 @@
 - git
 - curl
 - httpie
-- git
 - gcloud
 - kubectl
 

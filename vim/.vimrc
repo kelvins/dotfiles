@@ -46,6 +46,9 @@ Plug 'ryanoasis/vim-devicons'
 " Markdown Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" Clipboard copy and paste
+Plug 'christoomey/vim-system-copy'
+
 call plug#end()
 
 ""*****************************************************************************
@@ -146,11 +149,6 @@ command Q q
 
 " Format JSON
 :command JSONFormatter %!python -m json.tool
-
-" https://vim.fandom.com/wiki/In_line_copy_and_paste_to_system_clipboard
-" The reason for the double-command on <C-c> is due to some weirdness with the X clipboard system.
-vmap <C-S-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
-nmap <C-S-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
 "*****************************************************************************
 """ Mappings

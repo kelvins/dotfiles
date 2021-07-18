@@ -8,6 +8,9 @@ fi
 # Install vim
 pacman -Syu --noconfirm vim
 
+# Install man
+pacman -Syu --noconfirm man
+
 # Install grep
 pacman -Syu --noconfirm grep
 

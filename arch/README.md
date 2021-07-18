@@ -305,7 +305,8 @@ Installing other packages from Arch User Repositories:
 ```console
 $ git clone https://github.com/kelvins/settings.git
 $ cd settings/arch/AUR
-$ bash spotify.sh
+$ ls
+$ bash {SCRIPT}.sh
 ```
 
 > The AUR scripts must be executed with non root user.

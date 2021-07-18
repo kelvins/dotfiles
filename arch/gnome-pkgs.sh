@@ -1,6 +1,12 @@
 #!/bin/bash
 
-pacman -S \
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+# Packages from the GNOME group: https://archlinux.org/groups/x86_64/gnome/
+pacman -Syu --noconfirm \
        baobab \
        cheese \
        eog \

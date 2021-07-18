@@ -2,6 +2,6 @@
 
 git clone https://aur.archlinux.org/spotify.git
 cd spotify
-makepkg -si
+makepkg -si --noconfirm
 cd ..
 rm -rf spotify

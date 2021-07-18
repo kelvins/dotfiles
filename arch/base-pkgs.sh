@@ -76,6 +76,9 @@ pacman -Syu --noconfirm kubectl
 # Install k9s
 pacman -Syu --noconfirm k9s
 
+# Install flameshot
+pacman -Syu --noconfirm flameshot
+
 # Install gimp
 pacman -Syu --noconfirm gimp
 

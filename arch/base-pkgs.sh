@@ -41,6 +41,9 @@ pacman -Syu --noconfirm curl
 # Install ack
 pacman -Syu --noconfirm ack
 
+# Install neofetch
+pacman -Syu --noconfirm neofetch
+
 # Install grep
 pacman -Syu --noconfirm xclip
 

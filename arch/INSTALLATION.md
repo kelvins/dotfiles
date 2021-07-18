@@ -266,20 +266,24 @@ Installing video drivers:
 
 - VirtualBox:
 ```console
-# pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch mesa mesa-libgl
+# pacman -S virtualbox-guest-utils mesa mesa-libgl
 ```
 
-### Installing GNOME Applications
-
-From the [GNOME group](https://archlinux.org/groups/x86_64/gnome/):
+### Installing Packages
 
 ```console
-# pacman -S --noconfirm \
-         baobab cheese eog evince file-roller gnome-backgrounds gnome-calculator sushi \
-         gnome-color-manager gnome-control-center gnome-disk-utility xdg-user-dirs-gtk mutter nautilus \
-         gnome-font-viewer gnome-keyring gnome-menus gnome-screenshot gnome-session gnome-settings-daemon \
-         gnome-shell gnome-shell-extensions gnome-themes-extra gnome-tweaks adwaita-icon-theme
+# pacman -S git
+# git clone https://github.com/kelvins/settings.git
+# cd settings/arch
 ```
+
+#### GNOME Packages
+
+```console
+# bash gnome-pkgs.sh
+```
+
+#### Display Manager
 
 Install and enable display manager:
 
@@ -288,15 +292,10 @@ Install and enable display manager:
 # systemctl enable gdm
 ```
 
-### Installing Other Applications
+#### Base Packages
 
 ```console
-# pacman -S --noconfirm \
-         grep sed which htop tree git tig wget curl ack xclip kubectl openssh terminator \
-         zsh python-pip pyenv cmake docker docker-compose gimp firefox k9s
-# systemctl enable docker.service
-# sudo gpasswd -a $USER docker
-# curl -L http://install.ohmyz.sh | sh
+# bash base-pkgs.sh
 ```
 
 ## References

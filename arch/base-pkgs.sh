@@ -78,3 +78,6 @@ pacman -Syu --noconfirm k9s
 
 # Install gimp
 pacman -Syu --noconfirm gimp
+
+# Install base devel
+pacman -Syu --noconfirm base-devel

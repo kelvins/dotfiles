@@ -54,10 +54,9 @@ Find the disk to be partitioned and type, for example:
 # fdisk /dev/sda
 ```
 
-in the fdisk prompt you could type `m` for help, but we'll need to follow these options:
+in the fdisk prompt you could type `m` for help, but we'll basically need to press `g` for GPT partition table and then follow these options:
 
 - UEFI:
-  - `g`: for GPT partition table.
   - `n`: add a new partition.
     - Partition number: `1`
     - First sector: `default`

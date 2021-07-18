@@ -303,3 +303,4 @@ Install and enable display manager:
 - [Arch Linux Installation Guide 2020](https://www.youtube.com/watch?v=PQgyW10xD8s)
 - [Arch Linux Wiki](https://wiki.archlinux.org/)
 - [É hoje que você instala o Arch Linux! - Tutorial COMPLETO!](https://www.youtube.com/watch?v=4orYC5ARfn8)
+- [arch-base-configs](https://github.com/BAlmeidaS/arch-base-configs) (BAlmeidaS)

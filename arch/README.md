@@ -298,6 +298,18 @@ Install and enable display manager:
 # bash base-pkgs.sh
 ```
 
+#### Other Packages (AURs)
+
+Installing other packages from Arch User Repositories:
+
+```console
+$ git clone https://github.com/kelvins/settings.git
+$ cd settings/arch/AUR
+$ bash spotify.sh
+```
+
+> The AUR scripts must be executed with non root user.
+
 ## References
 
 - [Arch Linux Installation Guide 2020](https://www.youtube.com/watch?v=PQgyW10xD8s)

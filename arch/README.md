@@ -115,6 +115,8 @@ Once the file system partition is mounted on `/mnt`, let's install the base pack
 # pacstrap /mnt base linux linux-firmware
 ```
 
+> If found some error checking integrity, it is possible to fix it installing the keyring: `sudo pacman -Sy archlinux-keyring`.
+
 ### Configure the system
 
 Generate the `fstab`:

@@ -87,3 +87,9 @@ pacman -Syu --noconfirm gimp
 
 # Install base devel
 pacman -Syu --noconfirm base-devel
+
+# Install neovim
+pacman -Syu --noconfirm neovim
+
+# Install starship
+pacman -Syu --noconfirm starship

@@ -25,6 +25,7 @@
 - httpie
 - gcloud
 - kubectl
+- [fd](https://github.com/sharkdp/fd)
 
 ## Gnome Shell Extensions
 

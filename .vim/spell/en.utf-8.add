@@ -196,3 +196,10 @@ pullPolicy
 IfNotPresent
 auth
 pipefail
+Colorscheme
+Linter
+JSON
+CTRL
+NERDTree
+goimports
+gofmt

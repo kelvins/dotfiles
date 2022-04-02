@@ -8,10 +8,10 @@
 
 call plug#begin('~/.vim/plugged')
 
-" Colorscheme
+" Color scheme
 Plug 'micha/vim-colors-solarized'
 
-" Beautiful statusline
+" Beautiful status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -40,7 +40,7 @@ Plug 'preservim/nerdcommenter'
 " Auto pairs
 Plug 'jiangmiao/auto-pairs'
 
-" Devicons
+" Dev icons
 Plug 'ryanoasis/vim-devicons'
 
 " Markdown Preview
@@ -71,7 +71,7 @@ set softtabstop=0
 set shiftwidth=4
 set expandtab
 
-" Linebreak on 500 characters
+" Line break on 500 characters
 set lbr
 set tw=500
 
@@ -120,11 +120,11 @@ set scrolloff=3
 " Status bar
 set laststatus=2
 
-" Use modeline overrides
+" Use mode line overrides
 set modeline
 set modelines=10
 
-" Colorscheme
+" Color scheme
 set t_Co=16
 let g:solarized_termtrans=1
 let g:solarized_termcolors=16
@@ -132,7 +132,7 @@ set background=dark
 colorscheme solarized
 
 " Spell Check
-set spelllang=en,pt-br
+set spelllang=en
 set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad ctermbg=52

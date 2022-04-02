@@ -34,3 +34,5 @@ Apps and tools for my dev environment:
 - sqlectron
 - insomnia
 - flameshot
+- pyenv
+- passager

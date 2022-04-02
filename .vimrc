@@ -2,16 +2,18 @@
 "" Vim Settings
 "*****************************************************************************
 
+let g:polyglot_disabled = ['go']
+
 "*****************************************************************************
 "" Plugins
 "*****************************************************************************
 
 call plug#begin('~/.vim/plugged')
 
-" Color scheme
-Plug 'micha/vim-colors-solarized'
+" Colorscheme
+Plug 'dracula/vim', { 'as': 'dracula' }
 
-" Beautiful status line
+" Beautiful statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -40,7 +42,7 @@ Plug 'preservim/nerdcommenter'
 " Auto pairs
 Plug 'jiangmiao/auto-pairs'
 
-" Dev icons
+" Devicons
 Plug 'ryanoasis/vim-devicons'
 
 " Markdown Preview
@@ -71,7 +73,7 @@ set softtabstop=0
 set shiftwidth=4
 set expandtab
 
-" Line break on 500 characters
+" Linebreak on 500 characters
 set lbr
 set tw=500
 
@@ -120,19 +122,17 @@ set scrolloff=3
 " Status bar
 set laststatus=2
 
-" Use mode line overrides
+" Use modeline overrides
 set modeline
 set modelines=10
 
-" Color scheme
+" Colorscheme
 set t_Co=16
-let g:solarized_termtrans=1
-let g:solarized_termcolors=16
 set background=dark
-colorscheme solarized
+colorscheme dracula
 
 " Spell Check
-set spelllang=en
+set spelllang=en,pt-br
 set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad ctermbg=52
@@ -179,7 +179,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale#statusline#Count = 1
 
 " Airline
-let g:airline_theme = 'solarized'
+let g:airline_theme = 'dracula'
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 
@@ -200,8 +200,6 @@ let g:NERDTreeWinSize = 40
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeQuitOnOpen = 1
-
-let g:polyglot_disabled = ['go']
 
 " Disable relative number when enter the NERDTree buffer
 autocmd BufEnter NERD_* setlocal norelativenumber

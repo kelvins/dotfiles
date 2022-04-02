@@ -203,3 +203,7 @@ CTRL
 NERDTree
 goimports
 gofmt
+gorm
+fmt
+io
+sqlite

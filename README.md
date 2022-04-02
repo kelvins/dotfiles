@@ -6,7 +6,7 @@
 
 Apps and tools for my dev environment:
 
-- neovim
+- vim
 - zsh
 - oh-my-zsh
 - dracula (theme)

@@ -15,6 +15,7 @@ Apps and tools for my dev environment:
 - neovim
 - zsh
 - oh-my-zsh
+- zplug
 - htop
 - ack
 - tree

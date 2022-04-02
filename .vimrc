@@ -2,8 +2,6 @@
 "" Vim Settings
 "*****************************************************************************
 
-let g:polyglot_disabled = ['go']
-
 "*****************************************************************************
 "" Plugins
 "*****************************************************************************
@@ -20,9 +18,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Navigation
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'preservim/nerdtree'
-
-" Go development plugin
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " Syntax highlight
 Plug 'sheerun/vim-polyglot'

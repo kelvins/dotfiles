@@ -1,8 +1,4 @@
 "*****************************************************************************
-"" Vim Settings
-"*****************************************************************************
-
-"*****************************************************************************
 "" Plugins
 "*****************************************************************************
 
@@ -16,7 +12,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Navigation
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'preservim/nerdtree'
 
 " Syntax highlight
@@ -105,11 +100,6 @@ syntax enable
 set ruler
 set number
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
 " Disable the blinking cursor.
 set gcr=a:blinkon0
 set scrolloff=3
@@ -125,6 +115,11 @@ set modelines=10
 set t_Co=16
 set background=dark
 colorscheme dracula
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
 
 " Spell Check
 set spelllang=en,pt-br
@@ -154,9 +149,6 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
-
-" Quick Save
-nnoremap <S-s> :w<CR>
 
 " (CTRL-O) open Nerd Tree
 nnoremap <C-o> <ESC>:NERDTreeToggle<CR>

@@ -23,7 +23,7 @@ Apps and tools for my dev environment:
 - helm
 - spotify
 - slack
-- terminator (linux) / iTerm (osx)
+- terminator (linux) / iTerm2 (osx)
 - brave
 - docker
 - k9s

@@ -1,13 +1,24 @@
-"*****************************************************************************
-"" Plugins
-"*****************************************************************************
+"""""""""""""""""""""""""""""""
+" __   _____ __  __ ___  ___  "
+" \ \ / /_ _|  \/  | _ \/ __| "
+"  \ V / | || |\/| |   / (__  "
+"   \_/ |___|_|  |_|_|_\\___| "
+"                             "
+" github.com/kelvins/dotfiles "
+"                             "
+"""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""
+" Plugins                     "
+"""""""""""""""""""""""""""""""
+
+" VimPlug
 call plug#begin('~/.vim/plugged')
 
 " Colorscheme
 Plug 'dracula/vim', { 'as': 'dracula' }
 
-" Beautiful statusline
+" Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -21,7 +32,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
 
 " Tests
-Plug 'janko-m/vim-test'
+Plug 'vim-test/vim-test'
 
 " Golden-ratio
 Plug 'roman/golden-ratio'
@@ -43,9 +54,9 @@ Plug 'christoomey/vim-system-copy'
 
 call plug#end()
 
-""*****************************************************************************
-""" Basic Settings
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Basic Settings              "
+"""""""""""""""""""""""""""""""
 
 " Set the shell path
 set shell=/bin/zsh
@@ -90,9 +101,9 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-""*****************************************************************************
-""" Visual Settings
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Visual Settings             "
+"""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
 syntax on
@@ -128,9 +139,9 @@ hi clear SpellBad
 hi SpellBad ctermbg=52
 set spell
 
-""*****************************************************************************
-""" Commands
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Commands                    "
+"""""""""""""""""""""""""""""""
 
 command WQ wq
 command Wq wq
@@ -140,9 +151,9 @@ command Q q
 " Format JSON
 :command JSONFormatter %!python -m json.tool
 
-"*****************************************************************************
-""" Mappings
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Mappings                    "
+"""""""""""""""""""""""""""""""
 
 " Switching windows
 noremap <C-j> <C-w>j
@@ -153,9 +164,9 @@ noremap <C-h> <C-w>h
 " (CTRL-O) open Nerd Tree
 nnoremap <C-o> <ESC>:NERDTreeToggle<CR>
 
-"*****************************************************************************
-"" Plugins Settings
-"*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Plugins Settings            "
+"""""""""""""""""""""""""""""""
 
 " Automatically run the fixers Ale
 let g:ale_fix_on_save = 1
@@ -231,17 +242,17 @@ if !exists('g:airline_powerline_fonts')
   let g:airline_symbols.readonly = ''
 endif
 
-""*****************************************************************************
-""" Python Settings
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Python Settings             "
+"""""""""""""""""""""""""""""""
 
 " Column
 highlight ColorColumn ctermbg=235
 autocmd FileType python set colorcolumn=80
 
-""*****************************************************************************
-""" Go Settings
-""*****************************************************************************
+"""""""""""""""""""""""""""""""
+" Go Settings                 "
+"""""""""""""""""""""""""""""""
 
 " Format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"

@@ -44,6 +44,7 @@ Plug 'goolord/alpha-nvim'
 " Resize windows
 Plug 'roman/golden-ratio'
 
+" Scala Metals
 Plug 'scalameta/nvim-metals'
 
 call plug#end()
@@ -67,6 +68,13 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale#statusline#Count = 1
+
+"""""""""""""""""""""""""""""""""""""""
+" Nvim Tree Settings                  "
+"""""""""""""""""""""""""""""""""""""""
+
+" Automatically close Nvim Tree if it is the last window in the tab
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 
 """""""""""""""""""""""""""""""""""""""
 " Nerd Commenter Settings             "
@@ -114,9 +122,6 @@ command Q q
 " Format JSON
 :command JSONFormatter %!python -m json.tool
 
-" Automatically close Nvim Tree if it is the last window in the tab
-autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-
 """""""""""""""""""""""""""""""""""""""
 " Mappings                            "
 """""""""""""""""""""""""""""""""""""""
@@ -139,3 +144,13 @@ nnoremap <C-f> <ESC>:Telescope find_files<CR>
 
 " Color Column
 autocmd FileType python set colorcolumn=80
+
+"""""""""""""""""""""""""""""""
+" Scala Settings              "
+"""""""""""""""""""""""""""""""
+
+" Color Column
+autocmd FileType scala set colorcolumn=120
+
+" Require metals for scala or sbt files
+autocmd FileType scala,sbt lua require('metals-config')

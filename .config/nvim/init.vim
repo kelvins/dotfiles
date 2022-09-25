@@ -44,6 +44,8 @@ Plug 'goolord/alpha-nvim'
 " Resize windows
 Plug 'roman/golden-ratio'
 
+Plug 'scalameta/nvim-metals'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""
@@ -52,6 +54,7 @@ call plug#end()
 
 lua require('nvim-tree-config')
 lua require('lualine-config')
+lua require('telescope-config')
 lua require('alpha').setup(require('alpha.themes.startify').config)
 
 """""""""""""""""""""""""""""""""""""""
@@ -94,9 +97,8 @@ set background=dark
 colorscheme dracula
 
 " Spell Check
-set spell
-set spelllang=en
-"set spellfile=~/.vim/spell/en.utf-8.add
+set spell spelllang=en_us
+set spellfile=~/.config/nvim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad ctermbg=52
 

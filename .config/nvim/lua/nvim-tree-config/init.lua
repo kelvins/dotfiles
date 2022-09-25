@@ -1,6 +1,11 @@
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 require("nvim-tree").setup({
-  open_on_setup_file = true,
+  open_on_setup = true,
+  open_on_setup_file = false,
   sort_by = "case_sensitive",
+  hijack_cursor = true,
   view = {
     adaptive_size = true,
     mappings = {
@@ -13,6 +18,17 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
+    custom = {
+      "^\\.git",
+      "^\\.DS_Store",
+      "^\\.pyc$",
+      "^\\.mypy_cache",
+    },
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
   },
 })

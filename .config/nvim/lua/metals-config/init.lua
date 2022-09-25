@@ -1,4 +1,4 @@
-vim.opt_global.shortmess:remove("F")
+vim.opt_global.shortmess:remove("F"):append("c")
 
 metals_config = require("metals").bare_config()
 metals_config.init_options.statusBarProvider = "on"

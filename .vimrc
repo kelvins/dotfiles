@@ -52,6 +52,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Clipboard copy and paste
 Plug 'christoomey/vim-system-copy'
 
+" Startify
+Plug 'mhinz/vim-startify'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""
@@ -85,15 +88,6 @@ set ic
 set smartcase
 
 set fileformats=unix,dos,mac
-
-set number relativenumber
-
-" Enable relative number only for the tab on focus
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
 
 " session management
 let g:session_directory = "~/.vim/session"
@@ -198,13 +192,6 @@ let g:NERDTreeWinSize = 40
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeShowLineNumbers = 0
 let g:NERDTreeQuitOnOpen = 1
-
-" Disable relative number when enter the NERDTree buffer
-autocmd BufEnter NERD_* setlocal norelativenumber
-
-" Open NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

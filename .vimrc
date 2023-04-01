@@ -19,8 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " Navigation
 Plug 'preservim/nerdtree'
@@ -52,7 +51,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Clipboard copy and paste
 Plug 'christoomey/vim-system-copy'
 
-" Startify
+" Start screen
 Plug 'mhinz/vim-startify'
 
 call plug#end()
@@ -170,10 +169,10 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale#statusline#Count = 1
 
-" Airline
-let g:airline_theme = 'dracula'
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#ale#enabled = 1
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'dracula',
+      \ }
 
 " Set test runners and options
 let test#go#runner = 'gotest'
@@ -204,30 +203,6 @@ let g:NERDDefaultAlign = 'left'
 
 " Set font for dev-icons
 set guifont=DroidSansMono\ Nerd\ Font\ 11
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-" Unicode Symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" Airline Symbols
-if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-endif
 
 """""""""""""""""""""""""""""""
 " Python Settings             "

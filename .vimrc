@@ -54,6 +54,10 @@ Plug 'christoomey/vim-system-copy'
 " Start screen
 Plug 'mhinz/vim-startify'
 
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""
@@ -154,6 +158,9 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
+" (CTRL-F) open Fuzzy Finder
+nnoremap <C-f> <ESC>:Files<CR>
+
 " (CTRL-O) open Nerd Tree
 nnoremap <C-o> <ESC>:NERDTreeToggle<CR>
 
@@ -203,6 +210,24 @@ let g:NERDDefaultAlign = 'left'
 
 " Set font for dev-icons
 set guifont=DroidSansMono\ Nerd\ Font\ 11
+
+" Fuzzy Finder
+let g:fzf_colors = {
+  \ 'fg':         ['fg', 'Normal'],
+  \ 'bg':         ['bg', 'Normal'],
+  \ 'preview-bg': ['bg', 'NormalFloat'],
+  \ 'hl':         ['fg', 'Comment'],
+  \ 'fg+':        ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':        ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':        ['fg', 'Statement'],
+  \ 'info':       ['fg', 'PreProc'],
+  \ 'border':     ['fg', 'Comment'],
+  \ 'prompt':     ['fg', 'Comment'],
+  \ 'pointer':    ['fg', 'Exception'],
+  \ 'marker':     ['fg', 'Keyword'],
+  \ 'spinner':    ['fg', 'Label'],
+  \ 'header':     ['fg', 'Comment']
+  \ }
 
 """""""""""""""""""""""""""""""
 " Python Settings             "

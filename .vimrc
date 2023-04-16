@@ -58,6 +58,12 @@ Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
+" Vim GPT
+Plug 'kelvins/vim-gpt'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""
@@ -91,6 +97,7 @@ set ic
 set smartcase
 
 set fileformats=unix,dos,mac
+set belloff=all
 
 " session management
 let g:session_directory = "~/.vim/session"
@@ -163,6 +170,9 @@ nnoremap <C-f> <ESC>:Files<CR>
 
 " (CTRL-O) open Nerd Tree
 nnoremap <C-o> <ESC>:NERDTreeToggle<CR>
+
+" (CTRL-G) open GPT
+nnoremap <C-g> <ESC>:GPT<CR>
 
 """""""""""""""""""""""""""""""
 " Plugins Settings            "

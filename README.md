@@ -2,7 +2,7 @@
 
 My Environment Configurations:
 
-- :penguin: [Arch Linux](https://archlinux.org) - OS
+- :penguin: [Ubuntu](https://ubuntu.com) - OS
 - :fox_face: [Firefox](https://www.mozilla.org/en-US/firefox) - Browser
 - :dog: [K9S](https://k9scli.io) - Kubernetes CLI
 - :whale: [Docker](https://www.docker.com) - Containers
@@ -19,9 +19,7 @@ My Environment Configurations:
 
 ```
 sudo apt update && sudo apt install -y \
-    wget tree git vim htop \
-    ack-grep curl httpie \
-    xclip gnome-tweaks
+    wget git htop ack-grep httpie xclip gnome-tweaks
 ```
 
 ## gcloud
@@ -54,11 +52,4 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 ```
 sudo apt update && sudo apt install -y \
     build-essential libssl-dev libffi-dev python-dev openssl liblzma-dev libbz2-dev zlib1g-dev
-```
-
-## Terminator
-
-```
-sudo add-apt-repository ppa:gnome-terminator
-sudo apt update && sudo apt install -y fonts-powerline terminator
 ```

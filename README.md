@@ -13,6 +13,7 @@ My Environment Configurations:
 - :computer: [ZSH](https://www.zsh.org) - Terminal framework
 - :pencil: [Neovim](https://neovim.io) - IDE
 - :sleepy: [Insomnia](https://insomnia.rest/) - REST API client
+- :vampire: [Dracula](https://draculatheme.com) - Theme
 
 ## Essentials
 

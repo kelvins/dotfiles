@@ -1,6 +1,6 @@
 # Dotfiles
 
-My Environment Configurations:
+My environment configurations:
 
 - :penguin: [Ubuntu](https://ubuntu.com) - OS
 - :fox_face: [Firefox](https://www.mozilla.org/en-US/firefox) - Browser

@@ -4,6 +4,9 @@
       create: true
       relink: true
 
+- create:
+    - ~/github
+
 - shell:
     - [sudo apt update, Update the package index]
     # Essentials

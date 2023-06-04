@@ -6,11 +6,10 @@
 - link:
     ~/.zshrc: .zshrc
     ~/.k9s/config.yml: .k9s/config.yml
-
-#~/.config/nvim:
-#glob: true
-#path: neovim-config/.*
-#prefix: '.'
+    ~/.config/nvim:
+      glob: true
+      path: neovim-config/.*
+      prefix: '.'
 
 - shell:
     - [sudo apt update, Update the package index]

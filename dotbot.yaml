@@ -3,15 +3,6 @@
       create: true
       relink: true
 
-- link:
-    ~/.vimrc: .vimrc
-    ~/.zshrc: .zshrc
-    ~/.k9s/config.yml: .k9s/config.yml
-    ~/.config/nvim:
-      glob: true
-      path: neovim-config/.*
-      prefix: '.'
-
 - shell:
     - [sudo apt update, Update the package index]
     # Essentials
@@ -26,6 +17,8 @@
     - [sudo apt install -y terminator, Terminal emulator]
     # ZSH
     - [sudo apt install -y zsh, Z-Shell]
+    # oh-my-zsh
+    - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"]
     # SSL
     - [sudo apt install -y libssl-dev openssl]
     # Compression libraries
@@ -34,6 +27,7 @@
     - [sudo apt install -y python3-dev]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
+    - [git clone https://github.com/kelvins/neovim-config.git]
     # Insomnia
     - [sudo snap install insomnia, API tool]
     # kubectl
@@ -47,3 +41,15 @@
     - [sudo snap install spotify]
     # Slack
     - [sudo snap install slack]
+    # Dracula Theme
+    - [git clone https://github.com/dracula/zsh.git]
+
+- link:
+    ~/.vimrc: .vimrc
+    ~/.zshrc: .zshrc
+    ~/.k9s/config.yml: .k9s/config.yml
+    ~/.config/nvim:
+      glob: true
+      path: neovim-config/.*
+      prefix: '.'
+    ~/.oh-my-zsh/themes/dracula.zsh-theme: zsh/dracula.zsh-theme

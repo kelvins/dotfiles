@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    ~/.zshrc: .zshrc
+    ~/.k9s/config.yml: .k9s/config.yml
+
+#~/.config/nvim:
+#glob: true
+#path: neovim-config/.*
+#prefix: '.'

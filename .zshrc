@@ -38,9 +38,12 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
+
+alias vim='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

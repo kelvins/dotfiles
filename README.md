@@ -16,6 +16,24 @@ My environment configurations:
 - :vampire: [Dracula](https://draculatheme.com) - Theme
 - :art: [GIMP](https://www.gimp.org) - Image manipulation
 
+## Requirements
+
+These configurations are managed by [dotbot](https://github.com/anishathalye/dotbot).
+
+Use [pip](https://pip.pypa.io) to install it:
+
+```shell
+pip install dotbot
+```
+
+## Usage
+
+Run it using the `dotbot.yaml` config file:
+
+```shell
+dotbot -c dotbot.yaml
+```
+
 ## Essentials
 
 ```

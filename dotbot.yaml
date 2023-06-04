@@ -4,6 +4,7 @@
       relink: true
 
 - link:
+    ~/.vimrc: .vimrc
     ~/.zshrc: .zshrc
     ~/.k9s/config.yml: .k9s/config.yml
     ~/.config/nvim:

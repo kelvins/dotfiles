@@ -27,7 +27,6 @@
     - [sudo apt install -y python3-dev]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
-    - [git clone https://github.com/kelvins/neovim-config.git]
     # Insomnia
     - [sudo snap install insomnia, API tool]
     # kubectl
@@ -41,8 +40,6 @@
     - [sudo snap install spotify]
     # Slack
     - [sudo snap install slack]
-    # Dracula Theme
-    - [git clone https://github.com/dracula/zsh.git]
 
 - link:
     ~/.vimrc: .vimrc
@@ -52,4 +49,7 @@
       glob: true
       path: neovim-config/.*
       prefix: '.'
-    ~/.oh-my-zsh/themes/dracula.zsh-theme: zsh/dracula.zsh-theme
+    ~/.oh-my-zsh/themes:
+      glob: true
+      path: .oh-my-zsh/themes/.*
+      prefix: '.'

@@ -3,6 +3,19 @@
       create: true
       relink: true
 
+- link:
+    ~/.vimrc: .vimrc
+    ~/.zshrc: .zshrc
+    ~/.k9s/config.yml: .k9s/config.yml
+    ~/.config/nvim:
+      glob: true
+      path: neovim-config/.*
+      prefix: '.'
+    ~/.oh-my-zsh/themes:
+      glob: true
+      path: .oh-my-zsh/themes/.*
+      prefix: '.'
+
 - shell:
     - [sudo apt update, Update the package index]
     # Essentials
@@ -40,16 +53,7 @@
     - [sudo snap install spotify]
     # Slack
     - [sudo snap install slack]
-
-- link:
-    ~/.vimrc: .vimrc
-    ~/.zshrc: .zshrc
-    ~/.k9s/config.yml: .k9s/config.yml
-    ~/.config/nvim:
-      glob: true
-      path: neovim-config/.*
-      prefix: '.'
-    ~/.oh-my-zsh/themes:
-      glob: true
-      path: .oh-my-zsh/themes/.*
-      prefix: '.'
+    # Homebrew
+    - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"]
+    # K9S
+    - [brew install derailed/k9s/k9s]

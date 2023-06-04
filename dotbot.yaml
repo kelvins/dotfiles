@@ -11,3 +11,39 @@
 #glob: true
 #path: neovim-config/.*
 #prefix: '.'
+
+- shell:
+    - [sudo apt update, Update the package index]
+    # Essentials
+    - [sudo apt install curl, Client URL]
+    - [sudo apt install tree, Tree visualization]
+    - [sudo apt install htop, Iteractive process viewer]
+    - [sudo apt install ack, Source code search tool]
+    - [sudo apt install tig, Text-mode interface for Git]
+    - [sudo apt install build-essentials, Meta-package to build dependencies]
+    - [sudo apt install npm, Node package manager]
+    # Terminator
+    - [sudo apt install terminator, Terminal emulator]
+    # ZSH
+    - [sudo apt install zsh, Z-Shell]
+    # SSL
+    - [sudo apt install libssl-dev openssl]
+    # Compression libraries
+    - [sudo apt install liblzma-dev libbz2-dev zlib1g-dev]
+    # Python
+    - [sudo apt install python3-dev]
+    # Neovim
+    - [sudo snap install --stable nvim --classic, Neovim]
+    # Insomnia
+    - [sudo snap install insomnia, API tool]
+    # kubectl
+    - [curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"]
+    - [sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl, Installing kubectl]
+    # Flameshot
+    - [sudo apt install flameshot, Screenshot tool]
+    # GIMP
+    - [sudo apt install gimp, GNU Image Manipulation Program]
+    # Spotify
+    - [sudo snap install spotify]
+    # Slack
+    - [sudo snap install slack]

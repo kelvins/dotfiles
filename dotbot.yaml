@@ -25,6 +25,7 @@
     - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"]
     # Python
     - [sudo apt install -y python3-pip python3-dev]
+    - [/bin/bash -c "$(curl https://pyenv.run)"]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
     - [git clone https://github.com/kelvins/neovim-config]

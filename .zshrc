@@ -53,4 +53,4 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
-PATH=$(pyenv root)/shims:$PATH
+PATH=$(pyenv root)/shims:$PATH:~/.local/bin

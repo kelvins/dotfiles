@@ -57,3 +57,4 @@
     ~/.oh-my-zsh/themes:
       glob: true
       path: .oh-my-zsh/themes/*
+    ~/.config/terminator/config: .config/terminator/config

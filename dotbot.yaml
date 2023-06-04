@@ -46,8 +46,6 @@
     - [sudo snap install slack, Slack]
     # Golang
     - [sudo snap install go --classic, Golang]
-    # Favorite Apps
-    #- [dconf write /org/gnome/shell/favorite-apps "['firefox_firefox.desktop', 'terminator.desktop', 'spotify_spotify.desktop', 'slack_slack.desktop', 'insomnia_insomnia.desktop', 'gimp.desktop']"]
 
 - link:
     ~/.gitconfig: .gitconfig

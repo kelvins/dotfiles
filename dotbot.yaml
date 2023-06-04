@@ -20,6 +20,7 @@
     - [sudo apt install -y terminator, Terminal emulator]
     # ZSH
     - [sudo apt install -y zsh, Z-Shell]
+    - [chsh -s /bin/zsh]
     # oh-my-zsh
     - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"]
     # Python
@@ -46,6 +47,7 @@
     #- [brew install derailed/k9s/k9s, Kubernetes CLI]
 
 - link:
+    ~/.gitconfig: .gitconfig
     ~/.vimrc: .vimrc
     ~/.zshrc: .zshrc
     ~/.k9s/config.yml: .k9s/config.yml

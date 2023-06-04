@@ -22,11 +22,9 @@
     - [sudo apt install -y zsh, Z-Shell]
     - [sudo chsh -s /bin/zsh]
     # oh-my-zsh
-    - [rm -rf ~/.oh-my-zsh]
     - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"]
     # Python
     - [sudo apt install -y python3-pip python3-dev]
-    - [rm -rf ~/.pyenv]
     - [/bin/bash -c "$(curl https://pyenv.run)"]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
@@ -38,7 +36,6 @@
     # kubectl
     - [curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"]
     - [sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl, Installing kubectl]
-    - [rm kubectl]
     # Flameshot
     - [sudo apt install -y flameshot, Screenshot tool]
     # GIMP
@@ -49,9 +46,6 @@
     - [sudo snap install slack, Slack]
     # Golang
     - [sudo snap install go --classic, Golang]
-    # K9S
-    #- [git clone https://github.com/derailed/k9s]
-    #- [make build -C k9s && ./k9s/execs/k9s]
     # Favorite Apps
     #- [dconf write /org/gnome/shell/favorite-apps "['firefox_firefox.desktop', 'terminator.desktop', 'spotify_spotify.desktop', 'slack_slack.desktop', 'insomnia_insomnia.desktop', 'gimp.desktop']"]
 

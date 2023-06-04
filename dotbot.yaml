@@ -15,23 +15,23 @@
 - shell:
     - [sudo apt update, Update the package index]
     # Essentials
-    - [sudo apt install curl, Client URL]
-    - [sudo apt install tree, Tree visualization]
-    - [sudo apt install htop, Iteractive process viewer]
-    - [sudo apt install ack, Source code search tool]
-    - [sudo apt install tig, Text-mode interface for Git]
-    - [sudo apt install build-essentials, Meta-package to build dependencies]
-    - [sudo apt install npm, Node package manager]
+    - [sudo apt install -y curl, Client URL]
+    - [sudo apt install -y tree, Tree visualization]
+    - [sudo apt install -y htop, Iteractive process viewer]
+    - [sudo apt install -y ack, Source code search tool]
+    - [sudo apt install -y tig, Text-mode interface for Git]
+    - [sudo apt install -y build-essential, Meta-package to build dependencies]
+    - [sudo apt install -y npm, Node package manager]
     # Terminator
-    - [sudo apt install terminator, Terminal emulator]
+    - [sudo apt install -y terminator, Terminal emulator]
     # ZSH
-    - [sudo apt install zsh, Z-Shell]
+    - [sudo apt install -y zsh, Z-Shell]
     # SSL
-    - [sudo apt install libssl-dev openssl]
+    - [sudo apt install -y libssl-dev openssl]
     # Compression libraries
-    - [sudo apt install liblzma-dev libbz2-dev zlib1g-dev]
+    - [sudo apt install -y liblzma-dev libbz2-dev zlib1g-dev]
     # Python
-    - [sudo apt install python3-dev]
+    - [sudo apt install -y python3-dev]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
     # Insomnia
@@ -40,9 +40,9 @@
     - [curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"]
     - [sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl, Installing kubectl]
     # Flameshot
-    - [sudo apt install flameshot, Screenshot tool]
+    - [sudo apt install -y flameshot, Screenshot tool]
     # GIMP
-    - [sudo apt install gimp, GNU Image Manipulation Program]
+    - [sudo apt install -y gimp, GNU Image Manipulation Program]
     # Spotify
     - [sudo snap install spotify]
     # Slack

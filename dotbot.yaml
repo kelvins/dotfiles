@@ -59,6 +59,11 @@
     # Slack
     - [sudo snap install slack, Slack]
 
+# Gnome Settings
+- shell:
+    # Favorite apps
+    - dconf write /org/gnome/shell/favorite-apps "['firefox_firefox.desktop', 'terminator.desktop', 'slack_slack.desktop', 'spotify_spotify.desktop', 'insomnia_insomnia.desktop', 'gimp.desktop']"
+
 - link:
     ~/.gitconfig: .gitconfig
     ~/.vimrc: .vimrc

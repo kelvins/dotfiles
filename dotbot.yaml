@@ -1,6 +1,6 @@
 - defaults:
     link:
-      force: false
+      force: true
       create: true
       relink: true
 

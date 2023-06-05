@@ -48,9 +48,12 @@ alias vim='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+PATH=$PATH:~/.local/bin
+PATH=$PATH:~/pyenv/bin
+PATH=$PATH:~/.pyenv/shims
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
-PATH=$(pyenv root)/shims:$PATH:~/.local/bin

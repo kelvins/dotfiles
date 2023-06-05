@@ -1,24 +1,33 @@
 - defaults:
     link:
-      force: true
+      force: false
       create: true
       relink: true
 
+# Create directories
 - create:
     - ~/github
 
+# Clone Github projects
+- shell:
+    - [git clone https://github.com/kelvins/neovim-config ~/.config/nvim]
+    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim]
+
+# Install essentials
 - shell:
     - [sudo apt update, Update the package index]
-    # Essentials
     - [sudo apt install -y build-essential, Meta-package to build dependencies]
-    - [sudo apt install -y libssl-dev openssl]
-    - [sudo apt install -y liblzma-dev libbz2-dev zlib1g-dev]
+    - [sudo apt install -y libssl-dev openssl, SSL/TLS]
+    - [sudo apt install -y liblzma-dev libbz2-dev zlib1g-dev, Compression libraries]
     - [sudo apt install -y curl, Client URL]
     - [sudo apt install -y tree, Tree visualization]
     - [sudo apt install -y htop, Iteractive process viewer]
     - [sudo apt install -y ack, Source code search tool]
     - [sudo apt install -y tig, Text-mode interface for Git]
     - [sudo apt install -y npm, Node package manager]
+
+# Install dev environment
+- shell:
     # Terminator
     - [sudo apt install -y terminator, Terminal emulator]
     # ZSH
@@ -29,11 +38,13 @@
     # Python
     - [sudo apt install -y python3-pip python3-dev, Python development]
     - [/bin/bash -c "$(curl https://pyenv.run)", Python virtual environments]
+    # Golang
+    - [sudo snap install go --classic, Golang]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
-    - [rm -rf neovim-config]
-    - [git clone https://github.com/kelvins/neovim-config]
-    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim]
+
+# Install apps
+- shell:
     # Insomnia
     - [sudo snap install insomnia, API tool]
     # kubectl
@@ -47,17 +58,12 @@
     - [sudo snap install spotify, Spotify]
     # Slack
     - [sudo snap install slack, Slack]
-    # Golang
-    - [sudo snap install go --classic, Golang]
 
 - link:
     ~/.gitconfig: .gitconfig
     ~/.vimrc: .vimrc
     ~/.zshrc: .zshrc
     ~/.k9s/config.yml: .k9s/config.yml
-    ~/.config/nvim:
-      glob: true
-      path: neovim-config/*
     ~/.oh-my-zsh/themes:
       glob: true
       path: .oh-my-zsh/themes/*

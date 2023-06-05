@@ -32,7 +32,7 @@
     - [sudo apt install -y terminator, Terminal emulator]
     # ZSH
     - [sudo apt install -y zsh, Z-Shell]
-    - [chsh -s /bin/zsh, Change default shell]
+    - [sudo chsh -s $(which zsh) $(whoami), Change default shell]
     # oh-my-zsh
     - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)", Oh-my-zsh]
     # Python

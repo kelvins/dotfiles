@@ -61,7 +61,12 @@
 
 # Gnome Settings
 - shell:
-    # Favorite apps
+    # Interface Settings
+    - gsettings set org.gnome.desktop.interface show-battery-percentage true
+    # Dock Settings
+    - gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+    - gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+    - gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
     - dconf write /org/gnome/shell/favorite-apps "['firefox_firefox.desktop', 'terminator.desktop', 'slack_slack.desktop', 'spotify_spotify.desktop', 'insomnia_insomnia.desktop', 'gimp.desktop']"
 
 - link:

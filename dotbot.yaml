@@ -24,6 +24,7 @@
     - [sudo apt install -y libssl-dev openssl, SSL/TLS]
     - [sudo apt install -y liblzma-dev libbz2-dev zlib1g-dev, Compression libraries]
     - [sudo apt install -y curl, Client URL]
+    - [sudo apt install -y jq, JSON processor]
     - [sudo apt install -y tree, Tree visualization]
     - [sudo apt install -y htop, Iteractive process viewer]
     - [sudo apt install -y ack, Source code search tool]

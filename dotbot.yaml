@@ -36,7 +36,6 @@
     - [sudo chsh -s $(which zsh) $(whoami), Change default shell]
     # oh-my-zsh
     - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)", Oh-my-zsh]
-    - [ln -s ~/github/zsh/dracula.zsh-theme ~/.oh-my-zsh/themes/dracula.zsh-theme]
     # Python
     - [sudo apt install -y python3-pip python3-dev, Python development]
     - [/bin/bash -c "$(curl https://pyenv.run)", Python virtual environments]
@@ -78,3 +77,5 @@
     ~/.zshrc: .zshrc
     ~/.k9s/config.yml: .k9s/config.yml
     ~/.config/terminator/config: .config/terminator/config
+    ~/.oh-my-zsh/themes/dracula.zsh-theme: ~/github/zsh/dracula.zsh-theme
+    ~/.oh-my-zsh/lib/async.zsh: ~/github/zsh/lib/async.zsh

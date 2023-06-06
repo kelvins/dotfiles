@@ -10,9 +10,9 @@
 
 # Clone Github projects
 - shell:
-    - [git clone https://github.com/kelvins/neovim-config ~/.config/nvim]
-    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim]
-    - [git clone https://github.com/dracula/zsh.git ~/github/zsh]
+    - [git clone https://github.com/kelvins/neovim-config ~/.config/nvim, Clone neovim-config]
+    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim, Clone Packer]
+    - [git clone https://github.com/dracula/zsh.git ~/github/zsh, Clone Dracula theme for ZSH]
 
 # Install essentials
 - shell:
@@ -44,7 +44,7 @@
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
     # Docker
-    - [/bin/bash -c "$(curl https://get.docker.com)"]
+    - [/bin/bash -c "$(curl https://get.docker.com)", Install Docker]
     - [sudo usermod -aG docker $USER]
     - [newgrp docker]
 
@@ -53,7 +53,7 @@
     # Insomnia
     - [sudo snap install insomnia, API tool]
     # kubectl
-    - [curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"]
+    - [curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl", Download kubectl]
     - [sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl, Installing kubectl]
     - [rm ./kubectl]
     # Flameshot
@@ -65,8 +65,8 @@
     # Slack
     - [sudo snap install slack, Slack]
     # K9S
-    - [wget -c https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz -O k9s.tar.gz]
-    - [sudo tar -C /usr/local/bin -xzf k9s.tar.gz k9s && rm k9s.tar.gz]
+    - [wget -c https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz -O k9s.tar.gz, Download K9S]
+    - [sudo tar -C /usr/local/bin -xzf k9s.tar.gz k9s && rm k9s.tar.gz, Install K9S]
 
 # Gnome Settings
 - shell:

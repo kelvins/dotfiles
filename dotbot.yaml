@@ -43,6 +43,10 @@
     - [sudo snap install go --classic, Golang]
     # Neovim
     - [sudo snap install --stable nvim --classic, Neovim]
+    # Docker
+    - [/bin/bash -c "$(curl https://get.docker.com)"]
+    - [sudo usermod -aG docker $USER]
+    - [newgrp docker]
 
 # Install apps
 - shell:

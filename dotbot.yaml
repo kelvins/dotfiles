@@ -39,10 +39,10 @@
     - [sudo apt install -y zsh, Z-Shell]
     - [sudo chsh -s $(which zsh) $(whoami), Change default shell]
     # oh-my-zsh
-    - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)", Oh-my-zsh]
+    - [sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true, Oh-my-zsh]
     # Python
     - [sudo apt install -y python3-pip python3-dev, Python development]
-    - [/bin/bash -c "$(curl https://pyenv.run)", Python virtual environments]
+    - [/bin/bash -c "$(curl https://pyenv.run)" || true, Python virtual environments]
     # Golang
     - [sudo snap install go --classic, Golang]
     # Neovim
@@ -69,7 +69,7 @@
     # Slack
     - [sudo snap install slack, Slack]
     # K9S
-    - [wget -c https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz -O k9s.tar.gz, Download K9S]
+    - [wget -c "https://github.com/derailed/k9s/releases/download/$(wget -q -O - https://api.github.com/repos/derailed/k9s/releases/latest | jq -r .tag_name)/k9s_Linux_amd64.tar.gz" -O k9s.tar.gz, Download K9S]
     - [sudo tar -C /usr/local/bin -xzf k9s.tar.gz k9s && rm k9s.tar.gz, Install K9S]
 
 # Gnome Settings

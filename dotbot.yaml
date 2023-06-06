@@ -10,9 +10,12 @@
 
 # Clone Github projects
 - shell:
-    - [git clone https://github.com/kelvins/neovim-config ~/.config/nvim, Clone neovim-config]
-    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim, Clone Packer]
-    - [git clone https://github.com/dracula/zsh.git ~/github/zsh, Clone Dracula theme for ZSH]
+    - [git clone https://github.com/kelvins/neovim-config ~/.config/nvim || true, Clone neovim-config]
+    - [git -C ~/.config/nvim pull]
+    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim || true, Clone Packer]
+    - [git -C ~/.local/share/nvim/site/pack/packer/start/packer.nvim pull]
+    - [git clone https://github.com/dracula/zsh.git ~/github/zsh || true, Clone Dracula theme for ZSH]
+    - [git -C ~/github/zsh pull]
 
 # Install essentials
 - shell:

@@ -61,8 +61,7 @@
     - [sudo snap install slack, Slack]
     # K9S
     - [wget -c https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz -O k9s.tar.gz]
-    - [tar -xvzf k9s.tar.gz && rm k9s.tar.gz]
-    - [mv k9s /usr/local/bin]
+    - [sudo tar -xzf -C /usr/locak/bin k9s.tar.gz k9s && rm k9s.tar.gz]
 
 # Gnome Settings
 - shell:

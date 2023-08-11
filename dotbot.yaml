@@ -30,6 +30,7 @@
     - [sudo apt install -y ack, Source code search tool]
     - [sudo apt install -y tig, Text-mode interface for Git]
     - [sudo apt install -y npm, Node package manager]
+    - [sudo apt install -y bat, Cat with wings]
 
 # Install dev environment
 - shell:

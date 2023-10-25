@@ -13,8 +13,16 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Display line numbers in all programming modes
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; Display line numbers
+;;(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		eshell-mode-hook))
+	(add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Initialize package sources
 (require 'package)

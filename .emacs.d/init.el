@@ -13,6 +13,9 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Display line numbers in all programming modes
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
 ;; Initialize package sources
 (require 'package)
 

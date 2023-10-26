@@ -76,6 +76,12 @@
   :config
   (setq which-key-idle-delay 0.3))
 
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+        ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
 (use-package dracula-theme)
 
 (load-theme 'dracula t)

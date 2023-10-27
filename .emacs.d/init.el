@@ -10,6 +10,15 @@
 ;; Set up visible bell
 (setq visible-bell t)
 
+;; Open window maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Set font size
+(set-face-attribute 'default nil :height 140)
+
+;; Show file path as the frame title
+(setq-default frame-title-format '("%f"))
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -65,7 +74,7 @@
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 20)))
+  :custom ((doom-modeline-height 24)))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -75,6 +84,9 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
+
+(use-package evil
+  :init (evil-mode 1))
 
 (use-package dracula-theme)
 

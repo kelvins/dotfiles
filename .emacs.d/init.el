@@ -41,6 +41,7 @@
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
+
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -87,6 +88,10 @@
 
 (use-package evil
   :init (evil-mode 1))
+
+;; Enable scala-mode for highlighting, indentation and motion commands
+(use-package scala-mode
+  :interpreter ("scala" . scala-mode))
 
 (use-package dracula-theme)
 

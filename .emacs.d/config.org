@@ -1,0 +1,228 @@
+#+title: My emacs configuration
+#+author: Kelvin Salton do Prado
+
+* Emacs Configuration
+
+** Basic Settings
+
+#+begin_src emacs-lisp
+  ;; Disable emacs startup message
+  (setq inhibit-startup-message t)
+
+  ;; Disable visible scrollbar
+  (scroll-bar-mode -1)
+
+  ;; Disable the toolbar
+  (tool-bar-mode -1)
+
+  ;; Disable tooltip
+  (tooltip-mode -1)
+
+  ;; Give some breathing room
+  (set-fringe-mode 10)
+
+  ;; Disable the menu bar
+  (menu-bar-mode -1)
+
+  ;; Set up visible bell
+  (setq visible-bell t)
+
+  ;; Open window maximized
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+  ;; Set font size
+  (set-face-attribute 'default nil :height 140)
+
+  ;; Show file path as the frame title
+  (setq-default frame-title-format '("%f"))
+
+  ;; Make ESC quit prompts
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  ;; Display line numbers
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+** Initialize Package
+
+#+begin_src emacs-lisp
+  (require 'package)
+
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                                          ("org" . "https://orgmode.org/elpa/")
+                                          ("elpa" . "https://elpa.gnu.org/packages/")))
+#+end_src
+
+*** Setup use-package
+
+#+begin_src emacs-lisp
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+#+end_src
+
+** Org Mode
+
+Make sure org mode is updated and add some customization:
+
+#+begin_src emacs-lisp
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
+
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package org
+  :hook (org-mode . efs/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+#+end_src
+
+Links:
+- https://orgmode.org
+- https://github.com/sabof/org-bullets
+- https://github.com/joostkremers/visual-fill-column
+
+** Theme
+
+#+begin_src emacs-lisp
+(use-package dracula-theme)
+
+(load-theme 'dracula t)
+#+end_src
+
+Links:
+- https://draculatheme.com
+
+** Modeline
+
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1)
+    :custom ((doom-modeline-height 24)))
+#+end_src
+
+Links:
+- https://github.com/seagle0128/doom-modeline
+  
+** Evil Mode
+
+#+begin_src emacs-lisp
+  (use-package evil
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
+    (setq evil-want-C-i-jump nil)
+    :config
+    (evil-mode 1)
+    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+    (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+    ;; Use visual line motions even outside of visual-line-mode buffers
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
+#+end_src
+
+Links:
+- https://github.com/emacs-evil/evil
+
+** Completion
+
+  #+begin_src emacs-lisp
+  (use-package ivy
+    :diminish
+    :bind (("C-s" . swiper)
+           :map ivy-minibuffer-map
+           ("TAB" . ivy-alt-done)
+           ("C-l" . ivt-alt-done)
+           ("C-j" . ivy-next-line)
+           ("C-k" . ivy-previous-line)
+           :map ivy-switch-buffer-map
+           ("C-k" . ivy-previous-line)
+           ("C-l" . ivy-done)
+           ("C-d" . ivy-switch-buffer-kill)
+           :map ivy-reverse-i-search-map
+           ("C-k" . ivy-previous-line)
+           ("C-d" . ivy-reverse-i-search-kill))
+    :config
+    (ivy-mode 1))
+#+end_src
+
+** Helpers
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :init (which-key-mode)
+    :diminish which-key-mode
+    :config
+    (setq which-key-idle-delay 0.3))
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+  (use-package neotree)
+    (global-set-key (kbd "C-c o") 'neotree-toggle)
+#+end_src
+
+Links:
+- https://github.com/justbur/emacs-which-key
+- https://github.com/Fanael/rainbow-delimiters
+
+** Programming Languages
+
+*** Python
+
+#+begin_src emacs-lisp
+  (use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+#+end_src
+
+Links:
+- https://github.com/jorgenschaefer/elpy
+
+*** Scala
+
+#+begin_src emacs-lisp
+  (use-package scala-mode
+    :interpreter ("scala" . scala-mode))
+#+end_src
+
+*** Clojure
+
+#+begin_src emacs-lisp
+(use-package cider
+  :ensure t)
+#+end_src
+

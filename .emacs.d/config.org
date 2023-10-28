@@ -1,7 +1,8 @@
-#+title: My emacs configuration
 #+author: Kelvin Salton do Prado
 
 * Emacs Configuration
+
+My personal emacs configuration using babel.
 
 ** Basic Settings
 
@@ -47,7 +48,7 @@
   (dolist (mode '(org-mode-hook
                   term-mode-hook
                   eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
 ** Initialize Package
@@ -56,8 +57,8 @@
   (require 'package)
 
   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                                          ("org" . "https://orgmode.org/elpa/")
-                                          ("elpa" . "https://elpa.gnu.org/packages/")))
+                           ("org" . "https://orgmode.org/elpa/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
 #+end_src
 
 *** Setup use-package
@@ -69,8 +70,8 @@
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+  (require 'use-package)
+  (setq use-package-always-ensure t)
 #+end_src
 
 ** Org Mode
@@ -200,13 +201,15 @@ Links:
 
 ** Programming Languages
 
+Settings and packages related to programming languages.
+
 *** Python
 
 #+begin_src emacs-lisp
   (use-package elpy
-  :ensure t
-  :init
-  (elpy-enable))
+    :ensure t
+    :init
+      (elpy-enable))
 #+end_src
 
 Links:

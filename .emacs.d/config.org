@@ -4,74 +4,127 @@
 
 My personal emacs configuration using babel.
 
-** Basic Settings
+** Startup
+
+Settings related to emacs startup.
+
+*** Disable Startup Message
 
 #+begin_src emacs-lisp
-  ;; Disable emacs startup message
-  (setq inhibit-startup-message t)
-
-  ;; Disable visible scrollbar
-  (scroll-bar-mode -1)
-
-  ;; Disable the toolbar
-  (tool-bar-mode -1)
-
-  ;; Disable tooltip
-  (tooltip-mode -1)
-
-  ;; Give some breathing room
-  (set-fringe-mode 10)
-
-  ;; Disable the menu bar
-  (menu-bar-mode -1)
-
-  ;; Set up visible bell
-  (setq visible-bell t)
-
-  ;; Open window maximized
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-  ;; Set font size
-  (set-face-attribute 'default nil :height 140)
-
-  ;; Show file path as the frame title
-  (setq-default frame-title-format '("%f"))
-
-  ;; Make ESC quit prompts
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-  ;; Display line numbers
-  (column-number-mode)
-  (global-display-line-numbers-mode t)
-
-  ;; Disable line numbers for some modes
-  (dolist (mode '(org-mode-hook
-                  term-mode-hook
-                  eshell-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+(setq inhibit-startup-message t)
 #+end_src
 
-** Initialize Package
+*** Display Startup Time
+
+Add a function to emacs-startup-hook to print out the duration of Emacs startup:
 
 #+begin_src emacs-lisp
-  (require 'package)
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                (float-time
+                (time-subtract after-init-time before-init-time)))
+        gcs-done))
 
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "https://orgmode.org/elpa/")
-                           ("elpa" . "https://elpa.gnu.org/packages/")))
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+#+end_src
+
+** Basic Settings
+
+Some basic emacs settings.
+
+*** Visual Settings
+
+#+begin_src emacs-lisp
+;; Disable tooltip and bars
+(tooltip-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+
+;; Set up visible bell
+(setq visible-bell t)
+
+;; Open window maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+#+end_src
+
+*** Line Numbers
+
+Display line numbers for specific modes.
+
+#+begin_src emacs-lisp
+;; Display line numbers
+(global-display-line-numbers-mode t)
+(column-number-mode)
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                eshell-mode-hook))
+(add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+*** Font
+
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil :height 140)
+
+;; Allows zoom in and out
+(defun my/zoom (operator)
+    (interactive)
+    (set-face-attribute 'default nil
+                        :height
+                        (funcall operator (face-attribute 'default :height) 10)))
+
+(global-set-key (kbd "C->") (lambda () (interactive) (my/zoom '+)))
+(global-set-key (kbd "C-<") (lambda () (interactive) (my/zoom '-)))
+#+end_src
+
+*** Fix Indentation
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+#+end_src
+
+*** Global Keys
+
+#+begin_src emacs-lisp
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
+
+** Package System Setup
+
+Set package archives and initialize package.
+
+*** Setup package-archives
+
+#+begin_src emacs-lisp
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                            ("org" . "https://orgmode.org/elpa/")
+                            ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
 #+end_src
 
 *** Setup use-package
 
 #+begin_src emacs-lisp
-  (unless package-archive-contents
-    (package-refresh-contents))
+(unless package-archive-contents
+  (package-refresh-contents))
 
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
+(require 'use-package)
+(setq use-package-always-ensure t)
 #+end_src
 
 ** Org Mode
@@ -79,29 +132,29 @@ My personal emacs configuration using babel.
 Make sure org mode is updated and add some customization:
 
 #+begin_src emacs-lisp
-(defun efs/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1))
+  (defun efs/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (visual-line-mode 1))
 
-(defun efs/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
+  (use-package org
+    :pin org
+    :hook (org-mode . efs/org-mode-setup)
+    :config
+    (setq org-ellipsis " ▾"))
 
-(use-package org
-  :hook (org-mode . efs/org-mode-setup)
-  :config
-  (setq org-ellipsis " ▾"))
+  (defun efs/org-mode-visual-fill ()
+    (setq visual-fill-column-width 100
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
 
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (use-package visual-fill-column
+    :hook (org-mode . efs/org-mode-visual-fill))
 
-(use-package visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 #+end_src
 
 Links:
@@ -123,10 +176,12 @@ Links:
 ** Modeline
 
 #+begin_src emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1)
-    :custom ((doom-modeline-height 24)))
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 24)))
 #+end_src
 
 Links:
@@ -143,8 +198,8 @@ Links:
     (setq evil-want-C-i-jump nil)
     :config
     (evil-mode 1)
-    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-    (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+    ;;(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+    ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
     ;; Use visual line motions even outside of visual-line-mode buffers
     (evil-global-set-key 'motion "j" 'evil-next-visual-line)
@@ -159,7 +214,7 @@ Links:
 
 ** Completion
 
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
   (use-package ivy
     :diminish
     :bind (("C-s" . swiper)
@@ -182,34 +237,41 @@ Links:
 ** Helpers
 
 #+begin_src emacs-lisp
-  (use-package which-key
-    :init (which-key-mode)
-    :diminish which-key-mode
-    :config
-    (setq which-key-idle-delay 0.3))
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
 
-  (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
-
-  (use-package neotree)
-    (global-set-key (kbd "C-c o") 'neotree-toggle)
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
 Links:
 - https://github.com/justbur/emacs-which-key
 - https://github.com/Fanael/rainbow-delimiters
 
-** Programming Languages
+** Programming
 
-Settings and packages related to programming languages.
+Settings and packages related to programming.
+
+*** Syntax Checking
+
+#+begin_src emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+#+end_src
 
 *** Python
 
 #+begin_src emacs-lisp
-  (use-package elpy
-    :ensure t
-    :init
-      (elpy-enable))
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
 #+end_src
 
 Links:

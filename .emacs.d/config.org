@@ -72,7 +72,16 @@ Display line numbers for specific modes.
 *** Font
 
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil :height 140)
+(defvar efs/default-font-size 140)
+
+(set-face-attribute 'default nil :height efs/default-font-size)
+
+;; Check if font exists
+(defun my/font-exists (font) (if (null (x-list-fonts font)) nil t))
+
+;; Set frame font if available
+(when (window-system)
+  (cond ((my/font-exists "Fira Code Retina") (set-frame-font "Fira Code Retina:spacing=100:size=16" nil t))))
 
 ;; Allows zoom in and out
 (defun my/zoom (operator)
@@ -127,6 +136,23 @@ Set package archives and initialize package.
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+#+end_src
+
+** Automatic Package Updates
+
+The =auto-package-update= package helps us keep our Emacs packages up to date! It will prompt you after a certain number of days either at startup or at a specific time of day to remind you to update your packages.
+
+You can also use =M-x auto-package-update-now= to update right now!
+
+#+begin_src emacs-lisp
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
 #+end_src
 
 ** Org Mode

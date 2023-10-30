@@ -51,6 +51,8 @@ Settings related to user interface.
 
 ;; Open window maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 #+end_src
 
 *** Line Numbers
@@ -286,6 +288,8 @@ Settings and packages related to programming.
 
 *** Remove Trailing Whitespaces
 
+Automatically remove trailing whitespaces when saving a file in =prog-mode=.
+
 #+begin_src emacs-lisp
 (defun my/remove-trailing-whitespace ()
   (when (derived-mode-p 'prog-mode)
@@ -300,6 +304,20 @@ Settings and packages related to programming.
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+#+end_src
+
+Links:
+- https://github.com/flycheck/flycheck
+
+*** Language Server Protocol
+
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
 #+end_src
 
 *** Python

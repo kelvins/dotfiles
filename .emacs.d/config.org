@@ -2,7 +2,9 @@
 
 * Emacs Configuration
 
-My personal emacs configuration using babel.
+My personal emacs configuration using org-babel.
+
+Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]]. 
 
 ** Startup
 
@@ -16,7 +18,7 @@ Settings related to emacs startup.
 
 *** Display Startup Time
 
-Add a function to emacs-startup-hook to print out the duration of Emacs startup:
+Function to print out the duration of emacs startup using the emacs-startup-hook:
 
 #+begin_src emacs-lisp
 (defun efs/display-startup-time ()
@@ -33,7 +35,9 @@ Add a function to emacs-startup-hook to print out the duration of Emacs startup:
 
 Some basic emacs settings.
 
-*** Visual Settings
+*** UI Settings
+
+Settings related to user interface.
 
 #+begin_src emacs-lisp
 ;; Disable tooltip and bars
@@ -47,8 +51,6 @@ Some basic emacs settings.
 
 ;; Open window maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 #+end_src
 
 *** Line Numbers
@@ -108,8 +110,8 @@ Set package archives and initialize package.
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("org" . "https://orgmode.org/elpa/")
-                            ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 #+end_src
@@ -132,29 +134,29 @@ Set package archives and initialize package.
 Make sure org mode is updated and add some customization:
 
 #+begin_src emacs-lisp
-  (defun efs/org-mode-setup ()
-    (org-indent-mode)
-    (variable-pitch-mode 1)
-    (visual-line-mode 1))
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
 
-  (use-package org
-    :pin org
-    :hook (org-mode . efs/org-mode-setup)
-    :config
-    (setq org-ellipsis " ▾"))
+(use-package org
+  :pin org
+  :hook (org-mode . efs/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"))
 
-  (defun efs/org-mode-visual-fill ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
+(defun efs/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
 
-  (use-package visual-fill-column
-    :hook (org-mode . efs/org-mode-visual-fill))
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
 
-  (use-package org-bullets
-    :hook (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 #+end_src
 
 Links:
@@ -190,23 +192,23 @@ Links:
 ** Evil Mode
 
 #+begin_src emacs-lisp
-  (use-package evil
-    :init
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-want-C-u-scroll t)
-    (setq evil-want-C-i-jump nil)
-    :config
-    (evil-mode 1)
-    ;;(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-    ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump nil)
+  :config
+  (evil-mode 1)
+  ;;(define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-    ;; Use visual line motions even outside of visual-line-mode buffers
-    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
-    (evil-set-initial-state 'messages-buffer-mode 'normal)
-    (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
 #+end_src
 
 Links:
@@ -215,23 +217,23 @@ Links:
 ** Completion
 
 #+begin_src emacs-lisp
-  (use-package ivy
-    :diminish
-    :bind (("C-s" . swiper)
-           :map ivy-minibuffer-map
-           ("TAB" . ivy-alt-done)
-           ("C-l" . ivt-alt-done)
-           ("C-j" . ivy-next-line)
-           ("C-k" . ivy-previous-line)
-           :map ivy-switch-buffer-map
-           ("C-k" . ivy-previous-line)
-           ("C-l" . ivy-done)
-           ("C-d" . ivy-switch-buffer-kill)
-           :map ivy-reverse-i-search-map
-           ("C-k" . ivy-previous-line)
-           ("C-d" . ivy-reverse-i-search-kill))
-    :config
-    (ivy-mode 1))
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivt-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
 #+end_src
 
 ** Helpers
@@ -290,8 +292,8 @@ Links:
 *** Scala
 
 #+begin_src emacs-lisp
-  (use-package scala-mode
-    :interpreter ("scala" . scala-mode))
+(use-package scala-mode
+  :interpreter ("scala" . scala-mode))
 #+end_src
 
 *** Clojure

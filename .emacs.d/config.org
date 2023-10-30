@@ -186,7 +186,7 @@ Links:
 
 Links:
 - https://github.com/seagle0128/doom-modeline
-  
+
 ** Evil Mode
 
 #+begin_src emacs-lisp
@@ -256,6 +256,16 @@ Links:
 
 Settings and packages related to programming.
 
+*** Remove Trailing Whitespaces
+
+#+begin_src emacs-lisp
+(defun my/remove-trailing-whitespace ()
+  (when (derived-mode-p 'prog-mode)
+    (delete-trailing-whitespace)))
+
+(add-hook 'before-save-hook 'my/remove-trailing-whitespace)
+#+end_src
+
 *** Syntax Checking
 
 #+begin_src emacs-lisp
@@ -290,4 +300,3 @@ Links:
 (use-package cider
   :ensure t)
 #+end_src
-

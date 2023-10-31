@@ -97,7 +97,7 @@ Settings related to user interface.
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(setq fill-column 80)
+(setq fill-column 120)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 #+end_src
 
@@ -115,8 +115,7 @@ Display line numbers for specific modes.
               term-mode-hook
               shell-mode-hook
               treemacs-mode-hook
-              eshell-mode-hook
-              treemacs-mode))
+              eshell-mode-hook))
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
@@ -301,6 +300,31 @@ Common Git operations are easy to execute quickly using Magit's command panel sy
 Links:
 - https://github.com/magit/magit
 
+** Projectile
+
+[[https://projectile.mx/][Projectile]] is a project management library for Emacs which makes it a lot easier to navigate around code projects for various languages.  Many packages integrate with Projectile so it's a good idea to have it installed even if you don't use its commands directly.
+
+#+begin_src emacs-lisp
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+
+  (when (file-directory-p "~/dev/nu")
+    (setq projectile-project-search-path '("~/dev/nu")))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel-projectile
+  :after projectile
+  :config (counsel-projectile-mode))
+#+end_src
+
+Links:
+- https://github.com/bbatsov/projectile
+
 ** Helpers
 
 #+begin_src emacs-lisp
@@ -373,8 +397,27 @@ Links:
 *** Scala
 
 #+begin_src emacs-lisp
-(use-package scala-mode
-  :interpreter ("scala" . scala-mode))
+;(use-package scala-mode
+;  :interpreter ("scala" . scala-mode))
+
+(use-package lsp-metals
+  :ensure t
+  :custom
+  ;; You might set metals server options via -J arguments. This might not always work, for instance when
+  ;; metals is installed using nix. In this case you can use JAVA_TOOL_OPTIONS environment variable.
+  (lsp-metals-server-args '(;; Metals claims to support range formatting by default but it supports range
+                            ;; formatting of multiline strings only. You might want to disable it so that
+                            ;; emacs can use indentation provided by scala-mode.
+                            "-J-Dmetals.allow-multiline-string-formatting=off"
+                            ;; Enable unicode icons. But be warned that emacs might not render unicode
+                            ;; correctly in all cases.
+                            "-J-Dmetals.icons=unicode"))
+  ;; In case you want semantic highlighting. This also has to be enabled in lsp-mode using
+  ;; `lsp-semantic-tokens-enable' variable. Also you might want to disable highlighting of modifiers
+  ;; setting `lsp-semantic-tokens-apply-modifiers' to `nil' because metals sends `abstract' modifier
+  ;; which is mapped to `keyword' face.
+  (lsp-metals-enable-semantic-highlighting t)
+  :hook (scala-mode . lsp))
 #+end_src
 
 *** Clojure

@@ -116,7 +116,7 @@ Display line numbers for specific modes.
               shell-mode-hook
               treemacs-mode-hook
               eshell-mode-hook
-              treemacs-mode-hook))
+              treemacs-mode))
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
@@ -286,6 +286,20 @@ Links:
   :after (treemacs evil)
   :ensure t)
 #+end_src
+
+** Magit
+
+Common Git operations are easy to execute quickly using Magit's command panel system.
+
+#+begin_src emacs-lisp
+(use-package magit
+  :commands magit-status
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+end_src
+
+Links:
+- https://github.com/magit/magit
 
 ** Helpers
 

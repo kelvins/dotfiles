@@ -4,7 +4,7 @@
 
 My personal emacs configuration using org-babel.
 
-Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]].
+Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]]. 
 
 ** Startup
 
@@ -22,7 +22,8 @@ Function to print out the duration of emacs startup using the emacs-startup-hook
 
 #+begin_src emacs-lisp
 ;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+(setq gc-cons-threshold (* 100 1024 1024)
+  read-process-output-max (* 1024 1024))
 
 (defun efs/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
@@ -121,10 +122,16 @@ Display line numbers for specific modes.
 
 *** Font
 
+Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
+
 #+begin_src emacs-lisp
 (defvar efs/default-font-size 120)
 
 (set-face-attribute 'default nil :height efs/default-font-size)
+
+(when (member "Fira Code Retina" (font-family-list))
+  (set-face-attribute 'default nil :font "Fira Code Retina")
+  (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina"))
 
 ;; Check if font exists
 (defun my/font-exists (font) (if (null (x-list-fonts font)) nil t))
@@ -324,7 +331,7 @@ Links:
 
 Links:
 - https://github.com/bbatsov/projectile
-
+  
 ** Helpers
 
 #+begin_src emacs-lisp
@@ -378,7 +385,26 @@ Links:
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-keep-workspace-alive nil)))
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package company
+  :ensure t)
+#+end_src
+
+*** Debugging
+
+#+begin_src emacs-lisp
+;; Use the Debug Adapter Protocol for running tests and debugging
+(use-package dap-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
 #+end_src
 
 *** Python
@@ -397,8 +423,25 @@ Links:
 *** Scala
 
 #+begin_src emacs-lisp
-;(use-package scala-mode
-;  :interpreter ("scala" . scala-mode))
+;; Enable scala-mode for highlighting, indentation and motion commands
+(use-package scala-mode
+  :interpreter ("scala" . scala-mode))
+
+;; Enable sbt mode for executing sbt commands
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+   (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+;; Add metals backend for lsp-mode
+(use-package lsp-metals)
 
 (use-package lsp-metals
   :ensure t
@@ -422,7 +465,15 @@ Links:
 
 *** Clojure
 
+To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
+
+- TODO: autoformat when saving
+
 #+begin_src emacs-lisp
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
+
 (use-package cider
   :ensure t)
 #+end_src

@@ -331,7 +331,18 @@ Links:
 
 Links:
 - https://github.com/bbatsov/projectile
-  
+
+** term-mode
+
+#+begin_src emacs-lisp
+(use-package term
+  :commands term
+  :config
+  (setq explicit-shell-file-name "zsh")
+  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+#+end_src
+
 ** Helpers
 
 #+begin_src emacs-lisp

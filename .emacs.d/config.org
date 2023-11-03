@@ -286,7 +286,9 @@ Links:
         ("C-x t d"   . treemacs-select-directory)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+        ("C-x t M-t" . treemacs-find-tag))
+  :config
+  (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs))
 
 (use-package treemacs-evil
   :after (treemacs evil)

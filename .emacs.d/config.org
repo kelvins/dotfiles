@@ -82,6 +82,9 @@ Settings related to user interface.
 ;; Disable startup message
 (setq inhibit-startup-message t)
 
+;; Show trailing whitespaces
+(setq show-trailing-whitespace t)
+
 ;; Open window maximized
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -402,6 +405,17 @@ Links:
 - https://github.com/justbur/emacs-which-key
 - https://github.com/Fanael/rainbow-delimiters
 
+** Golden Ratio
+
+#+begin_src emacs-lisp
+(use-package golden-ratio
+  :ensure t
+  :init (golden-ratio-mode))
+#+end_src
+
+Links:
+- https://github.com/roman/golden-ratio.el
+
 ** Programming
 
 Settings and packages related to programming.
@@ -428,6 +442,26 @@ Automatically remove trailing whitespaces when saving a file in =prog-mode=.
 
 Links:
 - https://github.com/flycheck/flycheck
+
+*** Smartparens
+
+  #+begin_src emacs-lisp
+  (use-package smartparens-mode
+    :ensure smartparens
+    :hook (prog-mode text-mode markdown-mode)
+    :config
+    (require 'smartparens-config))
+  #+end_src
+
+*** Commenter
+
+#+begin_src emacs-lisp
+(use-package evil-nerd-commenter
+  :ensure t)
+#+end_src
+
+Links:
+- https://github.com/redguardtoo/evil-nerd-commenter
 
 *** Language Server Protocol (LSP)
 

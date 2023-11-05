@@ -6,19 +6,9 @@ My personal emacs configuration using org-babel.
 
 Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]]. 
 
-** Startup
+** Optimization
 
-Settings related to emacs startup.
-
-*** Disable Startup Message
-
-#+begin_src emacs-lisp
-(setq inhibit-startup-message t)
-#+end_src
-
-*** Customize Garbage Collector
-
-Relax the conservative garbage collector to speed up startup time:
+Relax the conservative garbage collector to speed up startup time.
 
 #+begin_src emacs-lisp
 ;; Minimize garbage collection during startup
@@ -88,6 +78,9 @@ Settings related to user interface.
 
 ;; Set up visible bell
 (setq visible-bell t)
+
+;; Disable startup message
+(setq inhibit-startup-message t)
 
 ;; Open window maximized
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
@@ -280,13 +273,17 @@ Links:
 
 ** Completion
 
+[[https://oremacs.com/swiper/][Ivy]] is an excellent completion framework for Emacs.  It provides a minimal yet powerful selection menu that appears when you open files, switch buffers, and for many other tasks in Emacs.  Counsel is a customized set of commands to replace `find-file` with `counsel-find-file`, etc which provide useful commands for each of the default completion commands.
+
+[[https://github.com/Yevgnen/ivy-rich][ivy-rich]] adds extra columns to a few of the Counsel commands to provide more information about each item.
+
 #+begin_src emacs-lisp
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
-         ("C-l" . ivt-alt-done)
+         ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
          :map ivy-switch-buffer-map
@@ -298,6 +295,20 @@ Links:
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
+
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :config
+  (counsel-mode 1))
 #+end_src
 
 ** Tree

@@ -167,6 +167,11 @@ Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
 (defvar dashboard-title
   (format "Welcome to Emacs (%s)" emacs-version))
 
+(defun switch-treemacs-project (project-dir)
+  (counsel-projectile-switch-project-by-name project-dir)
+  (treemacs-add-and-display-current-project-exclusively)
+  (treemacs-select-window))
+
 (use-package dashboard
   :ensure t
   :init
@@ -181,7 +186,8 @@ Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
     (setq dashboard-startup-banner 'logo)
     (setq dashboard-icon-type 'all-the-icons)
     (setq dashboard-banner-logo-title dashboard-title)
-    (setq dashboard-footer-messages (list dashboard-date-time)))
+    (setq dashboard-footer-messages (list dashboard-date-time))
+    (setq dashboard-projects-switch-function 'switch-treemacs-project))
   :config
   (dashboard-setup-startup-hook))
 #+end_src

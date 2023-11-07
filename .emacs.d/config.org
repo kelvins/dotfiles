@@ -89,7 +89,10 @@ Settings related to user interface.
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(setq fill-column 120)
+;; Set default column to 120
+(setq-default fill-column 120)
+
+;; Enable column indicator
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 #+end_src
 
@@ -480,7 +483,7 @@ The which-key integration adds helpful descriptions of the various keys so you s
 
 #+begin_src emacs-lisp
 (defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode

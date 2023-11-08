@@ -253,7 +253,9 @@ Links:
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 24)))
+  :custom
+  (doom-modeline-height 24)
+  (doom-modeline-vcs-max-length 24))
 #+end_src
 
 Links:
@@ -483,7 +485,8 @@ The which-key integration adds helpful descriptions of the various keys so you s
 
 #+begin_src emacs-lisp
 (defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
+  (setq lsp-headerline-arrow ">")
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project))
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode

@@ -2,13 +2,13 @@
 
 * Emacs Configuration
 
-My personal emacs configuration using org-babel.
+This is my personal emacs configuration using =org-babel=.
 
 Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]]. 
 
 ** Optimization
 
-Relax the conservative garbage collector to speed up startup time.
+Relax the conservative garbage collector to speed up startup time ([[https://www.emacswiki.org/emacs/OptimizingEmacsStartup][EmacsWiki]]).
 
 #+begin_src emacs-lisp
 ;; Minimize garbage collection during startup
@@ -181,7 +181,8 @@ Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
   :init
   (progn
     (setq dashboard-items '((recents . 5)
-                            (projects . 5)))
+                            (projects . 5)
+                            (agenda . 5)))
     (setq dashboard-set-file-icons t)
     (setq dashboard-footer-icon nil)
     (setq dashboard-center-content t)
@@ -214,6 +215,14 @@ Make sure org mode is updated and add some customization:
   :hook (org-mode . efs/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-agenda-files
+        '("~/.emacs.d/org-files/Tasks.org"
+          "~/.emacs.d/org-files/Birthdays.org"))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "DOING(o)" "NEXT(n)" "|" "DONE(d!)" "CANCELED(c)")))
   (setq org-hide-emphasis-markers t))
 
 (defun efs/org-mode-visual-fill ()

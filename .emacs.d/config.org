@@ -225,6 +225,12 @@ Make sure org mode is updated and add some customization:
         '((sequence "TODO(t)" "DOING(o)" "NEXT(n)" "|" "DONE(d!)" "CANCELED(c)")))
   (setq org-hide-emphasis-markers t))
 
+(setq org-refile-targets
+      '(("Archive.org" :maxlevel . 1)
+        ("Tasks.org" :maxlevel . 1)))
+
+(advice-add 'org-refile :after 'org-save-all-org-buffers)
+
 (defun efs/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t)

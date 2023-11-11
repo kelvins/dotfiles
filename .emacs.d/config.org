@@ -73,16 +73,11 @@ Settings related to user interface.
 ;; Disable tooltip and bars
 (tooltip-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
 
-;; Set up visible bell
 (setq visible-bell t)
-
-;; Disable startup message
 (setq inhibit-startup-message t)
-
-;; Show trailing whitespaces
 (setq show-trailing-whitespace t)
 
 ;; Open window maximized
@@ -92,7 +87,7 @@ Settings related to user interface.
 ;; Set default column to 120
 (setq-default fill-column 120)
 
-;; Enable column indicator
+;; Enable column indicator for prog-mode
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 #+end_src
 
@@ -107,10 +102,11 @@ Display line numbers for specific modes.
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
-              term-mode-hook
-              shell-mode-hook
-              treemacs-mode-hook
-              eshell-mode-hook))
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook
+                treemacs-mode-hook))
+
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
@@ -119,10 +115,12 @@ Display line numbers for specific modes.
 Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
 
 #+begin_src emacs-lisp
+;; Set default font size
 (defvar efs/default-font-size 120)
 
 (set-face-attribute 'default nil :height efs/default-font-size)
 
+;; Set font face to "Fira Code" when available
 (when (member "Fira Code Retina" (font-family-list))
   (set-face-attribute 'default nil :font "Fira Code Retina")
   (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina")
@@ -134,8 +132,11 @@ Install =all-the-icons= with: =M-x all-the-icons-install-fonts=
 ;; Set frame font if available
 (when (window-system)
   (cond ((my/font-exists "Fira Code Retina") (set-frame-font "Fira Code Retina:spacing=100:size=16" nil t))))
+#+end_src
 
-;; Allows zoom in and out
+Add zoom in/out functionality:
+
+#+begin_src emacs-lisp
 (defun my/zoom (operator)
     (interactive)
     (set-face-attribute 'default nil

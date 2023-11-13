@@ -684,7 +684,7 @@ Add support for programming in [[https://www.rust-lang.org/][Rust]], using the f
 (add-hook 'rust-mode-hook
         (lambda () (prettify-symbols-mode)))
 
-(add-hook 'rust-mode-hook 'eglot-ensure)
+(add-hook 'rust-mode-hook #'lsp)
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 #+end_src

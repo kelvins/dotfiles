@@ -660,3 +660,33 @@ To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
 (use-package cider
   :ensure t)
 #+end_src
+
+*** Rust
+
+Add support for programming in Rust.
+
+#+begin_src emacs-lisp
+(use-package rust-mode)
+(use-package rustic)
+(use-package cargo)
+
+;; Indentation
+(add-hook 'rust-mode-hook
+          (lambda () (setq indent-tabs-mode nil)))
+
+;; Run rustfmt when saving a rust file
+(setq rust-format-on-save t)
+
+;; Prettifying
+(add-hook 'rust-mode-hook
+        (lambda () (prettify-symbols-mode)))
+
+(add-hook 'rust-mode-hook 'eglot-ensure)
+
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+#+end_src
+
+Links:
+- https://github.com/rust-lang/rust-mode
+- https://github.com/kwrooijen/cargo.el
+- https://github.com/brotzeit/rustic

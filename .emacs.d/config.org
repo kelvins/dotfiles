@@ -223,7 +223,7 @@ Make sure org mode is updated and add some customization:
 
   (org-agenda-files
         '("~/github/org-files/Tasks.org"
-          "~/github/org-files/Birthdays.org",
+          "~/github/org-files/Birthdays.org"
           "~/github/org-files/Holidays.org"))
 
   (org-refile-targets

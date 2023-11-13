@@ -663,7 +663,10 @@ To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
 
 *** Rust
 
-Add support for programming in Rust.
+Add support for programming in [[https://www.rust-lang.org/][Rust]], using the following packages:
+- [[https://github.com/rust-lang/rust-mode][rust-mode]]: add =rust-mode= to emacs and provides some functionalities such as syntax highlighting, indentation and integration with =Cargo= and =rustfmt=.
+- [[https://github.com/kwrooijen/cargo.el][cargo.el]]: provides a minor mode for integration with Cargo
+- [[https://github.com/brotzeit/rustic][rustic]]: provides additional features to =rust-mode= such as multiline error parsing, cargo popup, automatic LSP configuration with eglot or lsp-mode, and so on.
 
 #+begin_src emacs-lisp
 (use-package rust-mode)
@@ -686,7 +689,9 @@ Add support for programming in Rust.
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 #+end_src
 
-Links:
-- https://github.com/rust-lang/rust-mode
-- https://github.com/kwrooijen/cargo.el
-- https://github.com/brotzeit/rustic
+Some keybindings:
+
+- =C-c C-c C-u=: =rust-compile=
+- =C-c C-c C-k=: =rust-check=
+- =C-c C-c C-t=: =rust-test=
+- =C-c C-c C-r=: =rust-run=

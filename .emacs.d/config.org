@@ -89,6 +89,9 @@ Settings related to user interface.
 
 ;; Enable column indicator for prog-mode
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+;; Set a frame title
+(setq-default frame-title-format (format "Emacs (%s)" emacs-version))
 #+end_src
 
 *** Line Numbers
@@ -668,6 +671,8 @@ To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
   :ensure t
   :custom
   (cider-repl-display-help-banner nil))
+
+(add-hook 'cider-repl-mode-hook (lambda () (display-line-numbers-mode 0)))
 #+end_src
 
 *** Rust

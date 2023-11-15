@@ -105,7 +105,8 @@ Display line numbers for specific modes.
                 term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook
-                treemacs-mode-hook))
+                treemacs-mode-hook
+                cider-repl-mode))
 
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
@@ -160,6 +161,9 @@ Add zoom in/out functionality:
 #+begin_src emacs-lisp
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Find references
+(global-set-key (kbd "C-c r") 'lsp-find-references)
 #+end_src
 
 ** Dashboard
@@ -442,6 +446,8 @@ Links:
 (use-package golden-ratio
   :ensure t
   :init (golden-ratio-mode))
+
+(setq golden-ratio-exclude-modes '(magit-status-mode org-mode cider-repl-mode))
 #+end_src
 
 Links:
@@ -659,7 +665,9 @@ To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
 (add-hook 'clojurec-mode-hook 'lsp)
 
 (use-package cider
-  :ensure t)
+  :ensure t
+  :custom
+  (cider-repl-display-help-banner nil))
 #+end_src
 
 *** Rust

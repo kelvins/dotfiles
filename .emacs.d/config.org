@@ -96,7 +96,7 @@ Settings related to user interface.
 
 *** Line Numbers
 
-Display line numbers for specific modes.
+Display line numbers by default but disabled it for some modes.
 
 #+begin_src emacs-lisp
 ;; Display line numbers
@@ -104,14 +104,14 @@ Display line numbers for specific modes.
 (column-number-mode)
 
 ;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook
-                treemacs-mode-hook
-                cider-repl-mode))
+(defun my/disable-line-numbers () (display-line-numbers-mode 0))
 
-(add-hook mode (lambda () (display-line-numbers-mode 0))))
+(add-hook org-mode-hook 'my/disable-line-numbers)
+(add-hook term-mode-hook 'my/disable-line-numbers)
+(add-hook cider-mode-hook 'my/disable-line-numbers)
+(add-hook shell-mode-hook 'my/disable-line-numbers)
+(add-hook eshell-mode-hook 'my/disable-line-numbers)
+(add-hook treemacs-mode-hook 'my/disable-line-numbers)
 #+end_src
 
 *** Font
@@ -231,8 +231,7 @@ Make sure org mode is updated and add some customization:
   (org-agenda-files
         '("~/github/org-files/Tasks.org"
           "~/github/org-files/Birthdays.org"
-          "~/github/org-files/Holidays.org"
-          "~/github/org-files/ToBuy.org"))
+          "~/github/org-files/Holidays.org"))
 
   (org-refile-targets
         '(("Archive.org" :maxlevel . 1)
@@ -353,7 +352,13 @@ Links:
   (counsel-mode 1))
 #+end_src
 
-** Tree
+** Treemacs
+
+[[https://github.com/Alexander-Miller/treemacs][Treemacs]] is a tree layout file explorer for Emacs.
+
+Bindings:
+- =open treemacs=: =C-x t t=
+- =select directory=: =C-x t d=
 
 #+begin_src emacs-lisp
 (use-package treemacs
@@ -361,13 +366,10 @@ Links:
   :defer t
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
         ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag))
+        ("M-0"       . treemacs-select-window)
+        ("C-x t d"   . treemacs-select-directory))
   :config
   (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs))
 
@@ -378,7 +380,10 @@ Links:
 
 ** Magit
 
-Common Git operations are easy to execute quickly using Magit's command panel system.
+Common Git operations are easy to execute quickly using [[https://github.com/magit/magit][Magit's]] command panel system.
+
+Bindings:
+- =magit status=: =C-x g=
 
 #+begin_src emacs-lisp
 (use-package magit
@@ -386,9 +391,6 @@ Common Git operations are easy to execute quickly using Magit's command panel sy
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 #+end_src
-
-Links:
-- https://github.com/magit/magit
 
 ** Projectile
 
@@ -511,6 +513,12 @@ We use the excellent lsp-mode to enable IDE-like functionality for many differen
 The lsp-keymap-prefix setting enables you to define a prefix for where lsp-mode’s default keybindings will be added. I highly recommend using the prefix to find out what you can do with lsp-mode in a buffer.
 
 The which-key integration adds helpful descriptions of the various keys so you should be able to learn a lot just by pressing C-c l in a lsp-mode buffer and trying different things that you find there.
+
+Bindings:
+- =rename=: =C-c l r r=
+- =organize imports=: =C-c l r o=
+- =find references=: =C-c l g r=
+- =find definitions=: =C-c l g g=
 
 #+begin_src emacs-lisp
 (defun efs/lsp-mode-setup ()

@@ -669,7 +669,8 @@ Links:
 
 To install =clojure-lsp= run: =M-x lsp-install-server RET clojure-lsp=
 
-- TODO: autoformat when saving
+Bindings:
+- =REPL=: =C-c M-j=
 
 #+begin_src emacs-lisp
 (add-hook 'clojure-mode-hook 'lsp)

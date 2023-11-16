@@ -106,12 +106,12 @@ Display line numbers by default but disabled it for some modes.
 ;; Disable line numbers for some modes
 (defun my/disable-line-numbers () (display-line-numbers-mode 0))
 
-(add-hook org-mode-hook 'my/disable-line-numbers)
-(add-hook term-mode-hook 'my/disable-line-numbers)
-(add-hook cider-mode-hook 'my/disable-line-numbers)
-(add-hook shell-mode-hook 'my/disable-line-numbers)
-(add-hook eshell-mode-hook 'my/disable-line-numbers)
-(add-hook treemacs-mode-hook 'my/disable-line-numbers)
+(add-hook org-mode-hook my/disable-line-numbers)
+(add-hook term-mode-hook my/disable-line-numbers)
+(add-hook cider-mode-hook my/disable-line-numbers)
+(add-hook shell-mode-hook my/disable-line-numbers)
+(add-hook eshell-mode-hook my/disable-line-numbers)
+(add-hook treemacs-mode-hook my/disable-line-numbers)
 #+end_src
 
 *** Font

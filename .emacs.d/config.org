@@ -100,18 +100,14 @@ Display line numbers by default but disabled it for some modes.
 
 #+begin_src emacs-lisp
 ;; Display line numbers
-(global-display-line-numbers-mode t)
+(global-display-line-numbers-mode -1)
 (column-number-mode)
 
 ;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook
-                treemacs-mode-hook
-                cider-repl-mode))
+(dolist (mode '(prog-mode-hook
+                text-mode-hook))
 
-(add-hook mode (lambda () (display-line-numbers-mode 0))))
+(add-hook mode (lambda () (display-line-numbers-mode t))))
 #+end_src
 
 *** Font
@@ -178,11 +174,18 @@ Add zoom in/out functionality:
 (defvar dashboard-title
   (format "Welcome to Emacs (%s)" emacs-version))
 
-(defun my/project-switch-function (project-dir)
+(defun ensure-trailing-slash (text)
+  "Ensure that TEXT ends with a slash."
+  (if (not (string-suffix-p "/" text))
+    (concat text "/")
+    text))
+
+(defun my/open-project (project-dir)
+  (interactive "sProject:")
   (counsel-projectile-switch-project-by-name project-dir)
   (treemacs-add-and-display-current-project-exclusively)
   (treemacs-select-window)
-  (find-file (concat project-dir "README.md")))
+  (find-file (concat (ensure-trailing-slash project-dir) "README.md")))
 
 (use-package dashboard
   :ensure t
@@ -200,7 +203,7 @@ Add zoom in/out functionality:
     (setq dashboard-icon-type 'all-the-icons)
     (setq dashboard-banner-logo-title dashboard-title)
     (setq dashboard-footer-messages (list dashboard-date-time))
-    (setq dashboard-projects-switch-function 'my/project-switch-function))
+    (setq dashboard-projects-switch-function 'my/open-project))
   :config
   (dashboard-setup-startup-hook))
 #+end_src
@@ -372,6 +375,8 @@ Bindings:
         ("C-x t d"   . treemacs-select-directory))
   :config
   (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs))
+
+(add-hook 'treemacs-mode-hook (lambda () (setq mode-line-format nil)))
 
 (use-package treemacs-evil
   :after (treemacs evil)
@@ -609,6 +614,12 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
   (lsp-mode . dap-ui-mode))
 #+end_src
 
+*** Docker
+
+#+begin_src emacs-lisp
+(use-package dockerfile-mode)
+#+end_src
+
 *** Python
 
 #+begin_src emacs-lisp
@@ -719,3 +730,4 @@ Some keybindings:
 - =C-c C-c C-k=: =rust-check=
 - =C-c C-c C-t=: =rust-test=
 - =C-c C-c C-r=: =rust-run=
+

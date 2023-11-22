@@ -464,6 +464,28 @@ Links:
 Links:
 - https://github.com/roman/golden-ratio.el
 
+** Spell Checking
+
+Spell checking using =flyspell= and =ispell=.
+
+To install =ispell= use =brew install ispell= or =apt-get install ispell=.
+
+#+begin_src emacs-lisp
+(dolist (mode '(prog-mode-hook
+                text-mode-hook))
+  (add-hook mode (lambda () (flyspell-mode 1))))
+
+(defun flyspell-portuguese ()
+  (interactive)
+  (ispell-change-dictionary "brazilian")
+  (flyspell-buffer))
+
+(defun flyspell-english ()
+  (interactive)
+  (ispell-change-dictionary "default")
+  (flyspell-buffer))
+#+end_src
+
 ** Programming
 
 Settings and packages related to programming.

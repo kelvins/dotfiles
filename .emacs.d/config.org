@@ -504,6 +504,10 @@ Automatically remove trailing whitespaces when saving a file in =prog-mode=.
 
 *** Syntax Checking
 
+Bindings:
+- =next-error=: =M-g n=
+- =previous-error=: =M-g p=
+
 #+begin_src emacs-lisp
 (use-package flycheck
   :ensure t

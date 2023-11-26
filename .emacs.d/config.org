@@ -310,6 +310,9 @@ Links:
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
+
+(evil-define-key 'normal dired-mode-map (kbd "<return>") 'dired-find-file)
+(evil-define-key 'normal dired-mode-map (kbd "TAB") 'dired-find-file)
 #+end_src
 
 Links:

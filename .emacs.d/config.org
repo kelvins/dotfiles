@@ -213,7 +213,12 @@ Links:
 
 ** Org Mode
 
-Make sure org mode is updated and add some customization:
+Make sure org mode is updated and add some customization.
+
+Bindings:
+
+- =toggle todo=: =C-c C-t=
+- =org-schedule=: =C-c C-s=
 
 #+begin_src emacs-lisp
 (defun efs/org-mode-setup ()

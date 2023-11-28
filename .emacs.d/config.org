@@ -4,7 +4,7 @@
 
 This is my personal emacs configuration using =org-babel=.
 
-Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]]. 
+Based on [[https://www.youtube.com/playlist?list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ][Emacs from Scratch]].
 
 ** Optimization
 
@@ -518,7 +518,7 @@ Bindings:
 
 #+begin_src emacs-lisp
 (use-package flycheck
-  :ensure t
+  :defer t
   :init (global-flycheck-mode))
 #+end_src
 
@@ -537,9 +537,13 @@ Links:
 
 *** Commenter
 
+Bindings:
+
+- =comment=: =M-;=
+
 #+begin_src emacs-lisp
 (use-package evil-nerd-commenter
-  :ensure t)
+  :defer t)
 #+end_src
 
 Links:
@@ -643,6 +647,7 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
 #+begin_src emacs-lisp
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package dap-mode
+  :defer t
   :hook
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode))
@@ -651,14 +656,14 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
 *** Docker
 
 #+begin_src emacs-lisp
-(use-package dockerfile-mode)
+(use-package dockerfile-mode
+  :defer t)
 #+end_src
 
 *** Python
 
 #+begin_src emacs-lisp
 (use-package elpy
-  :ensure t
   :defer t
   :init
   (advice-add 'python-mode :before 'elpy-enable))
@@ -672,10 +677,12 @@ Links:
 #+begin_src emacs-lisp
 ;; Enable scala-mode for highlighting, indentation and motion commands
 (use-package scala-mode
+  :defer t
   :interpreter ("scala" . scala-mode))
 
 ;; Enable sbt mode for executing sbt commands
 (use-package sbt-mode
+  :defer t
   :commands sbt-start sbt-command
   :config
   ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
@@ -689,7 +696,7 @@ Links:
 
 ;; Add metals backend for lsp-mode
 (use-package lsp-metals
-  :ensure t
+  :defer t
   :custom
   (lsp-metals-server-args '(
                             "-J-Dmetals.allow-multiline-string-formatting=off"
@@ -711,7 +718,7 @@ Bindings:
 (add-hook 'clojurec-mode-hook 'lsp)
 
 (use-package cider
-  :ensure t
+  :defer t
   :custom
   (cider-repl-display-help-banner nil))
 
@@ -725,10 +732,22 @@ Add support for programming in [[https://www.rust-lang.org/][Rust]], using the f
 - [[https://github.com/kwrooijen/cargo.el][cargo.el]]: provides a minor mode for integration with Cargo
 - [[https://github.com/brotzeit/rustic][rustic]]: provides additional features to =rust-mode= such as multiline error parsing, cargo popup, automatic LSP configuration with eglot or lsp-mode, and so on.
 
+Key bindings:
+
+- =C-c C-c C-u=: =rust-compile=
+- =C-c C-c C-k=: =rust-check=
+- =C-c C-c C-t=: =rust-test=
+- =C-c C-c C-r=: =rust-run=
+
 #+begin_src emacs-lisp
-(use-package rust-mode)
-(use-package rustic)
-(use-package cargo)
+(use-package rust-mode
+  :defer t)
+
+(use-package rustic
+  :defer t)
+
+(use-package cargo
+  :defer t)
 
 ;; Indentation
 (add-hook 'rust-mode-hook
@@ -745,11 +764,4 @@ Add support for programming in [[https://www.rust-lang.org/][Rust]], using the f
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 #+end_src
-
-Some keybindings:
-
-- =C-c C-c C-u=: =rust-compile=
-- =C-c C-c C-k=: =rust-check=
-- =C-c C-c C-t=: =rust-test=
-- =C-c C-c C-r=: =rust-run=
 

@@ -417,9 +417,6 @@ Bindings:
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
-
-  (when (file-directory-p "~/dev/nu")
-    (setq projectile-project-search-path '("~/dev/nu")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
@@ -477,6 +474,11 @@ Links:
 Spell checking using =flyspell= and =ispell=.
 
 To install =ispell= use =brew install ispell= or =apt-get install ispell=.
+
+Key bindings:
+
+- =open suggestions=: =z ==
+- =add to dictionary=: =z = i=
 
 #+begin_src emacs-lisp
 (dolist (mode '(prog-mode-hook

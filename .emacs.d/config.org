@@ -698,13 +698,18 @@ Links:
 
 ;; Add metals backend for lsp-mode
 (use-package lsp-metals
-  :defer t
+  :ensure t
   :custom
-  (lsp-metals-server-args '(
-                            "-J-Dmetals.allow-multiline-string-formatting=off"
-                            "-J-Dmetals.icons=unicode"))
+  (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"
+                            "-J-Dmetals.icons=unicode"
+                            "-J-Dscalafix.rewrite.onSave=true"
+                            "--scalafix-rules=core.RemoveUnused,core.RedundantBraces,style.SortImports,style.groupedImports"))
   (lsp-metals-enable-semantic-highlighting t)
   :hook (scala-mode . lsp))
+
+;(add-hook 'scala-mode-hook
+;        (lambda ()
+;          (add-hook 'after-save-hook 'lsp-metals-run-scalafix)))
 #+end_src
 
 *** Clojure

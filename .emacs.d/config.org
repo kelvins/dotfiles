@@ -184,6 +184,7 @@ Add zoom in/out functionality:
   (interactive "sProject:")
   (counsel-projectile-switch-project-by-name project-dir)
   (treemacs-add-and-display-current-project-exclusively)
+  (treemacs-hide-gitignored-files-mode t)
   (treemacs-select-window)
   (find-file (concat (ensure-trailing-slash project-dir) "README.md")))
 
@@ -382,12 +383,25 @@ Bindings:
         ("M-0"       . treemacs-select-window)
         ("C-x t d"   . treemacs-select-directory))
   :config
-  (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs))
+  (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs)
+  (setq treemacs-hide-gitignored-files-mode t))
 
 (add-hook 'treemacs-mode-hook (lambda () (setq mode-line-format nil)))
 
 (use-package treemacs-evil
   :after (treemacs evil)
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
   :ensure t)
 #+end_src
 
@@ -494,6 +508,8 @@ Key bindings:
   (interactive)
   (ispell-change-dictionary "default")
   (flyspell-buffer))
+
+(setq ispell-personal-dictionary "~/.emacs.d/ispell/english")
 #+end_src
 
 ** Programming
@@ -522,6 +538,8 @@ Bindings:
 (use-package flycheck
   :defer t
   :init (global-flycheck-mode))
+
+(setq flycheck-markdown-markdownlint-cli-config "~/.emacs.d/flycheck/markdownlint.json")
 #+end_src
 
 Links:

@@ -108,6 +108,8 @@ Display line numbers by default but disabled it for some modes.
                 text-mode-hook))
 
 (add-hook mode (lambda () (display-line-numbers-mode t))))
+
+(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
 #+end_src
 
 *** Font

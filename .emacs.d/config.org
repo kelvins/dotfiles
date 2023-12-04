@@ -85,7 +85,8 @@ Settings related to user interface.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Set default column to 120
-(setq-default fill-column 120)
+(add-hook 'prog-mode-hook (lambda () (setq-default fill-column 120)))
+(add-hook 'python-mode-hook (lambda () (setq-default fill-column 80)))
 
 ;; Enable column indicator for prog-mode
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)

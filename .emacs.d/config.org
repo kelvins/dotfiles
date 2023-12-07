@@ -93,6 +93,9 @@ Settings related to user interface.
 
 ;; Set a frame title
 (setq-default frame-title-format (format "Emacs (%s)" emacs-version))
+
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
 #+end_src
 
 *** Line Numbers
@@ -166,6 +169,16 @@ Add zoom in/out functionality:
 
 ;; Find references
 (global-set-key (kbd "C-c r") 'lsp-find-references)
+#+end_src
+
+*** Keep Folders Clean
+
+#+begin_src emacs-lisp
+;; Disable backup files
+(setq make-backup-files nil)
+
+;; Disable lock files
+(setq create-lockfiles nil)
 #+end_src
 
 ** Dashboard

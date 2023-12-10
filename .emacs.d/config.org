@@ -306,7 +306,8 @@ Links:
   :init (doom-modeline-mode 1)
   :custom
   (doom-modeline-height 24)
-  (doom-modeline-vcs-max-length 24))
+  (doom-modeline-vcs-max-length 64)
+  (doom-modeline-buffer-file-name-style 'file-name))
 #+end_src
 
 Links:

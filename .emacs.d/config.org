@@ -400,7 +400,6 @@ Bindings:
         ("M-0"       . treemacs-select-window)
         ("C-x t d"   . treemacs-select-directory))
   :config
-  (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs)
   (setq treemacs-hide-gitignored-files-mode t))
 
 (add-hook 'treemacs-mode-hook (lambda () (setq mode-line-format nil)))

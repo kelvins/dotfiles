@@ -602,7 +602,9 @@ Bindings:
 #+begin_src emacs-lisp
 (defun efs/lsp-mode-setup ()
   (setq lsp-headerline-arrow ">")
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project))
+  (setq lsp-headerline-breadcrumb-segments '(project path-up-to-project file))
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+  (setq lsp-headerline-breadcrumb-icons-enable nil)
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode

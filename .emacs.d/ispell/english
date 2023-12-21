@@ -9,6 +9,8 @@ fn
 fs
 GitHub
 impl
+iter
+java
 LocalDate
 ls
 markdown
@@ -17,6 +19,7 @@ ns
 PartitionConfig
 println
 pwd
+scala
 SparkOp
 sql
 src
@@ -25,3 +28,4 @@ stderr
 stdout
 str
 struct
+toVector

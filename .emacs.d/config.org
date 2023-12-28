@@ -691,6 +691,19 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
   (lsp-mode . dap-ui-mode))
 #+end_src
 
+*** YAML
+
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :defer t)
+
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
+;; Enable highlight-indentation-mode only for yaml-mode
+(add-hook 'yaml-mode-hook 'highlight-indentation-mode)
+#+end_src
+
 *** Docker
 
 #+begin_src emacs-lisp

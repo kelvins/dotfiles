@@ -96,6 +96,10 @@ Settings related to user interface.
 
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
+
+;; Improve Scrolling
+(setq scroll-step 1)
+(setq scroll-margin 1)
 #+end_src
 
 *** Line Numbers

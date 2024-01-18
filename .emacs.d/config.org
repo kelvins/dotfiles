@@ -790,6 +790,16 @@ Bindings:
     (cider-repl-set-ns (cider-current-ns))
     (cider-switch-to-repl-buffer)
     (cider-ns-refresh))
+
+(defun my/cider-run-tests ()
+  (interactive)
+  (cider-ns-refresh)
+  (cider-test-run-project-tests nil))
+
+(defun my/cider-run-ns-tests ()
+  (interactive)
+  (cider-ns-refresh)
+  (cider-test-run-ns-tests nil))
 #+end_src
 
 *** Rust

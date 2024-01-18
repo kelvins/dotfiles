@@ -44,10 +44,12 @@ fmap
 fn
 fs
 GitHub
+idempotence
 impl
 init
 Int
 IntegerType
+IProducer
 iter
 java
 json

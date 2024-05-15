@@ -157,14 +157,17 @@
     (concat text "/")
     text))
 
-(defun my/open-project (project-dir)
-  "Open a project based on the provided PROJECT-DIR."
-  (interactive "sProject:")
-  (counsel-projectile-switch-project project-dir)
+(defun my/open-project ()
+  "Open a new project."
+  (interactive)
+  (projectile-switch-open-project)
+  (treemacs-hide-gitignored-files-mode t)
   (treemacs-add-and-display-current-project-exclusively)
-  ;;(treemacs-hide-gitignored-files-mode t)
   (treemacs-select-window)
-  (find-file (concat (ensure-trailing-slash project-dir) "README.md")))
+  (let ((readme (expand-file-name "README.md" (projectile-project-root))))
+    (if (file-exists-p readme)
+        (find-file readme)
+      (message "No README.md found in the project"))))
 
 (use-package dashboard
   :ensure t
@@ -311,15 +314,6 @@
   :init
   (ivy-rich-mode 1))
 
-(use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history))
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :config
-  (counsel-mode 1))
-
 ;; Treemacs
 ;; Treemacs is a tree layout file explorer for Emacs
 
@@ -382,6 +376,15 @@
   ("C-c p" . projectile-command-map)
   :init
   (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :config
+  (counsel-mode 1))
 
 (use-package counsel-projectile
   :after projectile

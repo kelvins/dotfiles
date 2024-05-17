@@ -133,20 +133,6 @@
 (when (window-system)
   (cond ((my/font-exists "Fira Code Retina") (set-frame-font "Fira Code Retina:spacing=100:size=16" nil t))))
 
-;; Open a new project with projectile and treemacs
-
-(defun my/open-project ()
-  "Open a new project."
-  (interactive)
-  (projectile-switch-open-project)
-  (treemacs-hide-gitignored-files-mode t)
-  (treemacs-add-and-display-current-project-exclusively)
-  (treemacs-select-window)
-  (let ((readme (expand-file-name "README.md" (projectile-project-root))))
-    (if (file-exists-p readme)
-        (find-file readme)
-      (message "No README.md found in the project"))))
-
 ;; Theme
 ;; https://draculatheme.com
 
@@ -167,6 +153,21 @@
   (doom-modeline-height 24)
   (doom-modeline-vcs-max-length 64)
   (doom-modeline-buffer-file-name-style 'file-name))
+
+(defun ensure-trailing-slash (text)
+  "Ensure that TEXT ends with a slash."
+  (if (not (string-suffix-p "/" text))
+    (concat text "/")
+    text))
+
+(defun my/open-project (project-dir)
+  "Open a new project."
+  (interactive "sProject: ")
+  (counsel-projectile-switch-project-by-name project-dir)
+  (find-file (concat (ensure-trailing-slash project-dir) "README.md"))
+  (treemacs-add-and-display-current-project-exclusively)
+  (treemacs-hide-gitignored-files-mode t)
+  (treemacs-select-window))
 
 ;; Dashboard
 ;; https://github.com/emacs-dashboard/emacs-dashboard
@@ -192,8 +193,9 @@
     (setq dashboard-startup-banner 'logo)
     (setq dashboard-icon-type 'all-the-icons)
     (setq dashboard-banner-logo-title dashboard-title)
-    (setq dashboard-footer-messages (list dashboard-date-time)))
-    ;;(setq dashboard-projects-switch-function 'my/open-project))
+    (setq dashboard-footer-messages (list dashboard-date-time))
+    (setq dashboard-projects-backend 'projectile)
+    (setq dashboard-projects-switch-function 'my/open-project))
   :config
   (dashboard-setup-startup-hook))
 

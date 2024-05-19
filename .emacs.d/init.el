@@ -199,6 +199,17 @@
   :config
   (dashboard-setup-startup-hook))
 
+(defun my/dashboard? (frame)
+  "Check if the FRAME is a dashboard."
+  (let ((current-buffer (window-buffer (selected-window))))
+    (and (string= (buffer-name current-buffer) "*dashboard*")
+         (eq (selected-window) (frame-selected-window frame)))))
+
+(add-hook 'window-selection-change-functions
+          (lambda (frame)
+            (when (my/dashboard? frame)
+              (delete-other-windows-internal))))
+
 ;; Org Mode
 
 ;; Bindings:

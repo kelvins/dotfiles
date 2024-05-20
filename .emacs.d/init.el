@@ -4,15 +4,179 @@
 
 ;;; Code:
 
+;; -----------------------------------------------------------------------
+;; Optimizations
+;; -----------------------------------------------------------------------
 ;; Relax the conservative garbage collector to speed up startup time
-;; https://www.emacswiki.org/emacs/OptimizingEmacsStartup
+;; Reference: https://www.emacswiki.org/emacs/OptimizingEmacsStartup
+;; -----------------------------------------------------------------------
 
-;; Minimize garbage collection during startup
+;; Minimize garbage collection during startup by increasing the threshold
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Lower threshold back to 8 MiB (default is 800kB)
+;; Lower threshold back after startup (default is 800kB)
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold (expt 2 23))))
+
+;; -----------------------------------------------------------------------
+;; UI Settings
+;; -----------------------------------------------------------------------
+
+;; Disable tooltip and bars
+(tooltip-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+(setq visible-bell t)
+(setq inhibit-startup-message t)
+(setq show-trailing-whitespace t)
+
+;; Open window maximized
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Set default column to 120 for prog-mode and 80 for python-mode
+(add-hook 'prog-mode-hook (lambda () (setq-default fill-column 120)))
+(add-hook 'python-mode-hook (lambda () (setq-default fill-column 80)))
+
+;; Enable column indicator for prog-mode
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+;; Set a frame title
+(setq-default frame-title-format (format "Emacs (%s)" emacs-version))
+
+;; Revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+
+;; Improve Scrolling
+(setq scroll-step 1)
+(setq scroll-margin 1)
+
+;; Disable global line numbers so we can enable just for a few modes
+(global-display-line-numbers-mode -1)
+(column-number-mode)
+
+;; Enable line numbers for some modes
+(dolist (mode '(prog-mode-hook text-mode-hook))
+(add-hook mode (lambda () (display-line-numbers-mode t))))
+
+;; Disable line numbers for org-mode
+(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
+
+;; Fix indentation
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Find references
+(global-set-key (kbd "C-c r") 'lsp-find-references)
+
+;; Disable backup and lock files
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+
+;; -----------------------------------------------------------------------
+;; Custom Functions
+;; -----------------------------------------------------------------------
+
+;; Check if font exists
+(defun my/font-exists (font)
+  "Check if a given FONT exists."
+  (if (null (x-list-fonts font)) nil t))
+
+(defun my/ensure-trailing-slash (text)
+  "Ensure that TEXT ends with a slash."
+  (if (not (string-suffix-p "/" text))
+    (concat text "/")
+    text))
+
+(defun my/is-current-frame? (frame expected-buffer-name)
+  "Check if the current FRAME is related to the buffer EXPECTED-BUFFER-NAME."
+  (let ((current-buffer (window-buffer (selected-window))))
+    (and (string= (buffer-name current-buffer) expected-buffer-name)
+         (eq (selected-window) (frame-selected-window frame)))))
+
+(defun my/org-mode-setup ()
+  "Define the org-mode-setup."
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
+
+(defun my/org-mode-visual-fill ()
+  "Align text when in \"org-mode\"."
+  (setq visual-fill-column-width 100)
+  (setq visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(defun my/remove-trailing-whitespace ()
+  "Remove trailing whitespaces."
+  (when (derived-mode-p 'prog-mode)
+    (delete-trailing-whitespace)))
+
+(defun my/lsp-mode-setup ()
+  "Configure LSP mode."
+  (setq lsp-headerline-arrow ">")
+  (setq lsp-headerline-breadcrumb-segments '(project path-up-to-project file))
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+  (setq lsp-headerline-breadcrumb-icons-enable nil)
+  (lsp-headerline-breadcrumb-mode))
+
+(defun my/cider-ns-refresh ()
+  "Use Cider to refresh namespace."
+  (cider-switch-to-last-clojure-buffer)
+  (cider-repl-set-ns (cider-current-ns))
+  (cider-switch-to-repl-buffer)
+  (cider-ns-refresh))
+
+(defun my/cider-run-tests ()
+  "Use Cider to refresh namespace and run project tests."
+  (interactive)
+  (cider-ns-refresh)
+  (cider-test-run-project-tests nil))
+
+(defun my/cider-run-ns-tests ()
+  "Use Cider to refresh namespace and run namespace tests."
+  (interactive)
+  (cider-ns-refresh)
+  (cider-test-run-ns-tests nil))
+
+(defun my/open-project (project-dir)
+  "Open a new project based on the provided PROJECT-DIR."
+  (interactive "sProject: ")
+  (counsel-projectile-switch-project-by-name project-dir)
+  (find-file (concat (my/ensure-trailing-slash project-dir) "README.md"))
+  (treemacs-add-and-display-current-project-exclusively)
+  (treemacs-hide-gitignored-files-mode t)
+  (treemacs-select-window))
+
+;; -----------------------------------------------------------------------
+;; Font
+;; -----------------------------------------------------------------------
+;; Install all-the-icons with: M-x all-the-icons-install-fonts
+;; -----------------------------------------------------------------------
+
+;; Set default font size
+(defvar my/default-font-size 120)
+
+(set-face-attribute 'default nil :height my/default-font-size)
+
+;; Set font face to "Fira Code" when available
+(when (member "Fira Code Retina" (font-family-list))
+  (set-face-attribute 'default nil :font "Fira Code Retina")
+  (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina")
+  (set-face-attribute 'variable-pitch nil :font "Fira Code Retina"))
+
+;; Set frame font if available
+(when (window-system)
+  (cond ((my/font-exists "Fira Code Retina") (set-frame-font "Fira Code Retina:spacing=100:size=16" nil t))))
+
+;; -----------------------------------------------------------------------
+;; Packages
+;; -----------------------------------------------------------------------
 
 ;; Set package archives and initialize package
 
@@ -47,104 +211,26 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
-;; Basic Emacs Settings
-
-;; Disable tooltip and bars
-(tooltip-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-
-(setq visible-bell t)
-(setq inhibit-startup-message t)
-(setq show-trailing-whitespace t)
-
-;; Open window maximized
-(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; Set default column to 120 for prog-mode and 80 for python-mode
-(add-hook 'prog-mode-hook (lambda () (setq-default fill-column 120)))
-(add-hook 'python-mode-hook (lambda () (setq-default fill-column 80)))
-
-;; Enable column indicator for prog-mode
-(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
-
-;; Set a frame title
-(setq-default frame-title-format (format "Emacs (%s)" emacs-version))
-
-;; Revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-
-;; Improve Scrolling
-(setq scroll-step 1)
-(setq scroll-margin 1)
-
-;; Line Numbers
-
-;; Disable global line numbers so we can enable just for a few modes
-(global-display-line-numbers-mode -1)
-(column-number-mode)
-
-;; Enable line numbers for some modes
-(dolist (mode '(prog-mode-hook text-mode-hook))
-(add-hook mode (lambda () (display-line-numbers-mode t))))
-
-;; Disable line numbers for org-mode
-(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
-
-;; Fix indentation
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-;; Find references
-(global-set-key (kbd "C-c r") 'lsp-find-references)
-
-;; Disable backup files
-(setq make-backup-files nil)
-
-;; Disable lock files
-(setq create-lockfiles nil)
-
-;; Font
-;; Install all-the-icons with: M-x all-the-icons-install-fonts
-
-;; Set default font size
-(defvar efs/default-font-size 120)
-
-(set-face-attribute 'default nil :height efs/default-font-size)
-
-;; Set font face to "Fira Code" when available
-(when (member "Fira Code Retina" (font-family-list))
-  (set-face-attribute 'default nil :font "Fira Code Retina")
-  (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina")
-  (set-face-attribute 'variable-pitch nil :font "Fira Code Retina"))
-
-;; Check if font exists
-(defun my/font-exists (font)
-  "Check if a given FONT exists."
-  (if (null (x-list-fonts font)) nil t))
-
-;; Set frame font if available
-(when (window-system)
-  (cond ((my/font-exists "Fira Code Retina") (set-frame-font "Fira Code Retina:spacing=100:size=16" nil t))))
-
+;; -----------------------------------------------------------------------
 ;; Theme
+;; -----------------------------------------------------------------------
 ;; https://draculatheme.com
+;; -----------------------------------------------------------------------
 
 (use-package dracula-theme
   :init (load-theme 'dracula t))
 
+;; -----------------------------------------------------------------------
 ;;; Icons
+;; -----------------------------------------------------------------------
 
 (use-package all-the-icons)
 
+;; -----------------------------------------------------------------------
 ;; Modeline
+;; -----------------------------------------------------------------------
 ;; https://github.com/seagle0128/doom-modeline
+;; -----------------------------------------------------------------------
 
 (use-package doom-modeline
   :ensure t
@@ -154,23 +240,11 @@
   (doom-modeline-vcs-max-length 64)
   (doom-modeline-buffer-file-name-style 'file-name))
 
-(defun ensure-trailing-slash (text)
-  "Ensure that TEXT ends with a slash."
-  (if (not (string-suffix-p "/" text))
-    (concat text "/")
-    text))
-
-(defun my/open-project (project-dir)
-  "Open a new project."
-  (interactive "sProject: ")
-  (counsel-projectile-switch-project-by-name project-dir)
-  (find-file (concat (ensure-trailing-slash project-dir) "README.md"))
-  (treemacs-add-and-display-current-project-exclusively)
-  (treemacs-hide-gitignored-files-mode t)
-  (treemacs-select-window))
-
+;; -----------------------------------------------------------------------
 ;; Dashboard
+;; -----------------------------------------------------------------------
 ;; https://github.com/emacs-dashboard/emacs-dashboard
+;; -----------------------------------------------------------------------
 
 (defvar dashboard-title
   (format "Welcome to Emacs (%s)" emacs-version))
@@ -182,9 +256,9 @@
   :ensure t
   :init
   (progn
-    (setq dashboard-items '((recents  . 5)
-                            (projects . 5)
-                            (agenda   . 5)))
+    (setq dashboard-items '((recents  . 6)
+                            (projects . 6)
+                            (agenda   . 6)))
     (setq dashboard-set-file-icons t)
     (setq dashboard-footer-icon nil)
     (setq dashboard-center-content t)
@@ -199,37 +273,27 @@
   :config
   (dashboard-setup-startup-hook))
 
-(defun my/is-current-frame? (frame expected-buffer-name)
-  "Check if the current FRAME is related to the buffer EXPECTED-BUFFER-NAME."
-  (let ((current-buffer (window-buffer (selected-window))))
-    (and (string= (buffer-name current-buffer) expected-buffer-name)
-         (eq (selected-window) (frame-selected-window frame)))))
-
 ;; Automatically close treemacs window when changing to a specific frame
 (add-hook 'window-selection-change-functions
           (lambda (frame)
             (when (my/is-current-frame? frame "*dashboard*")
               (delete-other-windows-internal))))
 
+;; -----------------------------------------------------------------------
 ;; Org Mode
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; toggle todo: C-c C-t
 ;; org-schedule: C-c C-s
-
+;; -----------------------------------------------------------------------
 ;; https://orgmode.org
 ;; https://github.com/sabof/org-bullets
 ;; https://github.com/joostkremers/visual-fill-column
-
-(defun efs/org-mode-setup ()
-  "Define the org-mode-setup."
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1))
+;; -----------------------------------------------------------------------
 
 (use-package org
   :pin org
-  :hook (org-mode . efs/org-mode-setup)
+  :hook (org-mode . my/org-mode-setup)
   :custom
   (org-ellipsis " ▾")
   (org-log-done 'time)
@@ -248,22 +312,19 @@
 
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-(defun efs/org-mode-visual-fill ()
-  "Align text when in \"org-mode\"."
-  (setq visual-fill-column-width 100)
-  (setq visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-
 (use-package visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
+  :hook (org-mode . my/org-mode-visual-fill))
 
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+;; -----------------------------------------------------------------------
 ;; Evil Mode
+;; -----------------------------------------------------------------------
 ;; https://github.com/emacs-evil/evil
+;; -----------------------------------------------------------------------
 
 (use-package evil
   :init
@@ -282,22 +343,27 @@
 (evil-define-key 'normal dired-mode-map (kbd "<return>") 'dired-find-file)
 (evil-define-key 'normal dired-mode-map (kbd "TAB") 'dired-find-file)
 
+;; -----------------------------------------------------------------------
 ;; Magit
+;; -----------------------------------------------------------------------
 ;; Common Git operations are easy to execute quickly using Magit’s command panel system
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; magit status: C-x g
+;; -----------------------------------------------------------------------
 
 (use-package magit
   :commands magit-status
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+;; -----------------------------------------------------------------------
 ;; Treemacs
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; open treemacs: C-x t t
 ;; select directory: C-x t d
+;; -----------------------------------------------------------------------
 
 (use-package treemacs
   :ensure t
@@ -329,12 +395,12 @@
   :after (treemacs magit)
   :ensure t)
 
+;; -----------------------------------------------------------------------
 ;; Completion
-
-;; Ivy is an excellent completion framework for Emacs.
-;; It provides a minimal yet powerful selection menu that appears when you open files, switch buffers,
-;; and for many other tasks in Emacs. Counsel is a customized set of commands to replace `find-file` with
-;; `counsel-find-file`, etc which provide useful commands for each of the default completion commands.
+;; -----------------------------------------------------------------------
+;; Ivy provides a minimal yet powerful selection menu that appears when
+;; you open files, switch buffers, and for many other tasks in Emacs.
+;; -----------------------------------------------------------------------
 
 (use-package ivy
   :diminish
@@ -354,18 +420,21 @@
   :config
   (ivy-mode 1))
 
+;; -----------------------------------------------------------------------
 ;; ivy-rich adds extra columns to a few of the Counsel commands to provide more information about each item
+;; -----------------------------------------------------------------------
 
 (use-package ivy-rich
   :diminish
   :init
   (ivy-rich-mode 1))
 
-;; Projectile
+;; -----------------------------------------------------------------------
 ;; Projectile is a project management library for Emacs which makes it a lot easier to navigate around
 ;; code projects for various languages. Many packages integrate with Projectile so it’s a good idea to
 ;; have it installed even if you don’t use its commands directly.
 ;; https://github.com/bbatsov/projectile
+;; -----------------------------------------------------------------------
 
 (use-package projectile
   :diminish projectile-mode
@@ -375,6 +444,12 @@
   ("C-c p" . projectile-command-map)
   :init
   (setq projectile-switch-project-action #'projectile-dired))
+
+;; -----------------------------------------------------------------------
+;; Counsel is a customized set of commands to replace `find-file` with
+;; `counsel-find-file`, etc which provide useful commands for each of the
+;; default completion commands.
+;; -----------------------------------------------------------------------
 
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)
@@ -389,7 +464,9 @@
   :after projectile
   :config (counsel-projectile-mode))
 
+;; -----------------------------------------------------------------------
 ;; Term Mode
+;; -----------------------------------------------------------------------
 
 (use-package term
   :commands term
@@ -398,9 +475,12 @@
   ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
+;; -----------------------------------------------------------------------
 ;; Helpers
+;; -----------------------------------------------------------------------
 ;; https://github.com/justbur/emacs-which-key
 ;; https://github.com/Fanael/rainbow-delimiters
+;; -----------------------------------------------------------------------
 
 (use-package which-key
   :defer 0
@@ -412,8 +492,11 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;; -----------------------------------------------------------------------
 ;; Golden Ratio
+;; -----------------------------------------------------------------------
 ;; https://github.com/roman/golden-ratio.el
+;; -----------------------------------------------------------------------
 
 (use-package golden-ratio
   :ensure t
@@ -421,13 +504,16 @@
 
 (setq golden-ratio-exclude-modes '(magit-status-mode org-mode cider-repl-mode))
 
+;; -----------------------------------------------------------------------
 ;; Spell Checking
+;; -----------------------------------------------------------------------
 ;; Spell checking using flyspell and ispell.
 ;; To install ispell use brew install ispell or apt-get install ispell.
-
+;; -----------------------------------------------------------------------
 ;; Key bindings:
 ;; open suggestions: z =
 ;; add to dictionary: z = i
+;; -----------------------------------------------------------------------
 
 (dolist (mode '(prog-mode-hook
                 text-mode-hook))
@@ -435,22 +521,22 @@
 
 (setq ispell-personal-dictionary "~/.emacs.d/ispell/dictionary")
 
+;; -----------------------------------------------------------------------
 ;; Remove Trailing Whitespaces
 ;; Automatically remove trailing whitespaces when saving a file in prog-mode
-
-(defun my/remove-trailing-whitespace ()
-  "Remove trailing whitespaces."
-  (when (derived-mode-p 'prog-mode)
-    (delete-trailing-whitespace)))
+;; -----------------------------------------------------------------------
 
 (add-hook 'before-save-hook 'my/remove-trailing-whitespace)
 
+;; -----------------------------------------------------------------------
 ;; Syntax Checking
+;; -----------------------------------------------------------------------
 ;; https://github.com/flycheck/flycheck
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; next-error: M-g n
 ;; previous-error: M-g p
+;; -----------------------------------------------------------------------
 
 (use-package flycheck
   :defer t
@@ -458,7 +544,9 @@
 
 (setq flycheck-markdown-markdownlint-cli-config "~/.emacs.d/flycheck/markdownlint.json")
 
+;; -----------------------------------------------------------------------
 ;; Smartparens
+;; -----------------------------------------------------------------------
 
 (use-package smartparens-mode
   :ensure smartparens
@@ -466,61 +554,59 @@
   :config
   (require 'smartparens-config))
 
+;; -----------------------------------------------------------------------
 ;; Language Server Protocol (LSP)
-
+;; -----------------------------------------------------------------------
 ;; We use the excellent lsp-mode to enable IDE-like functionality for many different programming
 ;; languages via “language servers” that speak the Language Server Protocol.
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; rename: C-c l r r
 ;; organize imports: C-c l r o
 ;; find references: C-c l g r
 ;; find definitions: C-c l g g
-
-(defun efs/lsp-mode-setup ()
-  "Configure LSP mode."
-  (setq lsp-headerline-arrow ">")
-  (setq lsp-headerline-breadcrumb-segments '(project path-up-to-project file))
-  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
-  (setq lsp-headerline-breadcrumb-icons-enable nil)
-  (lsp-headerline-breadcrumb-mode))
+;; -----------------------------------------------------------------------
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
+  :hook (lsp-mode . my/lsp-mode-setup)
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
 
-;; lsp-ui
+;; -----------------------------------------------------------------------
 ;; lsp-ui is a set of UI enhancements built on top of lsp-mode which make Emacs feel even more like an IDE.
+;; -----------------------------------------------------------------------
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
 
-;; lsp-treemacs
+;; -----------------------------------------------------------------------
 ;; lsp-treemacs provides nice tree views for different aspects of your code like symbols in a file,
 ;; references of a symbol, or diagnostic messages (errors and warnings) that are found in your code.
+;; -----------------------------------------------------------------------
 
 (use-package lsp-treemacs
   :after lsp)
 
-;; lsp-ivy
+;; -----------------------------------------------------------------------
 ;; lsp-ivy integrates Ivy with lsp-mode to make it easy to search for things by name in your code.
 ;; When you run these commands, a prompt will appear in the minibuffer allowing you to type part of
 ;; the name of a symbol in your code. Results will be populated in the minibuffer so that you can
 ;; find what you’re looking for and jump to that location in the code upon selecting the result.
+;; -----------------------------------------------------------------------
 
 (use-package lsp-ivy
   :after lsp)
 
-;; Company Mode
+;; -----------------------------------------------------------------------
 ;; Company Mode provides a nicer in-buffer completion interface than completion-at-point which is more
 ;; reminiscent of what you would expect from an IDE. We add a simple configuration to make the keybindings
 ;; a little more useful (TAB now completes the selection and initiates completion at the current location if needed).
+;; -----------------------------------------------------------------------
 
 (use-package company
   :after lsp-mode
@@ -538,7 +624,9 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+;; -----------------------------------------------------------------------
 ;; Debugging
+;; -----------------------------------------------------------------------
 
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package dap-mode
@@ -547,7 +635,9 @@
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode))
 
+;; -----------------------------------------------------------------------
 ;; YAML
+;; -----------------------------------------------------------------------
 
 (use-package yaml-mode
   :defer t)
@@ -558,20 +648,27 @@
 ;; Enable highlight-indentation-mode only for yaml-mode
 (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
 
+;; -----------------------------------------------------------------------
 ;; Docker
+;; -----------------------------------------------------------------------
 
 (use-package dockerfile-mode
   :defer t)
 
+;; -----------------------------------------------------------------------
 ;; Python
+;; -----------------------------------------------------------------------
 ;; https://github.com/jorgenschaefer/elpy
+;; -----------------------------------------------------------------------
 
 (use-package elpy
   :defer t
   :init
   (advice-add 'python-mode :before 'elpy-enable))
 
+;; -----------------------------------------------------------------------
 ;; Scala
+;; -----------------------------------------------------------------------
 
 ;; Enable scala-mode for highlighting, indentation and motion commands
 (use-package scala-mode
@@ -606,11 +703,14 @@
 (add-hook 'scala-mode-hook
           (lambda () (add-hook 'after-save-hook 'lsp-metals-run-scalafix)))
 
+;; -----------------------------------------------------------------------
 ;; Clojure
+;; -----------------------------------------------------------------------
 ;; To install clojure-lsp run: M-x lsp-install-server RET clojure-lsp
-
+;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; REPL: C-c M-j
+;; -----------------------------------------------------------------------
 
 (add-hook 'clojure-mode-hook 'lsp)
 (add-hook 'clojurescript-mode-hook 'lsp)
@@ -623,40 +723,23 @@
 
 (add-hook 'cider-repl-mode-hook (lambda () (display-line-numbers-mode 0)))
 
-(defun my/cider-ns-refresh ()
-  "Use Cider to refresh namespace."
-  (interactive)
-  (cider-switch-to-last-clojure-buffer)
-  (cider-repl-set-ns (cider-current-ns))
-  (cider-switch-to-repl-buffer)
-  (cider-ns-refresh))
-
-(defun my/cider-run-tests ()
-  "Use Cider to run project tests."
-  (interactive)
-  (cider-ns-refresh)
-  (cider-test-run-project-tests nil))
-
-(defun my/cider-run-ns-tests ()
-  "Use Cider to run namespace tests."
-  (interactive)
-  (cider-ns-refresh)
-  (cider-test-run-ns-tests nil))
-
+;; -----------------------------------------------------------------------
 ;; Rust
+;; -----------------------------------------------------------------------
 ;; Add support for programming in Rust, using the following packages:
-
+;; -----------------------------------------------------------------------
 ;; rust-mode: add rust-mode to emacs and provides some functionalities such as syntax highlighting,
 ;; indentation and integration with Cargo and rustfmt.
 ;; cargo.el: provides a minor mode for integration with Cargo
 ;; rustic: provides additional features to rust-mode such as multiline error parsing, cargo popup,
 ;; automatic LSP configuration with eglot or lsp-mode, and so on.
-
+;; -----------------------------------------------------------------------
 ;;Key bindings:
 ;; C-c C-c C-u: rust-compile
 ;; C-c C-c C-k: rust-check
 ;; C-c C-c C-t: rust-test
 ;; C-c C-c C-r: rust-run
+;; -----------------------------------------------------------------------
 
 (use-package rust-mode
   :defer t)

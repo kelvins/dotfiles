@@ -199,15 +199,16 @@
   :config
   (dashboard-setup-startup-hook))
 
-(defun my/dashboard? (frame)
-  "Check if the FRAME is a dashboard."
+(defun my/is-current-frame? (frame expected-buffer-name)
+  "Check if the current FRAME is related to the buffer EXPECTED-BUFFER-NAME."
   (let ((current-buffer (window-buffer (selected-window))))
-    (and (string= (buffer-name current-buffer) "*dashboard*")
+    (and (string= (buffer-name current-buffer) expected-buffer-name)
          (eq (selected-window) (frame-selected-window frame)))))
 
+;; Automatically close treemacs window when changing to a specific frame
 (add-hook 'window-selection-change-functions
           (lambda (frame)
-            (when (my/dashboard? frame)
+            (when (my/is-current-frame? frame "*dashboard*")
               (delete-other-windows-internal))))
 
 ;; Org Mode

@@ -11,15 +11,14 @@
 ;; Reference: https://www.emacswiki.org/emacs/OptimizingEmacsStartup
 ;; -----------------------------------------------------------------------
 
-;; Minimize garbage collection during startup by increasing the threshold
+;; Increase threshold to minimize garbage collection
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Lower threshold back after startup (default is 800kB)
-(add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (expt 2 23))))
+;; Decrease threshold after startup (default is 800kB)
+(add-hook 'emacs-startup-hook (lambda () (setq gc-cons-threshold (expt 2 23))))
 
 ;; -----------------------------------------------------------------------
-;; UI Settings
+;; Basic Settings
 ;; -----------------------------------------------------------------------
 
 ;; Disable tooltip and bars
@@ -53,13 +52,9 @@
 (setq scroll-step 1)
 (setq scroll-margin 1)
 
-;; Disable global line numbers so we can enable just for a few modes
-(global-display-line-numbers-mode -1)
+;; Enable global line numbers
+(global-display-line-numbers-mode t)
 (column-number-mode)
-
-;; Enable line numbers for some modes
-(dolist (mode '(prog-mode-hook text-mode-hook))
-(add-hook mode (lambda () (display-line-numbers-mode t))))
 
 ;; Disable line numbers for org-mode
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
@@ -69,21 +64,24 @@
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+;; Disable backup and lock files
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+
+;; -----------------------------------------------------------------------
+;; Keymaps
+;; -----------------------------------------------------------------------
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Find references
 (global-set-key (kbd "C-c r") 'lsp-find-references)
 
-;; Disable backup and lock files
-(setq make-backup-files nil)
-(setq create-lockfiles nil)
-
 ;; -----------------------------------------------------------------------
 ;; Custom Functions
 ;; -----------------------------------------------------------------------
 
-;; Check if font exists
 (defun my/font-exists (font)
   "Check if a given FONT exists."
   (if (null (x-list-fonts font)) nil t))
@@ -177,8 +175,8 @@
 ;; -----------------------------------------------------------------------
 ;; Packages
 ;; -----------------------------------------------------------------------
-
 ;; Set package archives and initialize package
+;; -----------------------------------------------------------------------
 
 (require 'package)
 
@@ -198,9 +196,11 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; The auto-package-update package helps us keep our Emacs packages up to date!
-;; It will prompt you after a certain number of days either at startup or at a
-;; specific time of day to remind you to update your packages
+;; -----------------------------------------------------------------------
+;; The auto-package-update helps us keep our Emacs packages up to date!
+;; It will prompt you after a certain number of days either at startup or
+;; at a specific time of day to remind you to update your packages
+;; -----------------------------------------------------------------------
 
 (use-package auto-package-update
   :custom
@@ -214,14 +214,14 @@
 ;; -----------------------------------------------------------------------
 ;; Theme
 ;; -----------------------------------------------------------------------
-;; https://draculatheme.com
+;; Dracula color scheme: https://draculatheme.com
 ;; -----------------------------------------------------------------------
 
 (use-package dracula-theme
   :init (load-theme 'dracula t))
 
 ;; -----------------------------------------------------------------------
-;;; Icons
+;; Icons
 ;; -----------------------------------------------------------------------
 
 (use-package all-the-icons)
@@ -229,6 +229,7 @@
 ;; -----------------------------------------------------------------------
 ;; Modeline
 ;; -----------------------------------------------------------------------
+;; Fancy and minimalist modeline:
 ;; https://github.com/seagle0128/doom-modeline
 ;; -----------------------------------------------------------------------
 
@@ -346,8 +347,6 @@
 ;; -----------------------------------------------------------------------
 ;; Magit
 ;; -----------------------------------------------------------------------
-;; Common Git operations are easy to execute quickly using Magit’s command panel system
-;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; magit status: C-x g
 ;; -----------------------------------------------------------------------
@@ -421,7 +420,8 @@
   (ivy-mode 1))
 
 ;; -----------------------------------------------------------------------
-;; ivy-rich adds extra columns to a few of the Counsel commands to provide more information about each item
+;; ivy-rich adds extra columns to a few of the Counsel commands to provide
+;; more information about each item
 ;; -----------------------------------------------------------------------
 
 (use-package ivy-rich
@@ -430,8 +430,9 @@
   (ivy-rich-mode 1))
 
 ;; -----------------------------------------------------------------------
-;; Projectile is a project management library for Emacs which makes it a lot easier to navigate around
-;; code projects for various languages. Many packages integrate with Projectile so it’s a good idea to
+;; Projectile is a project management library for Emacs which makes it
+;; easier to navigate around code projects for various languages.
+;; Many packages integrate with Projectile so it’s a good idea to
 ;; have it installed even if you don’t use its commands directly.
 ;; https://github.com/bbatsov/projectile
 ;; -----------------------------------------------------------------------
@@ -472,14 +473,15 @@
   :commands term
   :config
   (setq explicit-shell-file-name "zsh")
-  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
+  ;; Match the default Bash shell prompt
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 ;; -----------------------------------------------------------------------
-;; Helpers
+;; Utilities
 ;; -----------------------------------------------------------------------
 ;; https://github.com/justbur/emacs-which-key
 ;; https://github.com/Fanael/rainbow-delimiters
+;; https://github.com/roman/golden-ratio.el
 ;; -----------------------------------------------------------------------
 
 (use-package which-key
@@ -492,17 +494,17 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; -----------------------------------------------------------------------
-;; Golden Ratio
-;; -----------------------------------------------------------------------
-;; https://github.com/roman/golden-ratio.el
-;; -----------------------------------------------------------------------
-
 (use-package golden-ratio
   :ensure t
   :init (golden-ratio-mode))
 
 (setq golden-ratio-exclude-modes '(magit-status-mode org-mode cider-repl-mode))
+
+;; -----------------------------------------------------------------------
+;; Automatically remove trailing whitespaces when saving a file
+;; -----------------------------------------------------------------------
+
+(add-hook 'before-save-hook 'my/remove-trailing-whitespace)
 
 ;; -----------------------------------------------------------------------
 ;; Spell Checking
@@ -515,18 +517,10 @@
 ;; add to dictionary: z = i
 ;; -----------------------------------------------------------------------
 
-(dolist (mode '(prog-mode-hook
-                text-mode-hook))
+(dolist (mode '(prog-mode-hook text-mode-hook))
   (add-hook mode (lambda () (flyspell-mode 1))))
 
 (setq ispell-personal-dictionary "~/.emacs.d/ispell/dictionary")
-
-;; -----------------------------------------------------------------------
-;; Remove Trailing Whitespaces
-;; Automatically remove trailing whitespaces when saving a file in prog-mode
-;; -----------------------------------------------------------------------
-
-(add-hook 'before-save-hook 'my/remove-trailing-whitespace)
 
 ;; -----------------------------------------------------------------------
 ;; Syntax Checking
@@ -557,8 +551,8 @@
 ;; -----------------------------------------------------------------------
 ;; Language Server Protocol (LSP)
 ;; -----------------------------------------------------------------------
-;; We use the excellent lsp-mode to enable IDE-like functionality for many different programming
-;; languages via “language servers” that speak the Language Server Protocol.
+;; We use lsp-mode to enable IDE-like functionality for many different
+;; programming languages via “language servers”.
 ;; -----------------------------------------------------------------------
 ;; Bindings:
 ;; rename: C-c l r r
@@ -576,7 +570,8 @@
   (lsp-enable-which-key-integration t))
 
 ;; -----------------------------------------------------------------------
-;; lsp-ui is a set of UI enhancements built on top of lsp-mode which make Emacs feel even more like an IDE.
+;; lsp-ui is a set of UI enhancements built on top of lsp-mode
+;; which make Emacs feel even more like an IDE.
 ;; -----------------------------------------------------------------------
 
 (use-package lsp-ui
@@ -585,27 +580,31 @@
   (lsp-ui-doc-position 'bottom))
 
 ;; -----------------------------------------------------------------------
-;; lsp-treemacs provides nice tree views for different aspects of your code like symbols in a file,
-;; references of a symbol, or diagnostic messages (errors and warnings) that are found in your code.
+;; lsp-treemacs provides nice tree views for different aspects of your
+;; code like symbols in a file, references of a symbol, or diagnostic
+;; messages (errors and warnings) that are found in your code.
 ;; -----------------------------------------------------------------------
 
 (use-package lsp-treemacs
   :after lsp)
 
 ;; -----------------------------------------------------------------------
-;; lsp-ivy integrates Ivy with lsp-mode to make it easy to search for things by name in your code.
-;; When you run these commands, a prompt will appear in the minibuffer allowing you to type part of
-;; the name of a symbol in your code. Results will be populated in the minibuffer so that you can
-;; find what you’re looking for and jump to that location in the code upon selecting the result.
+;; lsp-ivy integrates Ivy with lsp-mode to make it easy to search for
+;; things by name in your code. When you run these commands, a prompt will
+;; appear in the minibuffer allowing you to type part of the name of a
+;; symbol in your code. Results will be populated in the minibuffer so
+;; that you can find what you’re looking for and jump to that location.
 ;; -----------------------------------------------------------------------
 
 (use-package lsp-ivy
   :after lsp)
 
 ;; -----------------------------------------------------------------------
-;; Company Mode provides a nicer in-buffer completion interface than completion-at-point which is more
-;; reminiscent of what you would expect from an IDE. We add a simple configuration to make the keybindings
-;; a little more useful (TAB now completes the selection and initiates completion at the current location if needed).
+;; Company Mode provides a nicer in-buffer completion interface than
+;; completion-at-point which is more reminiscent of what you would expect
+;; from an IDE. We add a simple configuration to make the keybindings a
+;; little more useful (TAB now completes the selection and initiates
+;; completion at the current location if needed).
 ;; -----------------------------------------------------------------------
 
 (use-package company
@@ -619,7 +618,10 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
-;; We also use company-box to further enhance the look of the completions with icons and better overall presentation.
+;; -----------------------------------------------------------------------
+;; We also use company-box to further enhance the look of the completions
+;; with icons and better overall presentation.
+;; -----------------------------------------------------------------------
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
@@ -627,8 +629,9 @@
 ;; -----------------------------------------------------------------------
 ;; Debugging
 ;; -----------------------------------------------------------------------
-
 ;; Use the Debug Adapter Protocol for running tests and debugging
+;; -----------------------------------------------------------------------
+
 (use-package dap-mode
   :defer t
   :hook
@@ -728,11 +731,13 @@
 ;; -----------------------------------------------------------------------
 ;; Add support for programming in Rust, using the following packages:
 ;; -----------------------------------------------------------------------
-;; rust-mode: add rust-mode to emacs and provides some functionalities such as syntax highlighting,
-;; indentation and integration with Cargo and rustfmt.
+;; rust-mode: add rust-mode to emacs and provides some functionalities
+;; such as syntax highlighting, indentation and integration with Cargo and
+;; rustfmt.
 ;; cargo.el: provides a minor mode for integration with Cargo
-;; rustic: provides additional features to rust-mode such as multiline error parsing, cargo popup,
-;; automatic LSP configuration with eglot or lsp-mode, and so on.
+;; rustic: provides additional features to rust-mode such as multiline
+;; error parsing, cargo popup, automatic LSP configuration with eglot or
+;; lsp-mode, and so on.
 ;; -----------------------------------------------------------------------
 ;;Key bindings:
 ;; C-c C-c C-u: rust-compile
@@ -750,16 +755,13 @@
 (use-package cargo
   :defer t)
 
-;; Indentation
 (add-hook 'rust-mode-hook
-          (lambda () (setq indent-tabs-mode nil)))
+          (lambda ()
+            (setq indent-tabs-mode nil)
+            (prettify-symbols-mode)))
 
 ;; Run rustfmt when saving a rust file
 (setq rust-format-on-save t)
-
-;; Prettifying
-(add-hook 'rust-mode-hook
-        (lambda () (prettify-symbols-mode)))
 
 (add-hook 'rust-mode-hook #'lsp)
 (add-hook 'rust-mode-hook 'cargo-minor-mode)

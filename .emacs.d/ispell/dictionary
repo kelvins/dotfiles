@@ -54,6 +54,7 @@ dockerfile
 dolist
 dotfiles
 DoubleType
+draculatheme
 efs
 elpa
 english
@@ -61,6 +62,7 @@ entrypoint
 etl
 ExceptionInfo
 expt
+FeatureStoreAttribute
 fetchers
 fixnum
 FloatType
@@ -75,6 +77,7 @@ getCause
 getMessage
 GitHub
 github
+idAttribute
 idempotence
 IHttpClient
 impl
@@ -91,11 +94,15 @@ jlist
 jmap
 json
 kafka
+keybindings
+Keymaps
 lang
 Linting
 LocalDate
+lockfiles
 LongType
 ls
+lsp
 MaestroPolicies
 MaestroSkeleton
 magit
@@ -110,7 +117,7 @@ mkdir
 mlflow
 MockInputCorrect
 MockOutputCorrect
-Modeline
+modeline
 NamedExpression
 Novo
 ns

@@ -57,7 +57,8 @@
 (column-number-mode)
 
 ;; Disable line numbers for org-mode
-(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
+(dolist (mode '(org-mode-hook treemacs-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode -1))))
 
 ;; Fix indentation
 (setq-default indent-tabs-mode nil)

@@ -497,7 +497,8 @@
 
 (use-package golden-ratio
   :ensure t
-  :init (golden-ratio-mode))
+  :config
+  (golden-ratio-mode))
 
 (setq golden-ratio-exclude-modes '(magit-status-mode org-mode cider-repl-mode))
 

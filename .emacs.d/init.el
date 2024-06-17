@@ -148,8 +148,8 @@
   (interactive "sProject: ")
   (counsel-projectile-switch-project-by-name project-dir)
   (find-file (concat (my/ensure-trailing-slash project-dir) "README.md"))
-  (treemacs-add-and-display-current-project-exclusively)
   (treemacs-hide-gitignored-files-mode t)
+  (treemacs-add-and-display-current-project-exclusively)
   (treemacs-select-window))
 
 ;; -----------------------------------------------------------------------

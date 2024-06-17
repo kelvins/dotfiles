@@ -4,6 +4,7 @@ Ano
 api
 app
 ArchivedDatasetSeries
+args
 ArrayType
 assoc
 async
@@ -22,6 +23,7 @@ cid
 cli
 clj
 clojure
+clov
 com
 comp
 compojure
@@ -29,6 +31,7 @@ cond
 config
 conrado
 const
+copilot
 crypto
 DataFrame
 DatasetSeriesContract
@@ -73,6 +76,7 @@ fn
 foo
 fs
 func
+getAbsolutePath
 getCause
 getMessage
 GitHub
@@ -86,7 +90,9 @@ init
 Int
 IntegerType
 InvalidType
+io
 IProducer
+isFile
 iter
 java
 JavaConversions
@@ -94,9 +100,11 @@ jlist
 jmap
 json
 kafka
+kelvins
 keybindings
 Keymaps
 lang
+leiningen
 Linting
 LocalDate
 lockfiles
@@ -162,6 +170,7 @@ Smartparens
 SparkOp
 sql
 src
+startsWith
 std
 stderr
 stdout

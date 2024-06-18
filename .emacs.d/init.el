@@ -69,6 +69,10 @@
 (setq make-backup-files nil)
 (setq create-lockfiles nil)
 
+;; Wind Move
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
 ;; -----------------------------------------------------------------------
 ;; Keymaps
 ;; -----------------------------------------------------------------------
@@ -375,7 +379,8 @@
         ("M-0"       . treemacs-select-window)
         ("C-x t d"   . treemacs-select-directory))
   :config
-  (setq treemacs-hide-gitignored-files-mode t))
+  (progn
+    (setq treemacs-hide-gitignored-files-mode t)))
 
 (add-hook 'treemacs-mode-hook (lambda () (setq mode-line-format nil)))
 
@@ -483,6 +488,8 @@
 ;; https://github.com/justbur/emacs-which-key
 ;; https://github.com/Fanael/rainbow-delimiters
 ;; https://github.com/roman/golden-ratio.el
+;; https://github.com/Malabarba/beacon
+;; https://github.com/Malabarba/aggressive-indent-mode
 ;; -----------------------------------------------------------------------
 
 (use-package which-key
@@ -501,6 +508,19 @@
   (golden-ratio-mode))
 
 (setq golden-ratio-exclude-modes '(magit-status-mode org-mode cider-repl-mode))
+
+(use-package beacon
+  :config
+  (progn
+    (setq beacon-blink-when-window-scrolls nil)
+    (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
+    (add-to-list 'beacon-dont-blink-major-modes 'treemacs-mode)
+    (beacon-mode 1)))
+
+(use-package aggressive-indent
+  :config
+  (progn
+    (add-hook 'prog-mode-hook #'aggressive-indent-mode)))
 
 ;; -----------------------------------------------------------------------
 ;; Automatically remove trailing whitespaces when saving a file

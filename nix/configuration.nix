@@ -85,8 +85,7 @@
     isNormalUser = true;
     description = "Kelvin Salton do Prado";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
+    packages = with pkgs; [];
   };
 
   # Install firefox.

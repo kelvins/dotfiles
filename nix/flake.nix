@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs, ... }:
     let
-      lib = nixpkgs.lib
+      lib = nixpkgs.lib;
     in {
     nixosConfigurations = {
       kelvins = lib.nixosSystem {

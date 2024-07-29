@@ -1,11 +1,19 @@
 {
-  description = "";
+  description = "My NixOS Flake!";
 
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-24.05";
-    };
+    nixpkgs.url = "nixpkgs/nixos-24.05";
   };
 
-  outputs = {};
+  outputs = { self, nixpkgs, ... }:
+    let
+      lib = nixpkgs.lib
+    in {
+    nixosConfigurations = {
+      kelvins = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./configuration.nix ];
+      };
+    };
+  };
 }

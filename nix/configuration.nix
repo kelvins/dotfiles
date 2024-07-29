@@ -103,6 +103,11 @@
     gnomeExtensions.dash-to-dock
   ];
 
+  # Enable ZSH and define it as the default shell
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ]
+  programs.zsh.enable = true;
+
   services.gnome.core-utilities.enable = false;
 
   environment.gnome.excludePackages = [

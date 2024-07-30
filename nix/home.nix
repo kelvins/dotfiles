@@ -78,7 +78,12 @@
   #  /etc/profiles/per-user/kelvins/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
+
+    # Dracula Theme ZSH
+    DRACULA_DISPLAY_GIT = 1;
+    DRACULA_DISPLAY_TIME = 1;
+    DRACULA_DISPLAY_CONTEXT = 1;
   };
 
   programs.zsh = {

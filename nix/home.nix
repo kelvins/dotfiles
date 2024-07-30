@@ -59,6 +59,10 @@
     ".zshrc".source = ../.zshrc;
     ".vimrc".source = ../.vimrc;
     ".config/terminator/config".source = ../.config/terminator/config;
+    # EMACS
+    ".emacs.d/init.el".source = ../.emacs.d/init.el;
+    ".emacs.d/ispell/dictionary".source = ../.emacs.d/ispell/dictionary;
+    ".emacs.d/flycheck/markdownlint.json".source = ../.emacs.d/flycheck/markdownlint.json;
   };
 
   # Home Manager can also manage your environment variables through

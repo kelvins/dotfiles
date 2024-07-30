@@ -100,7 +100,6 @@
     git
     vim
     wget
-    gnomeExtensions.dash-to-dock
   ];
 
   # Enable ZSH and define it as the default shell

@@ -26,18 +26,25 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    # GNOME packages
+    pkgs.gnome.eog
+    pkgs.gnome.nautilus
+    gnomeExtensions.dash-to-dock
+    # Essential packages
     git
     tig
     vim
     ack
     htop
+    curl
     emacs
+    k9s
     zsh
     oh-my-zsh
     terminator
+    # Apps
     firefox
     calibre
-    k9s
     docker
     insomnia
     gimp
@@ -49,16 +56,8 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    ".vimrc".source = ../.vimrc;
+    ".config/terminator/config".source = ../.config/terminator/config;
   };
 
   # Home Manager can also manage your environment variables through
@@ -84,6 +83,14 @@
     DRACULA_DISPLAY_GIT = 1;
     DRACULA_DISPLAY_TIME = 1;
     DRACULA_DISPLAY_CONTEXT = 1;
+  };
+
+  # Install vim-plug by downloading the plug.vim script
+  home.file.".vim/autoload/plug.vim" = {
+    source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim";
+      sha256 = "sha256-ILTIlfmNE4SCBGmAaMTdAxcw1OfJxLYw1ic7m5r83Ns=";
+    };
   };
 
   programs.zsh = {

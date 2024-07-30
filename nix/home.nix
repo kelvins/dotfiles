@@ -56,6 +56,7 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    ".zshrc".source = ../.zshrc;
     ".vimrc".source = ../.vimrc;
     ".config/terminator/config".source = ../.config/terminator/config;
   };
@@ -78,11 +79,6 @@
   #
   home.sessionVariables = {
     EDITOR = "vim";
-
-    # Dracula Theme ZSH
-    DRACULA_DISPLAY_GIT = 1;
-    DRACULA_DISPLAY_TIME = 1;
-    DRACULA_DISPLAY_CONTEXT = 1;
   };
 
   # Install vim-plug by downloading the plug.vim script
@@ -102,38 +98,6 @@
       theme = "dracula";
       plugins = ["git" "colored-man-pages"];
     };
-  };
-
-  home.file.".config/terminator/config" = {
-    text = ''
-	[global_config]
-	  title_hide_sizetext = True
-	  title_transmit_fg_color = "#282a36"
-	  title_transmit_bg_color = "#50fa7b"
-	  title_receive_fg_color = "#282a36"
-	  title_receive_bg_color = "#ff79c6"
-	  title_inactive_fg_color = "#f8f8f2"
-	  title_inactive_bg_color = "#44475a"
-	  inactive_color_offset = 0.61
-	  suppress_multiple_term_dialog = True
-	[keybindings]
-	[profiles]
-	  [[default]]
-	    background_color = "#282a36"
-	    cursor_color = "#f8f8f2"
-	    font = Ubuntu 12
-	    foreground_color = "#f8f8f2"
-	    palette = "#262626:#e356a7:#42e66c:#e4f34a:#9b6bdf:#e64747:#75d7ec:#efa554:#7a7a7a:#ff79c6:#50fa7b:#f1fa8c:#bd93f9:#ff5555:#8be9fd:#ffb86c"
-	    background_image = None
-	[layouts]
-	  [[default]]
-	    [[[child1]]]
-	      parent = window0
-	      type = Terminal
-	    [[[window0]]]
-	      parent = ""
-	      type = Window
-    '';
   };
 
   # Let Home Manager install and manage itself.

@@ -3,8 +3,10 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kelvins";
-  home.homeDirectory = "/home/kelvins";
+  home = {
+    username = "kelvins";
+    homeDirectory = "/home/kelvins";
+  };
 
   programs.git = {
     enable = true;
@@ -57,6 +59,7 @@
   # plain files is through 'home.file'.
   home.file = {
     ".vimrc".source = ../.vimrc;
+    ".k9s/config.yml".source = ../.k9s/config.yml;
     ".config/terminator/config".source = ../.config/terminator/config;
     # ZSH
     ".zshrc".source = ../zsh/.zshrc;
@@ -109,4 +112,5 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.git.enable = true;
 }

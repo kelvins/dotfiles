@@ -12,6 +12,9 @@
     enable = true;
     userName = "Kelvin S. do Prado";
     userEmail = "kelvinpfw@gmail.com";
+    extraConfig = {
+      pull.rebase = false;
+    };
   };
 
   # This value determines the Home Manager release that your configuration is

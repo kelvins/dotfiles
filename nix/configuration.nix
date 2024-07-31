@@ -100,6 +100,7 @@
     git
     vim
     wget
+    zsh
   ];
 
   # Enable ZSH and define it as the default shell

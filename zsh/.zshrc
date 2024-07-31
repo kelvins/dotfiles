@@ -8,9 +8,9 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="dracula"
 
 # Dracula Theme Environment Variables
-DRACULA_DISPLAY_GIT=1
-DRACULA_DISPLAY_TIME=1
-DRACULA_DISPLAY_CONTEXT=1
+export DRACULA_DISPLAY_GIT=1
+export DRACULA_DISPLAY_TIME=1
+export DRACULA_DISPLAY_CONTEXT=1
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"

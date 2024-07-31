@@ -61,17 +61,17 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".vimrc".source = ../.vimrc;
-    ".k9s/config.yml".source = ../.k9s/config.yml;
-    ".config/terminator/config".source = ../.config/terminator/config;
+    ".vimrc".source = ../../.vimrc;
+    ".k9s/config.yml".source = ../../.k9s/config.yml;
+    ".config/terminator/config".source = ../../.config/terminator/config;
     # ZSH
-    ".zshrc".source = ../zsh/.zshrc;
-    ".oh-my-zsh/themes/lib/async.zsh".source = ../zsh/lib/async.zsh;
-    ".oh-my-zsh/themes/dracula.zsh-theme".source = ../zsh/dracula.zsh-theme;
+    ".zshrc".source = ../../zsh/.zshrc;
+    ".oh-my-zsh/themes/lib/async.zsh".source = ../../zsh/lib/async.zsh;
+    ".oh-my-zsh/themes/dracula.zsh-theme".source = ../../zsh/dracula.zsh-theme;
     # EMACS
-    ".emacs.d/init.el".source = ../.emacs.d/init.el;
-    ".emacs.d/ispell/dictionary".source = ../.emacs.d/ispell/dictionary;
-    ".emacs.d/flycheck/markdownlint.json".source = ../.emacs.d/flycheck/markdownlint.json;
+    ".emacs.d/init.el".source = ../../.emacs.d/init.el;
+    ".emacs.d/ispell/dictionary".source = ../../.emacs.d/ispell/dictionary;
+    ".emacs.d/flycheck/markdownlint.json".source = ../../.emacs.d/flycheck/markdownlint.json;
   };
 
   # Home Manager can also manage your environment variables through

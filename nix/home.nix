@@ -3,8 +3,10 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kelvins";
-  home.homeDirectory = "/home/kelvins";
+  home = {
+    username = "kelvins";
+    homeDirectory = "/home/kelvins";
+  };
 
   programs.git = {
     enable = true;

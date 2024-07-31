@@ -57,6 +57,7 @@
   # plain files is through 'home.file'.
   home.file = {
     ".vimrc".source = ../.vimrc;
+    ".k9s/config.yml".source = ../.k9s/config.yml;
     ".config/terminator/config".source = ../.config/terminator/config;
     # ZSH
     ".zshrc".source = ../zsh/.zshrc;

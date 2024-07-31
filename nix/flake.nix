@@ -20,13 +20,13 @@
     nixosConfigurations = {
       kelvins = lib.nixosSystem {
         inherit system;
-        modules = [ ./configuration.nix ];
+        modules = [ ./nixos/configuration.nix ];
       };
     };
     homeConfigurations = {
       kelvins = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home.nix ];
+        modules = [ ./home-manager/home.nix ];
       };
     };
   };

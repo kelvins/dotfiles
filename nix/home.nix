@@ -56,9 +56,10 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".zshrc".source = ../.zshrc;
     ".vimrc".source = ../.vimrc;
     ".config/terminator/config".source = ../.config/terminator/config;
+    # ZSH
+    ".zshrc".source = ../zsh/.zshrc;
     # EMACS
     ".emacs.d/init.el".source = ../.emacs.d/init.el;
     ".emacs.d/ispell/dictionary".source = ../.emacs.d/ispell/dictionary;

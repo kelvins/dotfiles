@@ -60,6 +60,8 @@
     ".config/terminator/config".source = ../.config/terminator/config;
     # ZSH
     ".zshrc".source = ../zsh/.zshrc;
+    ".oh-my-zsh/themes/lib/async.zsh".source = ../zsh/lib/async.zsh;
+    ".oh-my-zsh/themes/dracula.zsh-theme".source = ../zsh/dracula.zsh-theme;
     # EMACS
     ".emacs.d/init.el".source = ../.emacs.d/init.el;
     ".emacs.d/ispell/dictionary".source = ../.emacs.d/ispell/dictionary;

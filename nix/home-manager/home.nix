@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  # Home metadata
   home = {
     username = "kelvins";
     homeDirectory = "/home/kelvins";
@@ -28,26 +27,14 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # Set the Nix packages for your environment
   home.packages = with pkgs; [
-    # GNOME packages
-    pkgs.gnome.eog
-    pkgs.gnome.nautilus
-    gnomeExtensions.dash-to-dock
-    # Essential packages
-    git
     tig
-    vim
-    ack
-    htop
-    curl
     emacs
     k9s
     zsh
     oh-my-zsh
     terminator
-    # Apps
     firefox
     calibre
     docker
@@ -56,10 +43,12 @@
     steam
     spotify
     slack
+    # GNOME packages
+    pkgs.gnome.eog
+    pkgs.gnome.nautilus
+    gnomeExtensions.dash-to-dock
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
     ".vimrc".source = ../../.vimrc;
     ".k9s/config.yml".source = ../../.k9s/config.yml;
@@ -106,12 +95,15 @@
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    history.size = 50000;
     oh-my-zsh = {
       enable = true;
       theme = "dracula";
       plugins = ["git" "colored-man-pages"];
     };
   };
+
+  home.shell = pkgs.zsh;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

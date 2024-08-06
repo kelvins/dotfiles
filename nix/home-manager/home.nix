@@ -82,6 +82,11 @@
   #
   home.sessionVariables = {
     EDITOR = "vim";
+    GIT_EDITOR = "vim";
+
+    DRACULA_DISPLAY_GIT = 1;
+    DRACULA_DISPLAY_TIME = 1;
+    DRACULA_DISPLAY_CONTEXT = 1;
   };
 
   # Install vim-plug by downloading the plug.vim script

@@ -161,12 +161,6 @@
         "toolkit.telemetry.unifiedIsOptIn" = false;
         "toolkit.telemetry.updatePing.enabled" = false;
       };
-      bookmarks = {
-        "Bookmarks Toolbar" = [
-          { title = "Google"; url = "https://google.org"; }
-          { title = "ChatGPT"; url = "https://chatgpt.com"; }
-        ];
-      };
     };
   };
 

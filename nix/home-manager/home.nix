@@ -8,6 +8,7 @@
   };
 
   imports = [
+    ./programs/rust.nix
     ./programs/firefox.nix
   ];
 

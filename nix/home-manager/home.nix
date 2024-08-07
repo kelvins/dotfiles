@@ -8,6 +8,7 @@
   };
 
   imports = [
+    ./programs/java.nix
     ./programs/rust.nix
     ./programs/firefox.nix
   ];

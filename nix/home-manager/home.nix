@@ -10,6 +10,7 @@
   imports = [
     ./programs/java.nix
     ./programs/rust.nix
+    ./programs/clojure.nix
     ./programs/firefox.nix
   ];
 

@@ -8,20 +8,13 @@
   };
 
   imports = [
+    ./programs/git.nix
+    ./programs/zsh.nix
     ./programs/java.nix
     ./programs/rust.nix
     ./programs/clojure.nix
     ./programs/firefox.nix
   ];
-
-  programs.git = {
-    enable = true;
-    userName = "Kelvin S. do Prado";
-    userEmail = "kelvinpfw@gmail.com";
-    extraConfig = {
-      pull.rebase = false;
-    };
-  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -101,18 +94,6 @@
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim";
       sha256 = "sha256-ILTIlfmNE4SCBGmAaMTdAxcw1OfJxLYw1ic7m5r83Ns=";
-    };
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    history.size = 50000;
-    oh-my-zsh = {
-      enable = true;
-      theme = "robbyrussell";
-      plugins = ["git" "colored-man-pages"];
     };
   };
 

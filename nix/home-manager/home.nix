@@ -14,6 +14,7 @@
     ./programs/rust.nix
     ./programs/clojure.nix
     ./programs/firefox.nix
+    ./programs/alacritty.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -41,6 +42,7 @@
     oh-my-zsh
     terminator
     firefox
+    brave
     calibre
     docker
     insomnia

@@ -40,7 +40,6 @@
     k9s
     zsh
     oh-my-zsh
-    terminator
     firefox
     brave
     calibre
@@ -50,6 +49,7 @@
     steam
     spotify
     slack
+    neofetch
     # GNOME packages
     pkgs.gnome.eog
     pkgs.gnome.nautilus
@@ -59,7 +59,6 @@
   home.file = {
     ".vimrc".source = ../../.vimrc;
     ".k9s/config.yml".source = ../../.k9s/config.yml;
-    ".config/terminator/config".source = ../../.config/terminator/config;
     # EMACS
     ".emacs.d/init.el".source = ../../.emacs.d/init.el;
     ".emacs.d/ispell/dictionary".source = ../../.emacs.d/ispell/dictionary;

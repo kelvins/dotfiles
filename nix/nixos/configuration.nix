@@ -98,6 +98,12 @@
     pkgs.gnome-tour
   ];
 
+  services.xserver.excludePackages = [
+    pkgs.xterm
+  ];
+
+  documentation.nixos.enable = false;
+
   # Enable ZSH and define it as the default shell
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];

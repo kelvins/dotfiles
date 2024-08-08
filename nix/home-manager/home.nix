@@ -83,11 +83,6 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-    fira-code
-  ];
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 

@@ -104,6 +104,11 @@
 
   documentation.nixos.enable = false;
 
+  fonts.packages = with pkgs; [
+    nerdfonts
+    fira-code
+  ];
+
   # Enable ZSH and define it as the default shell
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];

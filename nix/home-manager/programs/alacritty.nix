@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 let
-  theme = lib.importTOML ~/.config/alacritty/themes/dracula.toml;
+  theme = lib.importTOML .config/alacritty/themes/dracula.toml;
 in {
   home.packages = with pkgs; [
     alacritty

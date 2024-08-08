@@ -51,6 +51,7 @@
     slack
     neofetch
     # GNOME packages
+    feh
     pkgs.gnome.eog
     pkgs.gnome.nautilus
     gnomeExtensions.dash-to-dock

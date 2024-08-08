@@ -15,6 +15,6 @@ in {
   };
 
   home.file = {
-    ".config/alacritty/themes/dracula.toml".source = ../../.config/alacritty/themes/dracula.toml;
+    ".config/alacritty/themes/dracula.toml".source = ../../../.config/alacritty/themes/dracula.toml;
   };
 }

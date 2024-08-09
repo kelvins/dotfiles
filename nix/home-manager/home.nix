@@ -41,7 +41,6 @@
     zsh
     oh-my-zsh
     firefox
-    brave
     calibre
     docker
     insomnia
@@ -50,10 +49,6 @@
     spotify
     slack
     neofetch
-    # GNOME packages
-    feh
-    pkgs.gnome.eog
-    pkgs.gnome.nautilus
     gnomeExtensions.dash-to-dock
   ];
 

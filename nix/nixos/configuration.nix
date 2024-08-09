@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -92,6 +91,8 @@
     htop
     zsh
     firefox
+    pkgs.gnome.eog
+    pkgs.gnome.nautilus
   ];
 
   environment.gnome.excludePackages = [

@@ -1,0 +1,10 @@
+- name: Install git
+  dnf: name=git state=present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Create gitconfig
+  template:
+    src: "gitconfig.j2"
+    dest: "{{dotfiles_user_home}}/.gitconfig"

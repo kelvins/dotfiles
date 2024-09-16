@@ -8,3 +8,9 @@
   template:
     src: "gitconfig.j2"
     dest: "{{dotfiles_user_home}}/.gitconfig"
+
+- name: Install tig
+  dnf: name=tig state=present
+  become: yes
+  become_user: root
+  become_method: sudo

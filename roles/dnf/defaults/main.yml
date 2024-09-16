@@ -1,0 +1,20 @@
+package_upgrade: yes
+
+packages:
+  - jq
+  - ack
+  - bat
+  - htop
+  - curl
+  - wget
+  - tree
+  - make
+  - ansible
+  - libssl-dev
+  - libffi-dev
+  - libbz2-dev
+  - liblzma-dev
+  - build-essential
+
+remove_packages:
+  #- gnome-shell-extension-ubuntu-dock

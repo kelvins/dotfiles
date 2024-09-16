@@ -1,0 +1,17 @@
+- name: Install vim with dnf
+  dnf: name=vim state=present
+  become_method: sudo
+
+- name: Install vim-plug
+  get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: "{{ dotfiles_user_home }}/.vim/autoload/plug.vim"
+
+- name: Symlink .vimrc
+  file:
+    src: "{{ dotfiles_home }}/roles/vim/files/.vimrc"
+    dest: "{{dotfiles_user_home}}/.vimrc"
+    state: link
+
+- name: Install Plugins
+  command: vim +PlugInstall +qall

@@ -1,0 +1,11 @@
+- name: Install Terminator
+  dnf: name=terminator state=present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Symlink config
+  file:
+    src: "{{ dotfiles_home }}/roles/terminator/files/config"
+    dest: "{{dotfiles_user_home}}/.config/terminator/config"
+    state: link

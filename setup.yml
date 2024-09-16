@@ -2,3 +2,7 @@
   hosts: local
   roles:
     - role: git
+    - role: vim
+    - role: dnf
+    - role: zsh
+    - role: terminator

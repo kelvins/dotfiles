@@ -1,0 +1,33 @@
+- name: Install zsh
+  dnf: name=zsh state=present
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Check for oh-my-zsh installation
+  stat: "path=~/.oh-my-zsh"
+  register: oh_my_zsh_stat
+
+- name: Install oh-my-zsh
+  raw: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\""
+  when: not oh_my_zsh_stat.stat.exists
+
+- name: Check for .zshrc
+  stat: path="{{dotfiles_user_home}}/.zshrc"
+  register: zshrc_stat
+
+- name: Remove .zshrc
+  command: rm ~/.zshrc
+  when: zshrc_stat.stat.exists
+
+- name: Symlink .zshrc
+  file:
+    src: "{{ dotfiles_home }}/roles/zsh/files/.zshrc"
+    dest: "{{dotfiles_user_home}}/.zshrc"
+    state: link
+
+- name: Symlink dracula theme
+  file:
+    src: "{{ dotfiles_home }}/roles/zsh/files/dracula.zsh-theme"
+    dest: "{{dotfiles_user_home}}/.oh-my-zsh/themes/dracula.zsh-theme"
+    state: link

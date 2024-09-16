@@ -1,6 +1,6 @@
 dotfiles_user_home: "{{ '~' | expanduser }}"
 dotfiles_home: "{{ dotfiles_user_home }}/github/dotfiles"
 
-full_name: Kelvin Salto do Prado
+full_name: Kelvin S. do Prado
 git_user: kelvins
 git_email: kelvinpfw@gmail.com

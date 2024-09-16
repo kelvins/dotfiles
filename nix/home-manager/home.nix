@@ -12,6 +12,7 @@
     ./programs/zsh.nix
     ./programs/java.nix
     ./programs/rust.nix
+    ./programs/python.nix
     ./programs/clojure.nix
     ./programs/firefox.nix
     ./programs/alacritty.nix

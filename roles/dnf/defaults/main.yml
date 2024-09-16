@@ -9,12 +9,15 @@ packages:
   - wget
   - tree
   - make
-  - ansible
-  - libssl-dev
-  - libffi-dev
-  - libbz2-dev
-  - liblzma-dev
-  - build-essential
 
 remove_packages:
-  #- gnome-shell-extension-ubuntu-dock
+  - gnome-weather
+  - gnome-contacts
+  - gnome-tour
+  - gnome-calendar
+  - yelp
+  - gnome-software
+  - gnome-clocks
+  - gnome-maps
+  - gnome-connections
+  - libreoffice*

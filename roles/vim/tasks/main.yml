@@ -1,6 +1,14 @@
 - name: Install vim with dnf
   dnf: name=vim state=present
+  become: yes
+  become_user: root
   become_method: sudo
+
+- name: Ensure destination directory exists
+  file:
+    path: "{{ dotfiles_user_home }}/.vim/autoload"
+    state: directory
+    mode: "0755"
 
 - name: Install vim-plug
   get_url:
@@ -13,5 +21,5 @@
     dest: "{{dotfiles_user_home}}/.vimrc"
     state: link
 
-- name: Install Plugins
-  command: vim +PlugInstall +qall
+#- name: Install Plugins
+#  command: vim +PlugInstall +qall

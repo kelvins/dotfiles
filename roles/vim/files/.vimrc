@@ -137,7 +137,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 " Spell Check
-set spelllang=en,pt-br
+set spelllang=en
 set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad ctermbg=52

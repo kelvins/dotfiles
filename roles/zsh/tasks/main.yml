@@ -26,8 +26,22 @@
     dest: "{{dotfiles_user_home}}/.zshrc"
     state: link
 
+- name: Change default shell to Zsh for current user
+  user:
+    name: "{{ git_user }}"
+    shell: /bin/zsh
+  become: yes
+  become_user: root
+  become_method: sudo
+
 - name: Symlink dracula theme
   file:
     src: "{{ dotfiles_home }}/roles/zsh/files/dracula.zsh-theme"
     dest: "{{dotfiles_user_home}}/.oh-my-zsh/themes/dracula.zsh-theme"
+    state: link
+
+- name: Symlink async
+  file:
+    src: "{{ dotfiles_home }}/roles/zsh/files/lib/async.zsh"
+    dest: "{{dotfiles_user_home}}/.oh-my-zsh/lib/async.zsh"
     state: link

@@ -4,6 +4,12 @@
   become_user: root
   become_method: sudo
 
+- name: Ensure destination directory exists
+  file:
+    path: "{{ dotfiles_user_home }}/.config/terminator"
+    state: directory
+    mode: "0755"
+
 - name: Symlink config
   file:
     src: "{{ dotfiles_home }}/roles/terminator/files/config"

@@ -1,0 +1,25 @@
+- name: Create fonts directory
+  file:
+    path: /usr/share/fonts/font-awesome
+    state: directory
+    mode: '0755'
+
+- name: Download Font Awesome
+  get_url:
+    url: https://github.com/FortAwesome/Font-Awesome/releases/download/6.6.0/fontawesome-free-6.6.0-desktop.zip
+    dest: /tmp/fontawesome.zip
+
+- name: Extract Font Awesome files
+  unarchive:
+    src: /tmp/fontawesome.zip
+    dest: /usr/share/fonts/font-awesome
+    remote_src: yes
+
+- name: Set correct permissions for the fonts
+  file:
+    path: /usr/share/fonts/font-awesome
+    recurse: yes
+    mode: '0644'
+
+- name: Refresh font cache
+  command: fc-cache -fv

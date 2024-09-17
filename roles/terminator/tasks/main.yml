@@ -1,8 +1,5 @@
 - name: Install Terminator
   dnf: name=terminator state=present
-  become: yes
-  become_user: root
-  become_method: sudo
 
 - name: Ensure destination directory exists
   file:

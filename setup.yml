@@ -1,8 +1,14 @@
 - name: Local Setup
   hosts: local
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:
+    - role: dnf
     - role: git
     - role: vim
-    - role: dnf
     - role: zsh
     - role: terminator
+    - role: python
+    - role: font
+    - role: vscode

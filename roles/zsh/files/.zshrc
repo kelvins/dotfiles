@@ -50,8 +50,11 @@ export EDITOR='vim'
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/pyenv/bin
 PATH=$PATH:~/.pyenv/shims
+PATH=$PATH:~/.cargo/bin
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
+
+. "$HOME/.cargo/env"

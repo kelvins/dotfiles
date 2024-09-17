@@ -1,8 +1,5 @@
 - name: Install vim with dnf
   dnf: name=vim state=present
-  become: yes
-  become_user: root
-  become_method: sudo
 
 - name: Ensure destination directory exists
   file:

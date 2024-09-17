@@ -2,6 +2,7 @@ package_upgrade: yes
 
 packages:
   - jq
+  - gcc
   - ack
   - bat
   - htop
@@ -9,6 +10,7 @@ packages:
   - wget
   - tree
   - make
+  - dnf-plugins-core
 
 remove_packages:
   - gnome-weather

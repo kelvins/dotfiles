@@ -1,8 +1,5 @@
 - name: Install zsh
   dnf: name=zsh state=present
-  become: yes
-  become_user: root
-  become_method: sudo
 
 - name: Check for oh-my-zsh installation
   stat: "path=~/.oh-my-zsh"
@@ -30,9 +27,6 @@
   user:
     name: "{{ git_user }}"
     shell: /bin/zsh
-  become: yes
-  become_user: root
-  become_method: sudo
 
 - name: Symlink dracula theme
   file:

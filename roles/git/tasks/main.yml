@@ -1,8 +1,5 @@
 - name: Install git
   dnf: name=git state=present
-  become: yes
-  become_user: root
-  become_method: sudo
 
 - name: Create gitconfig
   template:
@@ -11,6 +8,3 @@
 
 - name: Install tig
   dnf: name=tig state=present
-  become: yes
-  become_user: root
-  become_method: sudo

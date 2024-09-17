@@ -1,0 +1,18 @@
+{
+    "redhat.telemetry.enabled": false,
+    "workbench.colorTheme": "Dracula Theme",
+    "editor.fontSize": 14,
+    "workbench.iconTheme": "material-icon-theme",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.vscode": true
+    },
+        "search.exclude": {
+        "**/.git": true,
+        "**/.vscode": true
+    },
+    "breadcrumbs.enabled": false,
+    "explorer.excludeGitIgnore": true,
+    "editor.minimap.enabled": false,
+    "editor.renderLineHighlight": "none"
+}

@@ -14,5 +14,7 @@
     "breadcrumbs.enabled": false,
     "explorer.excludeGitIgnore": true,
     "editor.minimap.enabled": false,
-    "editor.renderLineHighlight": "none"
+    "editor.renderLineHighlight": "none",
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "smooth"
 }

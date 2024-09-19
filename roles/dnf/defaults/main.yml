@@ -10,6 +10,7 @@ packages:
   - wget
   - tree
   - make
+  - gimp
   - dnf-plugins-core
 
 remove_packages:

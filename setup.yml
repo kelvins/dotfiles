@@ -12,3 +12,4 @@
     - role: python
     - role: font
     - role: vscode
+    - role: docker

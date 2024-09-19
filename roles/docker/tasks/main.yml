@@ -1,0 +1,26 @@
+- name: Add Docker repository
+  command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Verify Docker installation
+  command: docker --version
+  register: result
+
+- name: Show Docker version
+  debug:
+    msg: "Docker version: {{ result.stdout }}"

@@ -1,0 +1,15 @@
+- name: Install Snapd
+  dnf:
+    name: snapd
+    state: present
+
+- name: Enable and start Snapd service
+  systemd:
+    name: snapd.socket
+    enabled: yes
+    state: started
+
+- name: Create symbolic link for classic snap support
+  command: ln -s /var/lib/snapd/snap /snap
+  args:
+    creates: /snap

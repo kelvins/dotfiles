@@ -1,0 +1,5 @@
+- name: Install Slack
+  snap: name=slack state=present
+
+- name: Verify Slack installation
+  command: slack --version

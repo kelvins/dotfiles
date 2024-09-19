@@ -13,3 +13,7 @@
     - role: font
     - role: vscode
     - role: docker
+    - role: snap
+    - role: slack
+    - role: spotify
+    - role: insomnia

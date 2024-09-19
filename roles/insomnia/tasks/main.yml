@@ -1,5 +1,0 @@
-- name: Install Insomnia
-  snap: name=insomnia state=present
-
-- name: Verify Insomnia installation
-  command: insomnia --version

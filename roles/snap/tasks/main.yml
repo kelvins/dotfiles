@@ -13,3 +13,12 @@
   command: ln -s /var/lib/snapd/snap /snap
   args:
     creates: /snap
+
+- name: Install Slack
+  snap: name=slack state=present
+
+- name: Install Spotify
+  snap: name=spotify state=present
+
+- name: Install Insomnia
+  snap: name=insomnia state=present

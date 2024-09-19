@@ -1,5 +1,0 @@
-- name: Install Spotify
-  snap: name=spotify state=present
-
-- name: Verify Spotify installation
-  command: spotify --version

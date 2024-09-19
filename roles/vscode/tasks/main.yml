@@ -18,3 +18,17 @@
 
 - name: Install Visual Studio Code
   dnf: name=code state=present
+
+- name: Check vscode settings
+  stat: path="{{dotfiles_user_home}}/.config/Code/User/settings.json"
+  register: vscode_settings_stat
+
+- name: Remove vscode settings
+  command: rm "{{dotfiles_user_home}}/.config/Code/User/settings.json"
+  when: vscode_settings_stat.stat.exists
+
+- name: Symlink settings
+  file:
+    src: "{{ dotfiles_home }}/roles/vscode/files/settings.json"
+    dest: "{{dotfiles_user_home}}/.config/Code/User/settings.json"
+    state: link

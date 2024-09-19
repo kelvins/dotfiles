@@ -1,0 +1,4 @@
+packages:
+  - slack
+  - spotify
+  - insomnia

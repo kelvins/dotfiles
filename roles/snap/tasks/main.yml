@@ -14,11 +14,8 @@
   args:
     creates: /snap
 
-- name: Install Slack
-  snap: name=slack state=present
-
-- name: Install Spotify
-  snap: name=spotify state=present
-
-- name: Install Insomnia
-  snap: name=insomnia state=present
+- name: Install snap packages
+  snap:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"

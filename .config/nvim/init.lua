@@ -2,6 +2,7 @@ require("config.lazy")
 
 -- Load default configurations and plugins
 for _, source in ipairs({
+	  "settings",
     "mappings",
     "autocmds"
 }) do

@@ -37,6 +37,17 @@ return {
             action = 'quit'
           }
         },
+        project = {
+          enable = false,
+          limit = 10,
+          label = 'Projects',
+          action = 'Telescope projects',
+        },
+        mru = {
+          limit = 10,
+          label = 'Recent Files',
+          action = 'Telescope oldfiles',
+        },
         footer = {}
       }
     }

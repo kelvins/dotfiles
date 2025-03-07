@@ -9,6 +9,10 @@ vim.opt.cursorline = true             -- Highlight current line
 vim.opt.showcmd = true                -- Show command in bottom bar
 vim.opt.showmode = false              -- Don’t show mode since it’s already in statusline
 
+vim.cmd([[
+  highlight CursorLine cterm=NONE ctermbg=DarkGray guibg=#3c3c3c
+]])
+
 -- Tabs and Indentation
 vim.opt.expandtab = true              -- Use spaces instead of tabs
 vim.opt.shiftwidth = 4                -- Shift 4 spaces when tab

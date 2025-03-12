@@ -2,8 +2,11 @@ return {
   'neovim/nvim-lspconfig',
   config = function()
     local lspconfig = require('lspconfig')
+    -- Python
     lspconfig.ruff.setup {}
+    -- Go
     lspconfig.gopls.setup {}
+    -- Lua
     lspconfig.lua_ls.setup {
       settings = {
         Lua = {
@@ -22,9 +25,11 @@ return {
         }
       }
     }
+    -- Scala
     lspconfig.metals.setup {}
-    lspconfig.pyright.setup {}
+    -- Clojure
     lspconfig.clojure_lsp.setup {}
+    -- Rust
     lspconfig.rust_analyzer.setup {}
   end,
 }

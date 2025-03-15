@@ -8,7 +8,7 @@ return {
   config = function()
     require("nvim-tree").setup {
       sort = {
-       sorter = "case_sensitive",
+        sorter = "case_sensitive",
       },
       view = {
         width = 30,
@@ -17,7 +17,9 @@ return {
         group_empty = true,
       },
       filters = {
+        git_ignored = true,
         dotfiles = true,
+        custom = { "target" },
       },
     }
   end,

@@ -22,6 +22,6 @@ autocmd('Filetype', {
   end
 })
 
-autocmd('QuitPre', {
-  callback = function() vim.cmd('NvimTreeClose') end,
-})
+--autocmd('QuitPre', {
+--  callback = function() vim.cmd('NvimTreeClose') end,
+--})

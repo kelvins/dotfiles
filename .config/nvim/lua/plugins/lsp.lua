@@ -4,6 +4,7 @@ return {
     local lspconfig = require('lspconfig')
     -- Python
     lspconfig.ruff.setup {}
+    lspconfig.pylsp.setup {}
     -- Go
     lspconfig.gopls.setup {}
     -- Lua

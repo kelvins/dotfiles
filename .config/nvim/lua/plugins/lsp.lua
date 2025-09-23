@@ -3,12 +3,12 @@ return {
   config = function()
     local lspconfig = require('lspconfig')
     -- Python
-    lspconfig.ruff.setup {}
-    lspconfig.pylsp.setup {}
+    vim.lsp.config('ruff', {})
+    --lspconfig.pylsp.setup {}
     -- Go
-    lspconfig.gopls.setup {}
+    vim.lsp.config('gopls', {})
     -- Lua
-    lspconfig.lua_ls.setup {
+    vim.lsp.config('lua_ls', {
       settings = {
         Lua = {
           runtime = {
@@ -25,12 +25,12 @@ return {
           }
         }
       }
-    }
+    })
     -- Scala
-    lspconfig.metals.setup {}
+    vim.lsp.config('metals', {})
     -- Clojure
-    lspconfig.clojure_lsp.setup {}
+    vim.lsp.config('clojure_lsp', {})
     -- Rust
-    lspconfig.rust_analyzer.setup {}
+    vim.lsp.config('rust_analyzer', {})
   end,
 }

@@ -1,6 +1,16 @@
 return {
   'neovim/nvim-lspconfig',
+  dependencies = {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+  },
   config = function()
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+      -- metals is not in the Mason registry; it must be installed separately via Coursier
+      ensure_installed = { 'ruff', 'gopls', 'lua_ls', 'clojure_lsp', 'rust_analyzer' },
+    })
+
     -- Use Neovim 0.11+ API (see :help lspconfig-nvim-0.11)
 
     -- Python

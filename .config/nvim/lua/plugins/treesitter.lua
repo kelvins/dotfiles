@@ -1,14 +1,17 @@
+local parsers = { 'c', 'lua', 'vim', 'python', 'query', 'clojure', 'go', 'rust', 'html', 'scala' }
+
 return {
   'nvim-treesitter/nvim-treesitter',
+  branch = 'main',
   build = ':TSUpdate',
-  config = function () 
-    local configs = require('nvim-treesitter.config')
+  config = function ()
+    require('nvim-treesitter').install(parsers)
 
-    configs.setup({
-        ensure_installed = { 'c', 'lua', 'vim', 'python', 'query', 'clojure', 'go', 'rust', 'html', 'scala' },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },  
-      })
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = parsers,
+      callback = function()
+        vim.treesitter.start()
+      end,
+    })
   end
  }

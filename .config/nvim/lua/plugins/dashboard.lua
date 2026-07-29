@@ -43,6 +43,12 @@ return {
             action = 'NvimTreeToggle'
           },
           {
+            key = 'c',
+            desc = 'Eca',
+            group = 'DiagnosticHint',
+            action = 'EcaChat'
+          },
+          {
             key = 'q',
             desc = 'Quit',
             group = 'DiagnosticError',

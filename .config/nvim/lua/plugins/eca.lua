@@ -1,5 +1,6 @@
 return {
   "editor-code-assistant/eca-nvim",
+  cmd = { "EcaChat", "EcaFocus", "EcaToggle" },
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",
@@ -14,6 +15,7 @@ return {
     behaviour = {
       auto_set_keymaps = true,
       auto_focus_sidebar = true,
+      auto_start_server = true,
     },
   }
 }

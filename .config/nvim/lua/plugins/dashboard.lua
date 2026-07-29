@@ -21,36 +21,48 @@ return {
           {
             key = 'u',
             desc = 'Update',
-            group = '@property',
+            group = 'DiagnosticWarn',
             action = 'Lazy update'
           },
           {
             key = 'f',
             desc = 'Files',
-            group = '@property',
+            group = 'DiagnosticInfo',
             action = 'Telescope find_files'
+          },
+          {
+            key = 'g',
+            desc = 'Grep',
+            group = 'DiagnosticHint',
+            action = 'Telescope live_grep'
+          },
+          {
+            key = 'e',
+            desc = 'Explorer',
+            group = 'DiagnosticInfo',
+            action = 'NvimTreeToggle'
           },
           {
             key = 'q',
             desc = 'Quit',
-            group = '@property',
+            group = 'DiagnosticError',
             action = 'quit'
           }
-        },
-        project = {
-          enable = false,
-          limit = 10,
-          label = 'Projects',
-          action = 'Telescope projects',
         },
         mru = {
           limit = 10,
           label = 'Recent Files',
           action = 'Telescope oldfiles',
         },
-        footer = {}
+        packages = { enable = false },
+        footer = function()
+          local stats = require('lazy').stats()
+          local ms = math.ceil(math.floor(stats.startuptime * 100 + 0.5) / 100)
+          return { '', '⚡ Neovim loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. ' ms' }
+        end,
       }
     }
+    vim.api.nvim_set_hl(0, 'DashboardFooter', { fg = '#6272a4' })
   end,
   dependencies = { {'nvim-tree/nvim-web-devicons'}}
 }

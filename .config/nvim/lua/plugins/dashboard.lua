@@ -31,16 +31,16 @@ return {
             action = 'Telescope find_files'
           },
           {
-            key = 'g',
-            desc = 'Grep',
-            group = 'DiagnosticHint',
-            action = 'Telescope live_grep'
-          },
-          {
             key = 'e',
             desc = 'Explorer',
             group = 'DiagnosticInfo',
             action = 'NvimTreeToggle'
+          },
+          {
+            key = 'p',
+            desc = 'Projects',
+            group = 'DiagnosticInfo',
+            action = 'Telescope projects'
           },
           {
             key = 'c',
@@ -54,6 +54,12 @@ return {
             group = 'DiagnosticError',
             action = 'quit'
           }
+        },
+        project = {
+          enable = true,
+          limit = 5,
+          label = 'Recent Projects',
+          action = 'Telescope find_files cwd=',
         },
         mru = {
           limit = 10,
